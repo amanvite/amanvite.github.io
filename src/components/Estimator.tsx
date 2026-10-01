@@ -30,7 +30,7 @@ export default function Estimator() {
           }
         }
       })
-      .catch(err => console.log('Ad-blocker prevented IP detection, defaulting to USD.'));
+      .catch(() => console.log('Ad-blocker prevented IP detection, defaulting to USD.'));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Base pricing logic (always calculated in USD first)
