@@ -1,4 +1,4 @@
-import Estimator from './components/Estimator';
+import Estimator from './components/Estimator.tsx';
 
 export default function App() {
   const projects = [
