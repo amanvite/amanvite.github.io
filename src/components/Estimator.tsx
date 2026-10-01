@@ -158,7 +158,7 @@ export default function Estimator() {
           </button>
         </div>
 
-      </div>
+      </div> 
     </div>
   );
 }
