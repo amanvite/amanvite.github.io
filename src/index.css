@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 body {
-  background-color: #fcfcfc;
-  color: #52525b; /* zinc-600 */
+  background-color: #FAF9F6; /* Premium warm off-white */
+  color: #171717; /* Neutral 900 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f4f4f5;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: #d4d4d8;
