@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { ExternalLink, Terminal, Code2, MessageSquare, Monitor, Cpu, Server, MapPin, Moon, Sun } from 'lucide-react';
+import { ExternalLink, Terminal, Code2, MessageSquare, Moon, Sun } from 'lucide-react';
 
-// --- CUSTOM SVG ICONS (Bypassing dependency errors) ---
+// --- CUSTOM SVG ICONS ---
 const GithubIcon = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
@@ -9,11 +9,11 @@ const GithubIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const InstagramIcon = ({ className }: { className?: string }) => (
+const LinkedinIcon = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+    <rect width="4" height="12" x="2" y="9"/>
+    <circle cx="4" cy="4" r="2"/>
   </svg>
 );
 
@@ -30,32 +30,73 @@ const PROJECTS = [
     id: 'talksy',
     title: "Talksy Real-Time Engine",
     description: "Bidirectional messaging ecosystem. Maintained synchronous client states across distributed connections.",
-    tech: ["React", "Node.js", "Socket.io", "MongoDB"],
+    tech: ["JavaScript", "Node.js", "Socket.io", "MongoDB"],
     icon: <MessageSquare className="w-5 h-5" />,
-    link: "#"
+    linkColor: "decoration-emerald-500",
+    link: "https://github.com/amanvite/talksy"
   },
   {
     id: 'extractor',
-    title: "Code Extractor Pro",
-    description: "Zero-dependency web utility for structural asset extraction. Bypassed virtual DOM overhead via direct API manipulation.",
-    tech: ["Vanilla JS", "HTML5", "DOM API"],
+    title: "Code Extractor",
+    description: "A stealth extraction engine for dynamic web apps. Bypassed virtual DOM overhead via direct API manipulation.",
+    tech: ["TypeScript", "HTML5", "DOM API"],
     icon: <Code2 className="w-5 h-5" />,
-    link: "#"
+    linkColor: "decoration-pink-500",
+    link: "https://github.com/amanvite/code-extractor"
   },
   {
-    id: 'crypto-cli',
-    title: "Cryptographic CLI",
-    description: "Terminal utility for generating deterministic, high-entropy passwords in air-gapped environments.",
-    tech: ["Python 3", "CLI", "OS-PRNG"],
+    id: 'sudoku',
+    title: "Minimalist Sudoku",
+    description: "A sleek, minimalist Sudoku Web-App engineered for performance and a clean, distraction-free user experience.",
+    tech: ["TypeScript", "Web API"],
     icon: <Terminal className="w-5 h-5" />,
-    link: "#"
+    linkColor: "decoration-indigo-500",
+    link: "https://github.com/amanvite/sudoku"
+  }
+];
+
+const TESTIMONIALS = [
+  {
+    id: 't1',
+    quote: "I collaborated with Aman on a full-stack project, and his approach to setting up the backend made my life on the frontend so much easier. He's meticulous with his TypeScript interfaces and genuinely fun to pair program with.",
+    author: "Rohan Mehta",
+    role: "Frontend Developer",
+    initials: "RM"
+  },
+  {
+    id: 't2',
+    quote: "I hired Aman to build a custom extraction tool for my project. He didn't try to overcomplicate the stack or upsell me—he just wrote a lean, fast script that did exactly what I needed from day one.",
+    author: "Jake Caldwell",
+    role: "Indie Maker",
+    initials: "JC"
+  },
+  {
+    id: 't3',
+    quote: "As a non-technical founder building an MVP, I was worried about finding the right developer. Aman walked me through every database decision patiently and delivered our React app weeks ahead of our launch target.",
+    author: "Aditi Verma",
+    role: "Early-stage Founder",
+    initials: "AV"
+  },
+  {
+    id: 't4',
+    quote: "Aman helped me untangle a massive Socket.io state management issue on a side project. He didn't just fix it; he actually took the time to explain the real-time data flow to me. A really solid, reliable engineer.",
+    author: "Haruto Tanaka",
+    role: "Web Developer",
+    initials: "HT"
+  },
+  {
+    id: 't5',
+    quote: "We partnered up on a few freelance gigs where I handled design and Aman handled the code. He translates UI components into clean React code perfectly, and he's incredibly responsive when changes are needed.",
+    author: "Karthik Nair",
+    role: "Freelance UI Designer",
+    initials: "KN"
   }
 ];
 
 export default function App() {
   const [isDark, setIsDark] = useState(false);
+  const [activeTestimonial, setActiveTestimonial] = useState(TESTIMONIALS[0].id);
 
-  // Apply the dark class to the HTML root when toggled
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add('dark');
@@ -65,7 +106,7 @@ export default function App() {
   }, [isDark]);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0a0a0a] font-sans selection:bg-zinc-900 dark:selection:bg-white selection:text-white dark:selection:text-zinc-900 pb-24 transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-[#0a0a0a] font-sans selection:bg-emerald-500/30 dark:selection:bg-emerald-500/30 selection:text-zinc-900 dark:selection:text-white pb-12 transition-colors duration-300">
       
       {/* --- THEME TOGGLE --- */}
       <button 
@@ -89,9 +130,6 @@ export default function App() {
           </h1>
           <p className="text-lg text-zinc-500 dark:text-zinc-400 font-medium flex items-center gap-2 transition-colors">
             Full-Stack Systems Engineer
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800/50 text-zinc-500 dark:text-zinc-400 text-xs font-semibold ml-2 transition-colors">
-              <MapPin className="w-3 h-3" /> Pune, IN
-            </span>
           </p>
         </header>
 
@@ -102,15 +140,15 @@ export default function App() {
           </p>
           
           {/* Social / Contact Links */}
-          <div className="flex flex-wrap items-center gap-6 mt-8 text-sm font-medium">
-            <a href="https://github.com/amanvite" target="_blank" rel="noreferrer" className="flex items-center text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors group">
-              <GithubIcon className="w-4 h-4 mr-2 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors" /> GitHub
+          <div className="flex flex-wrap items-center gap-6 mt-8 text-sm md:text-base font-semibold">
+            <a href="https://github.com/amanvite" target="_blank" rel="noreferrer" className="flex items-center text-zinc-900 dark:text-white underline decoration-emerald-500 decoration-2 underline-offset-4 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
+              <GithubIcon className="w-4 h-4 mr-2 text-zinc-900 dark:text-white" /> GitHub
             </a>
-            <a href="#" className="flex items-center text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors group">
-              <InstagramIcon className="w-4 h-4 mr-2 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors" /> Instagram
+            <a href="https://www.linkedin.com/in/amanvite/" target="_blank" rel="noreferrer" className="flex items-center text-zinc-900 dark:text-white underline decoration-blue-500 decoration-2 underline-offset-4 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
+              <LinkedinIcon className="w-4 h-4 mr-2 text-zinc-900 dark:text-white" /> LinkedIn
             </a>
-            <a href="mailto:contact@example.com" className="flex items-center text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors group">
-              <MailIcon className="w-4 h-4 mr-2 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors" /> Email
+            <a href="mailto:info.amanvite@gmail.com" className="flex items-center text-zinc-900 dark:text-white underline decoration-yellow-500 decoration-2 underline-offset-4 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
+              <MailIcon className="w-4 h-4 mr-2 text-zinc-900 dark:text-white" /> Email
             </a>
           </div>
         </section>
@@ -124,6 +162,8 @@ export default function App() {
               <a 
                 key={project.id} 
                 href={project.link}
+                target="_blank"
+                rel="noreferrer"
                 className="group block p-6 bg-white dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-md dark:hover:shadow-lg dark:hover:bg-zinc-900 transition-all duration-300"
               >
                 <div className="flex items-center justify-between mb-4">
@@ -131,18 +171,20 @@ export default function App() {
                     <div className="p-2 bg-zinc-50 dark:bg-zinc-800/50 rounded-lg text-zinc-600 dark:text-zinc-300 group-hover:bg-zinc-100 dark:group-hover:bg-zinc-800 transition-colors">
                       {project.icon}
                     </div>
-                    <h3 className="font-bold text-zinc-900 dark:text-zinc-100 transition-colors">{project.title}</h3>
+                    <h3 className={`font-bold text-lg text-zinc-900 dark:text-zinc-100 transition-colors underline ${project.linkColor} decoration-2 underline-offset-4 group-hover:opacity-80`}>
+                      {project.title}
+                    </h3>
                   </div>
-                  <ExternalLink className="w-4 h-4 text-zinc-300 dark:text-zinc-600 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors" />
+                  <ExternalLink className="w-4 h-4 text-zinc-300 dark:text-zinc-600 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors" />
                 </div>
                 
-                <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-6 h-16 line-clamp-3 transition-colors">
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6 h-16 line-clamp-3 transition-colors">
                   {project.description}
                 </p>
                 
                 <div className="flex flex-wrap gap-2">
                   {project.tech.map(t => (
-                    <span key={t} className="px-2 py-1 bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700/50 text-zinc-500 dark:text-zinc-400 text-[10px] font-bold uppercase tracking-wider rounded-md transition-colors">
+                    <span key={t} className="px-2 py-1 bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700/50 text-zinc-500 dark:text-zinc-400 text-[10px] font-bold tracking-wider rounded-md transition-colors">
                       {t}
                     </span>
                   ))}
@@ -152,33 +194,50 @@ export default function App() {
           </div>
         </section>
 
-        {/* --- HARDWARE & ENVIRONMENT --- */}
-        <section>
-          <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-6 transition-colors">Infrastructure</h2>
+        {/* --- TESTIMONIALS ACCORDION --- */}
+        <section className="mb-20">
+          <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-6 transition-colors">Testimonials</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-5 bg-white dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl transition-colors">
-              <Server className="w-5 h-5 text-zinc-400 dark:text-zinc-500 mb-3" />
-              <div className="text-xs font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wide mb-1">Environment</div>
-              <div className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Ubuntu Linux</div>
-              <div className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Primary dev kernel</div>
-            </div>
-            
-            <div className="p-5 bg-white dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl transition-colors">
-              <Monitor className="w-5 h-5 text-zinc-400 dark:text-zinc-500 mb-3" />
-              <div className="text-xs font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wide mb-1">Workstation</div>
-              <div className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Dedicated Mini PC</div>
-              <div className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">24" Samsung & APC UPS</div>
-            </div>
-            
-            <div className="p-5 bg-white dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl transition-colors">
-              <Cpu className="w-5 h-5 text-zinc-400 dark:text-zinc-500 mb-3" />
-              <div className="text-xs font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wide mb-1">Mobile Compute</div>
-              <div className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">MSI Modern 14</div>
-              <div className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Intel Core i5 framework</div>
-            </div>
+          <div className="flex gap-2 md:gap-3 h-[280px] w-full">
+            {TESTIMONIALS.map((t) => {
+              const isActive = activeTestimonial === t.id;
+              
+              return (
+                <div
+                  key={t.id}
+                  onClick={() => setActiveTestimonial(t.id)}
+                  className={`relative overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] flex flex-col
+                    ${isActive
+                      ? 'flex-grow bg-white dark:bg-zinc-900/50 shadow-sm opacity-100 cursor-default'
+                      : 'w-14 md:w-16 bg-zinc-50/50 dark:bg-zinc-900/20 opacity-50 hover:opacity-80 cursor-pointer shrink-0'
+                    }
+                  `}
+                >
+                  <div className="absolute inset-0 p-5 md:p-6 w-[280px] md:w-[400px] flex flex-col justify-between">
+                    <p className={`text-zinc-700 dark:text-zinc-300 text-[15px] leading-relaxed transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-20'}`}>
+                      "{t.quote}"
+                    </p>
+                    
+                    <div className="flex items-center gap-4 mt-auto">
+                      <div className="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center text-xs font-bold text-zinc-600 dark:text-zinc-400 shrink-0 shadow-sm">
+                        {t.initials}
+                      </div>
+                      <div className={`transition-opacity duration-300 overflow-hidden ${isActive ? 'opacity-100' : 'opacity-0'}`}>
+                        <div className="font-bold text-sm text-zinc-900 dark:text-zinc-100 whitespace-nowrap">{t.author}</div>
+                        <div className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 whitespace-nowrap">{t.role}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </section>
+
+        {/* --- FOOTER --- */}
+        <footer className="pt-8 text-sm font-medium text-zinc-400 dark:text-zinc-500 transition-colors">
+          Open to a good conversation. <a href="mailto:info.amanvite@gmail.com" className="underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-4 hover:text-zinc-900 dark:hover:text-white transition-colors">Say hi.</a>
+        </footer>
 
       </main>
     </div>
