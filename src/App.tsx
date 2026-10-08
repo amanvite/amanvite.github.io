@@ -1,4 +1,5 @@
-import { ExternalLink, Terminal, Code2, MessageSquare, Monitor, Cpu, Server, MapPin } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ExternalLink, Terminal, Code2, MessageSquare, Monitor, Cpu, Server, MapPin, Moon, Sun } from 'lucide-react';
 
 // --- CUSTOM SVG ICONS (Bypassing dependency errors) ---
 const GithubIcon = ({ className }: { className?: string }) => (
@@ -52,81 +53,96 @@ const PROJECTS = [
 ];
 
 export default function App() {
+  const [isDark, setIsDark] = useState(false);
+
+  // Apply the dark class to the HTML root when toggled
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDark]);
+
   return (
-    <div className="min-h-screen font-sans selection:bg-zinc-900 selection:text-white pb-24">
+    <div className="min-h-screen bg-white dark:bg-[#0a0a0a] font-sans selection:bg-zinc-900 dark:selection:bg-white selection:text-white dark:selection:text-zinc-900 pb-24 transition-colors duration-300">
       
-      {/* NARROW READING COLUMN (Max-width 3xl mimics the reference designs) */}
+      {/* --- THEME TOGGLE --- */}
+      <button 
+        onClick={() => setIsDark(!isDark)}
+        className="fixed top-6 right-6 z-50 p-3 rounded-full bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-zinc-200/80 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:scale-105 transition-all shadow-sm"
+        aria-label="Toggle Theme"
+      >
+        {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+      </button>
+
+      {/* NARROW READING COLUMN */}
       <main className="max-w-3xl mx-auto px-6 pt-20 md:pt-32">
         
         {/* --- PROFILE HEADER --- */}
         <header className="mb-16">
-          <div className="w-20 h-20 rounded-full bg-zinc-900 text-white flex items-center justify-center text-2xl font-bold mb-6 shadow-md">
+          <div className="w-20 h-20 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 flex items-center justify-center text-2xl font-bold mb-6 shadow-md transition-colors">
             AK
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-zinc-900 tracking-tight mb-2">
+          <h1 className="text-3xl md:text-4xl font-bold text-zinc-900 dark:text-white tracking-tight mb-2 transition-colors">
             Aman Kumar Verma
           </h1>
-          <p className="text-lg text-zinc-500 font-medium flex items-center gap-2">
+          <p className="text-lg text-zinc-500 dark:text-zinc-400 font-medium flex items-center gap-2 transition-colors">
             Full-Stack Systems Engineer
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-zinc-100 text-zinc-500 text-xs font-semibold ml-2">
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800/50 text-zinc-500 dark:text-zinc-400 text-xs font-semibold ml-2 transition-colors">
               <MapPin className="w-3 h-3" /> Pune, IN
             </span>
           </p>
         </header>
 
-        {/* --- THE 'NOW' SECTION --- */}
-        <section className="mb-16 prose prose-zinc max-w-none text-zinc-700 leading-relaxed">
-          <p className="text-base md:text-lg mb-6">
-            I architect and engineer scalable web ecosystems, focusing strictly on the MERN stack and robust TypeScript environments. I build products end-to-end: from database persistence and server-side logic to client-side DOM execution.
-          </p>
-          
-          <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4 mt-10">Now</h2>
+        {/* --- INTRO SECTION --- */}
+        <section className="mb-16 text-zinc-700 dark:text-zinc-300 leading-relaxed transition-colors">
           <p className="text-base md:text-lg">
-            I am pursuing my Bachelor of Computer Applications entirely online. This is a deliberate architectural decision—it decouples my schedule from rigid university lectures, allocating my primary daily bandwidth to full-time remote software engineering and project development.
+            I architect and engineer scalable web ecosystems, focusing strictly on the MERN stack and robust TypeScript environments. I build products end-to-end: from database persistence and server-side logic to client-side DOM execution.
           </p>
           
           {/* Social / Contact Links */}
           <div className="flex flex-wrap items-center gap-6 mt-8 text-sm font-medium">
-            <a href="https://github.com/amanvite" target="_blank" rel="noreferrer" className="flex items-center text-zinc-500 hover:text-zinc-900 transition-colors group">
-              <GithubIcon className="w-4 h-4 mr-2 text-zinc-400 group-hover:text-zinc-900 transition-colors" /> GitHub
+            <a href="https://github.com/amanvite" target="_blank" rel="noreferrer" className="flex items-center text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors group">
+              <GithubIcon className="w-4 h-4 mr-2 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors" /> GitHub
             </a>
-            <a href="#" className="flex items-center text-zinc-500 hover:text-zinc-900 transition-colors group">
-              <InstagramIcon className="w-4 h-4 mr-2 text-zinc-400 group-hover:text-zinc-900 transition-colors" /> Instagram
+            <a href="#" className="flex items-center text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors group">
+              <InstagramIcon className="w-4 h-4 mr-2 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors" /> Instagram
             </a>
-            <a href="mailto:contact@example.com" className="flex items-center text-zinc-500 hover:text-zinc-900 transition-colors group">
-              <MailIcon className="w-4 h-4 mr-2 text-zinc-400 group-hover:text-zinc-900 transition-colors" /> Email
+            <a href="mailto:contact@example.com" className="flex items-center text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors group">
+              <MailIcon className="w-4 h-4 mr-2 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors" /> Email
             </a>
           </div>
         </section>
 
-        {/* --- RECENT PROJECTS (Kamran-style Grid) --- */}
+        {/* --- RECENT PROJECTS --- */}
         <section className="mb-20">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-6">Selected Projects</h2>
+          <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-6 transition-colors">Selected Projects</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {PROJECTS.map((project) => (
               <a 
                 key={project.id} 
                 href={project.link}
-                className="group block p-6 bg-white border border-zinc-200/80 rounded-2xl hover:border-zinc-300 hover:shadow-md transition-all duration-200"
+                className="group block p-6 bg-white dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-md dark:hover:shadow-lg dark:hover:bg-zinc-900 transition-all duration-300"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-zinc-50 rounded-lg text-zinc-600 group-hover:bg-zinc-100 transition-colors">
+                    <div className="p-2 bg-zinc-50 dark:bg-zinc-800/50 rounded-lg text-zinc-600 dark:text-zinc-300 group-hover:bg-zinc-100 dark:group-hover:bg-zinc-800 transition-colors">
                       {project.icon}
                     </div>
-                    <h3 className="font-bold text-zinc-900">{project.title}</h3>
+                    <h3 className="font-bold text-zinc-900 dark:text-zinc-100 transition-colors">{project.title}</h3>
                   </div>
-                  <ExternalLink className="w-4 h-4 text-zinc-300 group-hover:text-zinc-600 transition-colors" />
+                  <ExternalLink className="w-4 h-4 text-zinc-300 dark:text-zinc-600 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors" />
                 </div>
                 
-                <p className="text-sm text-zinc-500 leading-relaxed mb-6 h-16 line-clamp-3">
+                <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-6 h-16 line-clamp-3 transition-colors">
                   {project.description}
                 </p>
                 
                 <div className="flex flex-wrap gap-2">
                   {project.tech.map(t => (
-                    <span key={t} className="px-2 py-1 bg-zinc-50 border border-zinc-100 text-zinc-500 text-[10px] font-bold uppercase tracking-wider rounded-md">
+                    <span key={t} className="px-2 py-1 bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700/50 text-zinc-500 dark:text-zinc-400 text-[10px] font-bold uppercase tracking-wider rounded-md transition-colors">
                       {t}
                     </span>
                   ))}
@@ -136,30 +152,30 @@ export default function App() {
           </div>
         </section>
 
-        {/* --- HARDWARE & ENVIRONMENT (Barun-style Info Blocks) --- */}
+        {/* --- HARDWARE & ENVIRONMENT --- */}
         <section>
-          <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-6">Infrastructure</h2>
+          <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-6 transition-colors">Infrastructure</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-5 bg-white border border-zinc-200/80 rounded-2xl">
-              <Server className="w-5 h-5 text-zinc-400 mb-3" />
-              <div className="text-xs font-bold text-zinc-400 uppercase tracking-wide mb-1">Environment</div>
-              <div className="text-sm font-semibold text-zinc-900">Ubuntu Linux</div>
-              <div className="text-xs text-zinc-500 mt-1">Primary dev kernel</div>
+            <div className="p-5 bg-white dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl transition-colors">
+              <Server className="w-5 h-5 text-zinc-400 dark:text-zinc-500 mb-3" />
+              <div className="text-xs font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wide mb-1">Environment</div>
+              <div className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Ubuntu Linux</div>
+              <div className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Primary dev kernel</div>
             </div>
             
-            <div className="p-5 bg-white border border-zinc-200/80 rounded-2xl">
-              <Monitor className="w-5 h-5 text-zinc-400 mb-3" />
-              <div className="text-xs font-bold text-zinc-400 uppercase tracking-wide mb-1">Workstation</div>
-              <div className="text-sm font-semibold text-zinc-900">Dedicated Mini PC</div>
-              <div className="text-xs text-zinc-500 mt-1">24" Samsung & APC UPS</div>
+            <div className="p-5 bg-white dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl transition-colors">
+              <Monitor className="w-5 h-5 text-zinc-400 dark:text-zinc-500 mb-3" />
+              <div className="text-xs font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wide mb-1">Workstation</div>
+              <div className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">Dedicated Mini PC</div>
+              <div className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">24" Samsung & APC UPS</div>
             </div>
             
-            <div className="p-5 bg-white border border-zinc-200/80 rounded-2xl">
-              <Cpu className="w-5 h-5 text-zinc-400 mb-3" />
-              <div className="text-xs font-bold text-zinc-400 uppercase tracking-wide mb-1">Mobile Compute</div>
-              <div className="text-sm font-semibold text-zinc-900">MSI Modern 14</div>
-              <div className="text-xs text-zinc-500 mt-1">Intel Core i5 framework</div>
+            <div className="p-5 bg-white dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl transition-colors">
+              <Cpu className="w-5 h-5 text-zinc-400 dark:text-zinc-500 mb-3" />
+              <div className="text-xs font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wide mb-1">Mobile Compute</div>
+              <div className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">MSI Modern 14</div>
+              <div className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Intel Core i5 framework</div>
             </div>
           </div>
         </section>

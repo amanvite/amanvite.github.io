@@ -1,12 +1,20 @@
 @import "tailwindcss";
 
+/* This is the mandatory Tailwind v4 directive to enable class-based dark mode */
+@custom-variant dark (&:is(.dark *));
+
 body {
-  background-color: #FAF9F6; /* Premium warm off-white */
-  color: #171717; /* Neutral 900 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff; /* Forces pure white default */
 }
 
+/* Dark mode body fallback */
+.dark body {
+  background-color: #0a0a0a;
+}
+
+/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -17,6 +25,9 @@ body {
   background: #d4d4d8;
   border-radius: 4px;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: #a1a1aa;
+.dark ::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
 }
