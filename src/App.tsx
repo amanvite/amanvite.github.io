@@ -1,4 +1,3 @@
-import React from 'react';
 import { ExternalLink, Terminal, Code2, MessageSquare, Monitor, Cpu, Server, MapPin } from 'lucide-react';
 
 // --- CUSTOM SVG ICONS (Bypassing dependency errors) ---
