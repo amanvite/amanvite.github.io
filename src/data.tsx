@@ -32,47 +32,9 @@ export const PROJECTS = [
   }
 ];
 
-export const TESTIMONIALS = [
-  {
-    id: 't1',
-    quote: "I collaborated with Aman on a full-stack project, and his approach to setting up the backend made my life on the frontend so much easier. He's meticulous with his TypeScript interfaces and genuinely fun to pair program with.",
-    author: "Rohan Mehta",
-    role: "Frontend Developer",
-    initials: "RM"
-  },
-  {
-    id: 't2',
-    quote: "I hired Aman to build a custom extraction tool for my project. He didn't try to overcomplicate the stack or upsell me—he just wrote a lean, fast script that did exactly what I needed from day one.",
-    author: "Jake Caldwell",
-    role: "Indie Maker",
-    initials: "JC"
-  },
-  {
-    id: 't3',
-    quote: "As a non-technical founder building an MVP, I was worried about finding the right developer. Aman walked me through every database decision patiently and delivered our React app weeks ahead of our launch target.",
-    author: "Aditi Verma",
-    role: "Early-stage Founder",
-    initials: "AV"
-  },
-  {
-    id: 't4',
-    quote: "Aman helped me untangle a massive Socket.io state management issue on a side project. He didn't just fix it; he actually took the time to explain the real-time data flow to me. A really solid, reliable engineer.",
-    author: "Haruto Tanaka",
-    role: "Web Developer",
-    initials: "HT"
-  },
-  {
-    id: 't5',
-    quote: "We partnered up on a few freelance gigs where I handled design and Aman handled the code. He translates UI components into clean React code perfectly, and he's incredibly responsive when changes are needed.",
-    author: "Karthik Nair",
-    role: "Freelance UI Designer",
-    initials: "KN"
-  }
-];
-
 export const BLOG_POSTS = [
   {
-    id: 'why-zero-dependency-web-utilities',
+    id: 'post-1',
     title: "Why I build zero-dependency web utilities",
     date: "Oct 12, 2026",
     excerpt: "Modern web development often defaults to reaching for npm first. Here is why writing pure DOM API code makes you a significantly better React engineer.",
@@ -84,7 +46,7 @@ export const BLOG_POSTS = [
     ]
   },
   {
-    id: 'structuring-real-time-state-with-socket-IO',
+    id: 'post-2',
     title: "Structuring real-time state with Socket.io",
     date: "Sep 28, 2026",
     excerpt: "Handling bidirectional data isn't just about emitting events; it's about keeping distributed client states synchronized without race conditions.",

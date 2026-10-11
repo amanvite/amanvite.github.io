@@ -2,10 +2,9 @@ import { useState, useEffect } from 'react';
 import { ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { GithubIcon, LinkedinIcon, BlogIcon, MailIcon } from '../components/Icons';
-import { CORE_STACK, PROJECTS, TESTIMONIALS } from '../data';
+import { CORE_STACK, PROJECTS } from '../data';
 
 export default function Home() {
-  const [activeTestimonial, setActiveTestimonial] = useState(TESTIMONIALS[0].id);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -92,42 +91,6 @@ export default function Home() {
               </div>
             </a>
           ))}
-        </div>
-      </section>
-
-      <section className="mb-20">
-        <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-6 transition-colors">Testimonials</h2>
-        <div className="flex gap-2 md:gap-3 h-[280px] w-full">
-          {TESTIMONIALS.map((t) => {
-            const isActive = activeTestimonial === t.id;
-            return (
-              <div
-                key={t.id}
-                onClick={() => setActiveTestimonial(t.id)}
-                className={`relative overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] flex flex-col
-                  ${isActive
-                    ? 'flex-grow bg-white dark:bg-zinc-900/50 shadow-sm opacity-100 cursor-default'
-                    : 'w-14 md:w-16 bg-zinc-50/50 dark:bg-zinc-900/20 opacity-50 hover:opacity-80 hover:bg-zinc-100 dark:hover:bg-zinc-900/40 cursor-pointer shrink-0'
-                  }
-                `}
-              >
-                <div className="absolute inset-0 p-5 md:p-6 w-[280px] md:w-[400px] flex flex-col justify-between">
-                  <p className={`text-zinc-700 dark:text-zinc-300 text-[15px] leading-relaxed transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-20'}`}>
-                    "{t.quote}"
-                  </p>
-                  <div className="flex items-center gap-4 mt-auto">
-                    <div className="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center text-xs font-bold text-zinc-600 dark:text-zinc-400 shrink-0 shadow-sm transition-colors">
-                      {t.initials}
-                    </div>
-                    <div className={`transition-opacity duration-300 overflow-hidden ${isActive ? 'opacity-100' : 'opacity-0'}`}>
-                      <div className="font-bold text-sm text-zinc-900 dark:text-zinc-100 whitespace-nowrap">{t.author}</div>
-                      <div className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 whitespace-nowrap">{t.role}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
         </div>
       </section>
     </div>
