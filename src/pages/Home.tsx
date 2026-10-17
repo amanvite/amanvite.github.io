@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ExternalLink, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { GithubIcon, LinkedinIcon, BlogIcon, MailIcon } from '../components/Icons';
+import { GithubIcon, LinkedinIcon, MailIcon } from '../components/Icons';
 import { PROJECTS, BLOG_POSTS } from '../data';
 
 export default function Home() {
@@ -26,7 +26,7 @@ export default function Home() {
             Aman Verma
           </h1>
           <p className="text-lg text-zinc-500 font-medium flex items-center gap-2 transition-colors">
-            Systems Engineer
+            Developer
           </p>
         </div>
       </header>
@@ -43,9 +43,6 @@ export default function Home() {
           <a href="https://www.linkedin.com/in/amanvite/" target="_blank" rel="noreferrer" className="flex items-center text-zinc-900 underline decoration-blue-500 decoration-2 underline-offset-4 hover:text-zinc-600 transition-colors">
             <LinkedinIcon className="w-4 h-4 mr-2 text-zinc-900" /> LinkedIn
           </a>
-          <Link to="/blog" className="flex items-center text-zinc-900 underline decoration-purple-500 decoration-2 underline-offset-4 hover:text-zinc-600 transition-colors">
-            <BlogIcon className="w-4 h-4 mr-2 text-zinc-900" /> Blog
-          </Link>
           <a href="mailto:info.amanvite@gmail.com" className="flex items-center text-zinc-900 underline decoration-yellow-500 decoration-2 underline-offset-4 hover:text-zinc-600 transition-colors">
             <MailIcon className="w-4 h-4 mr-2 text-zinc-900" /> Email
           </a>
@@ -53,7 +50,12 @@ export default function Home() {
       </section>
 
       <section className="mb-20">
-        <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-6 transition-colors">Selected Projects</h2>
+        <h2 
+          className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-6 transition-colors"
+          style={{ fontFamily: '"Maddison", sans-serif' }}
+        >
+          Pinned Projects
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {PROJECTS.map((project) => (
             <a 
@@ -91,7 +93,12 @@ export default function Home() {
 
       <section className="mb-20">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400 transition-colors">Engineering Logs</h2>
+          <h2 
+            className="text-xs font-bold uppercase tracking-widest text-zinc-400 transition-colors"
+            style={{ fontFamily: '"Maddison", sans-serif' }}
+          >
+            BlogPost
+          </h2>
           <Link to="/blog" className="text-xs font-bold text-zinc-400 hover:text-zinc-900 transition-colors flex items-center group">
             View all <ArrowRight className="w-3 h-3 ml-1 transform group-hover:translate-x-1 transition-transform" />
           </Link>
