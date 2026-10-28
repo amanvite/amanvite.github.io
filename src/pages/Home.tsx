@@ -75,21 +75,15 @@ export default function Home() {
             alt="Aman Verma"
             className="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover border border-zinc-200 shadow-sm"
           />
-          <div className="absolute bottom-1 right-1 w-4 h-4 bg-emerald-500 border-[3px] border-white rounded-full z-20"></div>
         </div>
 
         <div>
-          <h1 className="text-3xl md:text-4xl font-bold text-zinc-900 tracking-tight mb-2">
+          <h1 className="text-3xl md:text-4xl font-bold text-zinc-900 tracking-tight mb-1">
             Aman Verma
           </h1>
-          <div className="flex flex-wrap items-center gap-4 text-base text-zinc-600 font-medium">
-            <span>Developer</span>
-            <span className="w-1 h-1 rounded-full bg-zinc-300 hidden md:block"></span>
-            <div className="flex items-center gap-2 px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-md border border-emerald-100/80">
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
-              <span className="text-[11px] font-bold tracking-wide uppercase">Available for Projects</span>
-            </div>
-          </div>
+          <p className="text-lg text-zinc-500 font-medium">
+            Developer
+          </p>
         </div>
       </header>
 
