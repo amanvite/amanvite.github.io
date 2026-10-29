@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { ArrowRight, Globe, Server, Workflow, Bot, Database, Layers, Copy, CheckCircle2, ArrowUpRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Globe, Server, Workflow, Bot, Database, Layers, Copy, CheckCircle2, ArrowUpRight } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, MailIcon } from '../components/Icons';
-import { PROJECTS, BLOG_POSTS } from '../data';
+import { PROJECTS } from '../data';
 
 const CAPABILITIES = [
   {
@@ -153,7 +152,7 @@ export default function Home() {
       </section>
 
       {/* Professional Pinned Projects */}
-      <section className="mb-24">
+      <section className="mb-16">
         <div className="mb-8 border-b border-zinc-200/80 pb-4">
           <h2 
             className="text-xs font-bold uppercase tracking-widest text-zinc-400"
@@ -189,43 +188,6 @@ export default function Home() {
                 ))}
               </div>
             </a>
-          ))}
-        </div>
-      </section>
-
-      {/* Editorial List BlogPost Section */}
-      <section className="mb-20">
-        <div className="flex items-center justify-between mb-4 border-b border-zinc-200/80 pb-4">
-          <h2 
-            className="text-xs font-bold uppercase tracking-widest text-zinc-400"
-            style={{ fontFamily: '"Maddison", sans-serif' }}
-          >
-            BlogPost
-          </h2>
-          <Link to="/blog" className="text-xs font-bold text-zinc-500 hover:text-zinc-900 transition-colors flex items-center group uppercase tracking-wider">
-            View all <ArrowRight className="w-3 h-3 ml-1.5 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
-        
-        <div className="flex flex-col">
-          {BLOG_POSTS.slice(0, 2).map((post) => (
-            <Link 
-              key={post.id} 
-              to={`/blog/${post.id}`}
-              className="group py-8 border-b border-zinc-200/80 last:border-b-0 flex flex-col md:flex-row gap-2 md:gap-12 items-baseline"
-            >
-              <div className="text-sm font-medium text-zinc-500 shrink-0 md:w-32">
-                {post.date}
-              </div>
-              <div className="flex-1">
-                <h3 className="font-bold text-lg md:text-xl text-zinc-900 group-hover:text-emerald-600 transition-colors mb-2 tracking-tight">
-                  {post.title}
-                </h3>
-                <p className="text-sm text-zinc-600 leading-relaxed">
-                  {post.excerpt}
-                </p>
-              </div>
-            </Link>
           ))}
         </div>
       </section>

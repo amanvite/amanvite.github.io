@@ -1,7 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import BlogPosts from './pages/BlogPost.tsx';
-import Post from './pages/Post.tsx';
 
 export default function App() {
   return (
@@ -11,8 +9,6 @@ export default function App() {
           
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/blog" element={<BlogPosts />} />
-            <Route path="/blog/:id" element={<Post />} />
           </Routes>
 
           {/* Persistent Footer */}
