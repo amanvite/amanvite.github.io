@@ -54,6 +54,24 @@ export function VerifiedIcon({ className = 'w-5 h-5' }: IconProps) {
   );
 }
 
+export function EyeIcon({ className = 'w-3.5 h-3.5' }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
+export function ThemeToggleIcon({ className = 'w-4 h-4' }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 3a9 9 0 0 0 0 18V3z" fill="currentColor" />
+    </svg>
+  );
+}
+
 export function SunIcon({ className = 'w-4 h-4' }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -151,35 +169,41 @@ export function CollapseIcon({ className = 'w-3.5 h-3.5' }: IconProps) {
 }
 
 export function TechBadgeIcon({ type }: { type: string }) {
+  const iconClass = 'w-3.5 h-3.5 pf-muted shrink-0';
+
   switch (type) {
     case 'ts':
       return (
-        <span className="inline-flex items-center justify-center w-4 h-4 rounded-[3px] bg-[#3178C6] text-white text-[9px] font-bold leading-none shrink-0">
+        <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-[3px] bg-zinc-600 dark:bg-zinc-400 text-white dark:text-zinc-950 text-[8.5px] font-mono font-bold leading-none shrink-0">
           TS
         </span>
       );
     case 'js':
       return (
-        <span className="inline-flex items-center justify-center w-4 h-4 rounded-[3px] bg-[#F7DF1E] text-zinc-900 text-[9px] font-bold leading-none shrink-0">
+        <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-[3px] bg-zinc-600 dark:bg-zinc-400 text-white dark:text-zinc-950 text-[8.5px] font-mono font-bold leading-none shrink-0">
           JS
         </span>
       );
     case 'html':
       return (
-        <span className="inline-flex items-center justify-center w-4 h-4 rounded-[3px] bg-[#E34F26] text-white text-[9px] font-bold leading-none shrink-0">
-          &lt;/&gt;
-        </span>
+        <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="16 18 22 12 16 6" />
+          <polyline points="8 6 2 12 8 18" />
+        </svg>
       );
     case 'css':
       return (
-        <span className="inline-flex items-center justify-center w-4 h-4 rounded-[3px] bg-[#1572B6] text-white text-[9px] font-bold leading-none shrink-0">
-          #
-        </span>
+        <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="4" y1="9" x2="20" y2="9" />
+          <line x1="4" y1="15" x2="20" y2="15" />
+          <line x1="10" y1="3" x2="8" y2="21" />
+          <line x1="16" y1="3" x2="14" y2="21" />
+        </svg>
       );
     case 'react':
       return (
-        <svg className="w-3.5 h-3.5 text-[#00D8FF] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <circle cx="12" cy="12" r="2" fill="currentColor" />
+        <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+          <circle cx="12" cy="12" r="1.8" fill="currentColor" />
           <ellipse cx="12" cy="12" rx="10" ry="4.2" />
           <ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)" />
           <ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(120 12 12)" />
@@ -187,67 +211,108 @@ export function TechBadgeIcon({ type }: { type: string }) {
       );
     case 'vite':
       return (
-        <svg className="w-3.5 h-3.5 text-[#646CFF] shrink-0" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M21 3 12 21 3 3l9 3 9-3Z" />
+        <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
         </svg>
       );
     case 'tailwind':
       return (
-        <svg className="w-3.5 h-3.5 text-[#06B6D4] shrink-0" viewBox="0 0 24 24" fill="currentColor">
+        <svg className={iconClass} viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 6c-2.67 0-4.33 1.33-5 4 1-1.33 2.17-1.83 3.5-1.5.76.19 1.31.74 1.91 1.35.98 1 2.09 2.15 4.59 2.15 2.67 0 4.33-1.33 5-4-1 1.33-2.17 1.83-3.5 1.5-.76-.19-1.31-.74-1.91-1.35C15.61 7.15 14.5 6 12 6ZM7 12c-2.67 0-4.33 1.33-5 4 1-1.33 2.17-1.83 3.5-1.5.76.19 1.31.74 1.91 1.35.98 1 2.09 2.15 4.59 2.15 2.67 0 4.33-1.33 5-4-1 1.33-2.17 1.83-3.5 1.5-.76-.19-1.31-.74-1.91-1.35C10.61 13.15 9.5 12 7 12Z" />
+        </svg>
+      );
+    case 'dom':
+      return (
+        <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <line x1="3" y1="9" x2="21" y2="9" />
+          <line x1="9" y1="21" x2="9" y2="9" />
+        </svg>
+      );
+    case 'prism':
+      return (
+        <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 3 2 21h20L12 3Z" />
         </svg>
       );
     case 'expo':
       return (
-        <svg className="w-3.5 h-3.5 pf-title shrink-0" viewBox="0 0 24 24" fill="currentColor">
+        <svg className={iconClass} viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 3 2 20h3.8L12 9.2 18.2 20H22L12 3Z" />
         </svg>
       );
     case 'node':
       return (
-        <svg className="w-3.5 h-3.5 text-[#339933] shrink-0" viewBox="0 0 24 24" fill="currentColor">
+        <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M12 2 3 7v10l9 5 9-5V7l-9-5Z" />
+          <path d="M12 22V12" />
         </svg>
       );
     case 'express':
       return (
-        <span className="inline-flex items-center justify-center px-1 h-4 rounded-[3px] pf-pill pf-title text-[9px] font-mono font-bold leading-none shrink-0">
-          ex
+        <span className="inline-flex items-center justify-center px-1 h-3.5 rounded-[3px] bg-zinc-600 dark:bg-zinc-400 text-white dark:text-zinc-950 text-[8px] font-mono font-bold leading-none shrink-0">
+          EX
         </span>
       );
     case 'socket':
       return (
-        <svg className="w-3.5 h-3.5 pf-title shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="9" />
-          <path d="m13 7-5 6h4l-1 4 5-6h-4l1-4Z" fill="currentColor" />
+          <path d="m13 7-5 6h4l-1 4 5-6h-4l1-4Z" />
+        </svg>
+      );
+    case 'api':
+      return (
+        <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
         </svg>
       );
     case 'mongo':
+      return (
+        <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 2C8.5 6.5 7 10.5 7 14.2 7 18 9.2 21 12 22c2.8-1 5-4 5-7.8C17 10.5 15.5 6.5 12 2Z" />
+          <line x1="12" y1="12" x2="12" y2="22" />
+        </svg>
+      );
     case 'mongoose':
       return (
-        <svg className="w-3.5 h-3.5 text-[#47A248] shrink-0" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2C8.5 6.5 7 10.5 7 14.2 7 18 9.2 21 12 22c2.8-1 5-4 5-7.8C17 10.5 15.5 6.5 12 2Z" />
+        <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <ellipse cx="12" cy="5" rx="9" ry="3" />
+          <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+          <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
+        </svg>
+      );
+    case 'storage':
+      return (
+        <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="4" width="20" height="7" rx="2" />
+          <rect x="2" y="13" width="20" height="7" rx="2" />
+          <line x1="6" y1="7.5" x2="6.01" y2="7.5" />
+          <line x1="6" y1="16.5" x2="6.01" y2="16.5" />
         </svg>
       );
     case 'git':
       return (
-        <svg className="w-3.5 h-3.5 text-[#F05032] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-          <circle cx="12" cy="12" r="3" />
-          <line x1="6" y1="6" x2="18" y2="18" />
+        <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="6" x2="6" y1="3" y2="15" />
+          <circle cx="18" cy="6" r="3" />
+          <circle cx="6" cy="18" r="3" />
+          <path d="M18 9a9 9 0 0 1-9 9" />
         </svg>
       );
     case 'github':
     case 'ghpages':
-      return <GithubIcon className="w-3.5 h-3.5 pf-title shrink-0" />;
+      return <GithubIcon className={iconClass} />;
     case 'vercel':
       return (
-        <svg className="w-3 h-3 pf-title shrink-0" viewBox="0 0 24 24" fill="currentColor">
+        <svg className="w-3 h-3 pf-muted shrink-0" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 3 22 21H2L12 3Z" />
         </svg>
       );
     default:
       return (
-        <span className="w-2 h-2 rounded-full bg-zinc-400 shrink-0" />
+        <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 shrink-0" />
       );
   }
 }

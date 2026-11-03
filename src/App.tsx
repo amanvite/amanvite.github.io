@@ -3,12 +3,13 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
-import CommandPalette, { type PageView } from './components/CommandPalette';
-import { SearchIcon, SunIcon, MoonIcon } from './components/Icons';
+import { EyeIcon, ThemeToggleIcon } from './components/Icons';
+
+type PageView = 'overview' | 'about' | 'projects' | 'contact';
 
 export default function App() {
   const [activePage, setActivePage] = useState<PageView>('overview');
-  const [paletteOpen, setPaletteOpen] = useState(false);
+  const [visits, setVisits] = useState<number>(4886);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     try {
       return localStorage.getItem('aman_theme') === 'dark' ? 'dark' : 'light';
@@ -30,6 +31,17 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    try {
+      const stored = localStorage.getItem('aman_portfolio_views');
+      const nextCount = stored ? parseInt(stored, 10) + 1 : 4886;
+      localStorage.setItem('aman_portfolio_views', String(nextCount));
+      setVisits(nextCount);
+    } catch {
+      setVisits(4886);
+    }
+  }, []);
+
+  useEffect(() => {
     const root = document.documentElement;
     if (theme === 'dark') {
       root.classList.add('dark');
@@ -42,17 +54,6 @@ export default function App() {
       // ignore
     }
   }, [theme]);
-
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        setPaletteOpen((prev) => !prev);
-      }
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, []);
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
@@ -173,27 +174,25 @@ export default function App() {
             </button>
           </nav>
 
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setPaletteOpen(true)}
-              className="w-8 h-8 rounded-lg border pf-border pf-card pf-hover flex items-center justify-center pf-title shadow-2xs transition-all cursor-pointer"
-              title="Search (⌘K)"
-              aria-label="Search"
+          <div className="flex items-center gap-3">
+            <div
+              className="inline-flex items-center gap-1.5 text-xs pf-muted select-none"
+              style={{ fontFamily: '"JetBrains Mono", monospace' }}
+              title="Page visits"
             >
-              <SearchIcon className="w-3.5 h-3.5" />
-            </button>
+              <EyeIcon className="w-3.5 h-3.5" />
+              <span>{visits.toLocaleString()}</span>
+            </div>
+
+            <span className="h-4 w-px pf-grid-bg" />
 
             <button
               onClick={toggleTheme}
-              className="w-8 h-8 rounded-lg border pf-border pf-card pf-hover flex items-center justify-center pf-title shadow-2xs transition-all cursor-pointer"
+              className="p-1.5 rounded-md pf-title pf-hover transition-colors cursor-pointer"
               title={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
               aria-label="Toggle theme"
             >
-              {theme === 'dark' ? (
-                <SunIcon className="w-3.5 h-3.5 text-amber-400" />
-              ) : (
-                <MoonIcon className="w-3.5 h-3.5" />
-              )}
+              <ThemeToggleIcon className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -227,13 +226,6 @@ export default function App() {
           onOpenProjects={() => handleNavigate('projects')}
         />
       )}
-
-      <CommandPalette
-        isOpen={paletteOpen}
-        onClose={() => setPaletteOpen(false)}
-        onNavigatePage={handleNavigate}
-        onToggleTheme={toggleTheme}
-      />
     </div>
   );
 }

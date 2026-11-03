@@ -48,7 +48,6 @@ export default function About({
         </div>
       </div>
 
-      {/* Social Bar with Handwritten "Follow me" Margin Callout */}
       <div className="w-full border-b pf-border">
         <div className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-3.5 flex items-center pf-subtle relative">
           <div
@@ -139,7 +138,7 @@ export default function About({
           <div className="space-y-4 text-xs sm:text-[14px] pf-text leading-relaxed">
             <p>
               I&apos;m {PROFILE.name}, also known online as{' '}
-              <strong className="pf-title font-medium">@{PROFILE.handle}</strong> on GitHub, LinkedIn, and Instagram — a Systems Engineer and full-stack developer focused on building fast, reliable web and mobile applications.
+              <strong className="pf-title font-medium">@{PROFILE.handle}</strong> on GitHub, LinkedIn, and Instagram — a full-stack MERN and TypeScript developer focused on building fast, reliable web and mobile applications.
             </p>
             <p>{PROFILE.bio}</p>
             <p>
@@ -182,7 +181,7 @@ export default function About({
             {STACK.map((row) => (
               <div
                 key={row.num}
-                className="grid grid-cols-1 sm:grid-cols-[180px_1fr] px-5 sm:px-8 py-4 items-start sm:items-center gap-2 sm:gap-4"
+                className="grid grid-cols-1 sm:grid-cols-[180px_1fr] px-5 sm:px-8 py-3.5 items-start sm:items-center gap-2 sm:gap-4"
               >
                 <div className="flex items-center gap-2.5">
                   <span
@@ -200,7 +199,7 @@ export default function About({
                   {row.items.map((item) => (
                     <span
                       key={item.name}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border pf-border pf-card text-xs font-medium pf-title shadow-2xs"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border pf-border pf-subtle text-xs font-medium pf-title"
                     >
                       <TechBadgeIcon type={item.icon} />
                       <span>{item.name}</span>

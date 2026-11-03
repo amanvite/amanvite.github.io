@@ -78,7 +78,7 @@ export default function Contact({
                 <CodeBracketIcon className="w-3.5 h-3.5" />
               </span>
               <span className="pf-title font-medium">
-                Systems Engineer &amp; Full-Stack Developer
+                {PROFILE.role}
               </span>
             </div>
 

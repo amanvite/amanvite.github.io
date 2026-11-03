@@ -47,7 +47,7 @@ export interface EducationItem {
 export const PROFILE = {
   name: 'Aman Verma',
   handle: 'amanvite',
-  role: 'Systems Engineer • Full-Stack MERN & TypeScript Developer',
+  role: 'Full-Stack MERN & TypeScript Developer',
   email: 'info.amanvite@gmail.com',
   github: 'https://github.com/amanvite',
   linkedin: 'https://www.linkedin.com/in/amanvite/',
@@ -67,7 +67,8 @@ export const EDUCATION: EducationItem[] = [
     period: '2025–2028',
     degreeShort: 'BCA',
     field: 'Computer Applications & Software Engineering',
-    summary: 'Bachelor of Computer Applications in Computer Science and Software Engineering.',
+    summary:
+      'Bachelor of Computer Applications in Computer Science and Software Engineering.',
     skills: ['TypeScript', 'Data Structures & Algorithms', 'Web Development'],
   },
 ];

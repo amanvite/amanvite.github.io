@@ -152,14 +152,15 @@ export default function Home({
             </div>
           </div>
 
-          <div className="px-5 sm:px-8 pt-2 sm:pt-3.5 relative z-10 flex items-end justify-between gap-4 mb-5">
+          {/* Mobile spacing stays at pt-2/pb-0.5; Tablet & Laptop (sm:) lifts name & handle up */}
+          <div className="px-5 sm:px-8 pt-2 sm:pt-1 relative z-10 flex items-end justify-between gap-4 mb-5 sm:mb-4">
             <div className="flex items-end gap-3.5 sm:gap-4">
               <img
                 src={PROFILE.avatar}
                 alt={PROFILE.name}
                 className="-mt-8 sm:-mt-14 w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-4 border-white dark:border-zinc-900 shadow-md bg-zinc-100 shrink-0"
               />
-              <div className="pb-0.5">
+              <div className="pb-0.5 sm:pb-3">
                 <div className="flex items-center gap-1.5">
                   <h1 className="text-xl sm:text-2xl font-bold pf-title tracking-tight leading-tight">
                     {PROFILE.name}
@@ -179,7 +180,7 @@ export default function Home({
               href={PROFILE.github}
               target="_blank"
               rel="noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border pf-border pf-subtle pf-hover text-[11px] font-mono pf-text transition-colors mb-0.5"
+              className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border pf-border pf-subtle pf-hover text-[11px] font-mono pf-text transition-colors mb-3"
             >
               <GithubIcon className="w-3.5 h-3.5" />
               <span>github.com/{PROFILE.handle}</span>
@@ -326,7 +327,7 @@ export default function Home({
             {STACK.map((row) => (
               <div
                 key={row.num}
-                className="grid grid-cols-1 sm:grid-cols-[180px_1fr] px-5 sm:px-8 py-4 items-start sm:items-center gap-2 sm:gap-4"
+                className="grid grid-cols-1 sm:grid-cols-[180px_1fr] px-5 sm:px-8 py-3.5 items-start sm:items-center gap-2 sm:gap-4"
               >
                 <div className="flex items-center gap-2.5">
                   <span
@@ -344,7 +345,7 @@ export default function Home({
                   {row.items.map((item) => (
                     <span
                       key={item.name}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border pf-border pf-card text-xs font-medium pf-title shadow-2xs"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border pf-border pf-subtle text-xs font-medium pf-title"
                     >
                       <TechBadgeIcon type={item.icon} />
                       <span>{item.name}</span>
