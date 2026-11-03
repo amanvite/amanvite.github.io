@@ -3,6 +3,7 @@ import { PROFILE } from '../data';
 import {
   GithubIcon,
   LinkedinIcon,
+  InstagramIcon,
   YoutubeIcon,
   MailIcon,
   CodeBracketIcon,
@@ -155,6 +156,15 @@ export default function Contact({
               <LinkedinIcon className="w-4 h-4" />
             </a>
             <a
+              href={PROFILE.instagram}
+              target="_blank"
+              rel="noreferrer"
+              className="w-8 h-8 rounded-md border pf-border pf-card flex items-center justify-center pf-text pf-hover transition-colors"
+              title="Instagram"
+            >
+              <InstagramIcon className="w-4 h-4" />
+            </a>
+            <a
               href={PROFILE.youtube}
               target="_blank"
               rel="noreferrer"
@@ -217,6 +227,15 @@ export default function Contact({
             >
               GitHub
             </a>
+            ,{' '}
+            <a
+              href={PROFILE.instagram}
+              target="_blank"
+              rel="noreferrer"
+              className="pf-title font-medium underline underline-offset-4"
+            >
+              Instagram
+            </a>
             , or{' '}
             <a
               href={PROFILE.youtube}
@@ -228,25 +247,6 @@ export default function Contact({
             </a>
             .
           </p>
-        </div>
-      </div>
-
-      <HatchedBand />
-
-      <div className="w-full border-b pf-border">
-        <div className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-16 text-center">
-          <div className="text-3xl font-serif pf-muted mb-3 select-none">&rdquo;</div>
-          <blockquote className="text-base sm:text-lg italic font-serif pf-title max-w-md mx-auto mb-4">
-            &ldquo;It always seems impossible until it&apos;s done.&rdquo;
-          </blockquote>
-          <div
-            className="inline-flex items-center gap-3 text-[10px] pf-muted uppercase tracking-[0.2em]"
-            style={{ fontFamily: '"JetBrains Mono", monospace' }}
-          >
-            <span className="w-6 h-px pf-grid-bg" />
-            <span>NELSON MANDELA</span>
-            <span className="w-6 h-px pf-grid-bg" />
-          </div>
         </div>
       </div>
 

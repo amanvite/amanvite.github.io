@@ -4,10 +4,12 @@ import {
   STACK,
   PROJECTS,
   UTILITY_PACKAGES,
+  EDUCATION,
 } from '../data';
 import {
   GithubIcon,
   LinkedinIcon,
+  InstagramIcon,
   YoutubeIcon,
   MailIcon,
   VerifiedIcon,
@@ -17,6 +19,7 @@ import {
   ArrowUpRightIcon,
   CopyIcon,
   CheckIcon,
+  CollapseIcon,
   PixelCatIcon,
   TechBadgeIcon,
 } from '../components/Icons';
@@ -47,6 +50,7 @@ export default function Home({
   const [timeStr, setTimeStr] = useState('');
   const [copied, setCopied] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [eduExpanded, setEduExpanded] = useState(true);
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -151,7 +155,6 @@ export default function Home({
             </div>
           </div>
 
-          {/* Mobile spacing applied via sm:-mt-14 vs base -mt-8 */}
           <div className="px-5 sm:px-8 pt-2 sm:pt-3.5 relative z-10 flex items-end justify-between gap-4 mb-5">
             <div className="flex items-end gap-3.5 sm:gap-4">
               <img
@@ -227,7 +230,7 @@ export default function Home({
             </div>
           </div>
 
-          <div className="px-5 sm:px-8 py-3.5 border-t pf-border flex items-center justify-between pf-subtle relative">
+          <div className="px-5 sm:px-8 py-3.5 border-t pf-border flex items-center pf-subtle relative">
             <div
               className="hidden lg:flex items-center absolute -left-[104px] top-1 z-20 pf-muted select-none pointer-events-none"
               style={{ fontFamily: '"Caveat", cursive' }}
@@ -271,6 +274,15 @@ export default function Home({
                 <LinkedinIcon className="w-4 h-4" />
               </a>
               <a
+                href={PROFILE.instagram}
+                target="_blank"
+                rel="noreferrer"
+                className="p-2 rounded-md border pf-border pf-card pf-text pf-hover transition-all"
+                title="Instagram"
+              >
+                <InstagramIcon className="w-4 h-4" />
+              </a>
+              <a
                 href={PROFILE.youtube}
                 target="_blank"
                 rel="noreferrer"
@@ -286,13 +298,6 @@ export default function Home({
               >
                 <MailIcon className="w-4 h-4" />
               </a>
-            </div>
-
-            <div
-              className="text-[11px] pf-muted"
-              style={{ fontFamily: '"JetBrains Mono", monospace' }}
-            >
-              MERN • TypeScript
             </div>
           </div>
         </section>
@@ -511,6 +516,7 @@ export default function Home({
 
         <Divider />
 
+        {/* Expanded Education Section with L-Connector Line */}
         <section id="education" className="scroll-mt-20">
           <div className="px-5 sm:px-8 py-5 border-b pf-border">
             <h2 className="text-xl font-bold pf-title tracking-tight">
@@ -518,63 +524,78 @@ export default function Home({
             </h2>
           </div>
 
-          <div className="px-5 sm:px-8 py-6">
-            <div className="flex items-start gap-3.5">
-              <div className="w-9 h-9 rounded-lg border pf-border pf-subtle flex items-center justify-center shrink-0 mt-0.5 pf-muted">
-                <svg
-                  className="w-4 h-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                  <path d="M6 12v5c3 3 9 3 12 0v-5" />
-                </svg>
-              </div>
+          <div className="divide-y pf-divide">
+            {EDUCATION.map((edu) => (
+              <div key={edu.id} className="px-5 sm:px-8 py-6">
+                <div className="flex gap-3.5">
+                  {/* Left Column: Cap Icon + L-Shaped Connector Line */}
+                  <div className="flex flex-col items-center shrink-0">
+                    <div className="w-8 h-8 rounded-lg border pf-border pf-subtle flex items-center justify-center pf-muted">
+                      <svg
+                        className="w-4 h-4"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                        <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                      </svg>
+                    </div>
+                    {eduExpanded && (
+                      <div className="w-3.5 flex-1 border-l border-b pf-border rounded-bl-lg ml-3.5 mt-1 mb-2.5" />
+                    )}
+                  </div>
 
-              <div className="flex-1 min-w-0">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
-                  <h3 className="text-sm font-bold pf-title">
-                    Manipal University Jaipur
-                  </h3>
-                  <span
-                    className="text-xs pf-muted"
-                    style={{ fontFamily: '"JetBrains Mono", monospace' }}
-                  >
-                    Expected 2028
-                  </span>
+                  {/* Right Column: Details */}
+                  <div className="flex-1 min-w-0">
+                    <div
+                      onClick={() => setEduExpanded((prev) => !prev)}
+                      className="flex items-start sm:items-center justify-between gap-2 cursor-pointer select-none group"
+                    >
+                      <h3 className="text-[15px] font-semibold pf-title group-hover:opacity-80 transition-opacity">
+                        {edu.institution}
+                      </h3>
+                      <div className="flex items-center gap-2 text-xs pf-muted shrink-0">
+                        <span>{edu.location}</span>
+                        <CollapseIcon className="w-3.5 h-3.5 pf-muted" />
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-2.5 text-xs pf-muted mt-1">
+                      <span>{edu.period}</span>
+                      <span className="h-3 w-px pf-grid-bg" />
+                      <span>{edu.degreeShort}</span>
+                      <span className="h-3 w-px pf-grid-bg" />
+                      <span>{edu.field}</span>
+                    </div>
+
+                    {eduExpanded && (
+                      <div className="mt-3.5 space-y-3.5">
+                        <div className="flex items-start gap-2.5 text-[13.5px] pf-title">
+                          <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 mt-2 shrink-0" />
+                          <span>{edu.summary}</span>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-2 pt-0.5">
+                          {edu.skills.map((skill) => (
+                            <span
+                              key={skill}
+                              className="px-3 py-0.5 rounded-full border pf-border pf-subtle text-[11px] pf-text"
+                              style={{ fontFamily: '"JetBrains Mono", monospace' }}
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
-
-                <p className="text-xs pf-text">
-                  Bachelor of Computer Applications (BCA)
-                </p>
               </div>
-            </div>
-          </div>
-        </section>
-
-        <Divider />
-
-        {/* Quote Block with Flanking Lines & Corner Cat */}
-        <section className="px-5 sm:px-8 py-14 text-center relative">
-          <div className="pf-muted text-3xl font-serif mb-3 select-none">&rdquo;</div>
-          <blockquote className="text-base sm:text-lg italic font-serif pf-title max-w-md mx-auto leading-relaxed mb-4">
-            &ldquo;The best time to plant a tree was 20 years ago. The second best time is now.&rdquo;
-          </blockquote>
-          <div
-            className="inline-flex items-center gap-3 text-[10px] pf-muted uppercase tracking-[0.2em]"
-            style={{ fontFamily: '"JetBrains Mono", monospace' }}
-          >
-            <span className="w-6 h-px pf-grid-bg" />
-            <span>CHINESE PROVERB</span>
-            <span className="w-6 h-px pf-grid-bg" />
-          </div>
-
-          <div className="absolute right-4 bottom-3">
-            <PixelCatIcon className="w-6 h-6 pf-muted opacity-80" />
+            ))}
           </div>
         </section>
 
@@ -648,6 +669,10 @@ export default function Home({
                 );
               })}
             </nav>
+          </div>
+
+          <div className="pl-4 pt-5">
+            <PixelCatIcon className="w-6 h-6 pf-muted opacity-80" />
           </div>
         </div>
       </aside>

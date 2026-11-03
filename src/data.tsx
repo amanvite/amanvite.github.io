@@ -33,6 +33,17 @@ export interface UtilityItem {
   link: string;
 }
 
+export interface EducationItem {
+  id: string;
+  institution: string;
+  location: string;
+  period: string;
+  degreeShort: string;
+  field: string;
+  summary: string;
+  skills: string[];
+}
+
 export const PROFILE = {
   name: 'Aman Verma',
   handle: 'amanvite',
@@ -40,12 +51,26 @@ export const PROFILE = {
   email: 'info.amanvite@gmail.com',
   github: 'https://github.com/amanvite',
   linkedin: 'https://www.linkedin.com/in/amanvite/',
+  instagram: 'https://www.instagram.com/amanvite',
   youtube: 'https://www.youtube.com/@amanvitee',
   avatar: 'https://github.com/amanvite.png',
   banner:
     'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop',
   bio: 'I architect and engineer scalable web ecosystems, focusing strictly on the MERN stack and robust TypeScript environments. I build products end-to-end: from database persistence and server-side logic to client-side DOM execution.',
 };
+
+export const EDUCATION: EducationItem[] = [
+  {
+    id: 'muj-bca',
+    institution: 'Manipal University Jaipur',
+    location: 'Jaipur, Rajasthan',
+    period: '2025–2028',
+    degreeShort: 'BCA',
+    field: 'Computer Applications & Software Engineering',
+    summary: 'Bachelor of Computer Applications in Computer Science and Software Engineering.',
+    skills: ['TypeScript', 'Data Structures & Algorithms', 'Web Development'],
+  },
+];
 
 export const STACK: StackRow[] = [
   {

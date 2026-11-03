@@ -16,6 +16,16 @@ export function LinkedinIcon({ className = 'w-4 h-4' }: IconProps) {
   );
 }
 
+export function InstagramIcon({ className = 'w-4 h-4' }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
+
 export function YoutubeIcon({ className = 'w-4 h-4' }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor">
@@ -140,6 +150,15 @@ export function SearchIcon({ className = 'w-4 h-4' }: IconProps) {
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="11" cy="11" r="8" />
       <path d="m21 21-4.3-4.3" />
+    </svg>
+  );
+}
+
+export function CollapseIcon({ className = 'w-3.5 h-3.5' }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="m7 20 5-5 5 5" />
+      <path d="m7 4 5 5 5-5" />
     </svg>
   );
 }

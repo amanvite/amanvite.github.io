@@ -219,7 +219,11 @@ export default function App() {
         />
       )}
       {activePage === 'projects' && (
-        <Projects onBackHome={() => handleNavigate('overview')} />
+        <Projects
+          onOpenHome={() => handleNavigate('overview')}
+          onOpenAbout={() => handleNavigate('about')}
+          onOpenContact={() => handleNavigate('contact')}
+        />
       )}
       {activePage === 'contact' && (
         <Contact

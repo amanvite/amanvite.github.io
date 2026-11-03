@@ -6,6 +6,7 @@ import {
   ArrowUpRightIcon,
   TerminalIcon,
   ThemeToggleIcon,
+  InstagramIcon,
   YoutubeIcon,
 } from './Icons';
 
@@ -61,7 +62,7 @@ export default function CommandPalette({
             autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search pages, projects, or actions..."
+            placeholder="Search pages, projects, or socials..."
             className="w-full text-sm bg-transparent pf-title placeholder:text-zinc-400 focus:outline-none"
           />
           <button
@@ -102,6 +103,20 @@ export default function CommandPalette({
                   <span className="text-[10px] font-mono pf-muted">Go</span>
                 </button>
               ))}
+
+            <a
+              href={PROFILE.instagram}
+              target="_blank"
+              rel="noreferrer"
+              onClick={onClose}
+              className="w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs pf-text pf-hover transition-colors"
+            >
+              <span className="flex items-center gap-2">
+                <InstagramIcon className="w-3.5 h-3.5 pf-muted" />
+                Instagram (@amanvite)
+              </span>
+              <ArrowUpRightIcon className="w-3.5 h-3.5 pf-muted" />
+            </a>
 
             <a
               href={PROFILE.youtube}
