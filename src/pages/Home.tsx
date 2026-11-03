@@ -1,150 +1,56 @@
 import React, { useState, useEffect } from 'react';
+import {
+  PROFILE,
+  STACK,
+  PROJECTS,
+  UTILITY_PACKAGES,
+} from '../data';
+import {
+  GithubIcon,
+  LinkedinIcon,
+  YoutubeIcon,
+  MailIcon,
+  VerifiedIcon,
+  RepoIcon,
+  GitBranchIcon,
+  TerminalIcon,
+  ArrowUpRightIcon,
+  CopyIcon,
+  CheckIcon,
+} from '../components/Icons';
 
-const NAV_SECTIONS = [
+const SECTIONS = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
   { id: 'stack', label: 'Stack' },
   { id: 'projects', label: 'Projects' },
+  { id: 'utilities', label: 'Packages' },
   { id: 'education', label: 'Education' },
 ];
 
-const STACK = [
-  {
-    num: '01',
-    category: 'Language',
-    items: [
-      { name: 'TypeScript', dot: '#3178C6' },
-      { name: 'JavaScript', dot: '#F7DF1E' },
-      { name: 'Python 3', dot: '#3776AB' },
-    ],
-  },
-  {
-    num: '02',
-    category: 'Frontend',
-    items: [
-      { name: 'React', dot: '#61DAFB' },
-      { name: 'Vite', dot: '#646CFF' },
-      { name: 'Tailwind CSS', dot: '#06B6D4' },
-      { name: 'HTML5 / CSS3', dot: '#E34F26' },
-      { name: 'DOM API', dot: '#52525B' },
-    ],
-  },
-  {
-    num: '03',
-    category: 'Mobile',
-    items: [
-      { name: 'React Native', dot: '#61DAFB' },
-      { name: 'Expo', dot: '#18181B' },
-    ],
-  },
-  {
-    num: '04',
-    category: 'Backend',
-    items: [
-      { name: 'Node.js', dot: '#339933' },
-      { name: 'Express.js', dot: '#52525B' },
-      { name: 'Socket.io', dot: '#18181B' },
-      { name: 'REST APIs', dot: '#6366F1' },
-    ],
-  },
-  {
-    num: '05',
-    category: 'Database',
-    items: [{ name: 'MongoDB', dot: '#47A248' }],
-  },
-  {
-    num: '06',
-    category: 'Tools & DevOps',
-    items: [
-      { name: 'Git & GitHub', dot: '#F05032' },
-      { name: 'Vercel', dot: '#18181B' },
-      { name: 'GitHub Pages', dot: '#2563EB' },
-    ],
-  },
-];
-
-const PROJECTS = [
-  {
-    id: 'p1',
-    title: 'Talksy',
-    tag: 'REAL-TIME ENGINE',
-    status: 'ACTIVE',
-    description:
-      'Bidirectional messaging ecosystem maintaining synchronous client states across distributed WebSocket connections.',
-    tech: ['JavaScript', 'Node.js', 'Socket.io', 'MongoDB'],
-    link: 'https://github.com/amanvite',
-  },
-  {
-    id: 'p2',
-    title: 'Code Extractor',
-    tag: 'WEB UTILITY',
-    status: 'LIVE',
-    description:
-      'A stealth extraction engine for dynamic web apps. Bypasses virtual DOM overhead via direct API manipulation.',
-    tech: ['TypeScript', 'HTML5', 'DOM API'],
-    link: 'https://code-extractor-plus.vercel.app/',
-  },
-  {
-    id: 'p3',
-    title: 'Sudoku Game',
-    tag: 'BROWSER GAME',
-    status: 'LIVE',
-    description:
-      'A sleek, minimalist Sudoku web application engineered for performance, local stats tracking, and a distraction-free UI.',
-    tech: ['TypeScript', 'Web API', 'CSS3'],
-    link: 'https://amanvite.github.io/sudoku/',
-  },
-  {
-    id: 'p4',
-    title: 'SureScan',
-    tag: 'INDUSTRIAL APP',
-    status: 'PROTOTYPE',
-    description:
-      'Cross-platform mobile application engineered to scan and decode dot-peen Data Matrix Codes on laser-etched metal components.',
-    tech: ['React Native', 'TypeScript', 'Vision API'],
-    link: 'https://github.com/amanvite',
-  },
-];
-
-function HatchedDivider() {
-  return (
-    <div
-      className="w-full h-6 border-y border-zinc-200"
-      style={{
-        backgroundImage:
-          'repeating-linear-gradient(-45deg, #f4f4f5, #f4f4f5 1px, transparent 1px, transparent 8px)',
-      }}
-    />
-  );
+function Divider() {
+  return <div className="w-full h-6 border-y pf-border pf-hatch" />;
 }
 
-export default function Home() {
+export default function Home({
+  onOpenRepositories,
+  onOpenContact,
+}: {
+  onOpenRepositories: () => void;
+  onOpenContact: () => void;
+}) {
   const [greeting, setGreeting] = useState('Good morning');
   const [timeStr, setTimeStr] = useState('');
   const [copied, setCopied] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
-  // Inject Google Fonts safely into <head>
-  useEffect(() => {
-    const fontId = 'portfolio-google-fonts';
-    if (!document.getElementById(fontId)) {
-      const link = document.createElement('link');
-      link.id = fontId;
-      link.rel = 'stylesheet';
-      link.href =
-        'https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600&display=swap';
-      document.head.appendChild(link);
-    }
-  }, []);
-
-  // Greeting & Live Clock
   useEffect(() => {
     const hour = new Date().getHours();
     if (hour < 12) setGreeting('Good morning');
     else if (hour < 18) setGreeting('Good afternoon');
     else setGreeting('Good evening');
 
-    const updateClock = () => {
+    const tick = () => {
       try {
         const now = new Date();
         setTimeStr(
@@ -159,32 +65,27 @@ export default function Home() {
         setTimeStr('');
       }
     };
-    updateClock();
-    const timer = setInterval(updateClock, 1000);
+    tick();
+    const timer = setInterval(tick, 1000);
     return () => clearInterval(timer);
   }, []);
 
-  // Bulletproof Scroll-Spy for Right Index Sidebar
   useEffect(() => {
     const onScroll = () => {
-      const scrollBottom = window.innerHeight + window.scrollY;
-      const docHeight = document.documentElement.scrollHeight;
+      const bottomReached =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 60;
 
-      if (scrollBottom >= docHeight - 60) {
-        setActiveSection(NAV_SECTIONS[NAV_SECTIONS.length - 1].id);
+      if (bottomReached) {
+        setActiveSection(SECTIONS[SECTIONS.length - 1].id);
         return;
       }
 
-      const triggerLine = 220;
-      let current = NAV_SECTIONS[0].id;
-
-      for (const sec of NAV_SECTIONS) {
+      let current = SECTIONS[0].id;
+      for (const sec of SECTIONS) {
         const el = document.getElementById(sec.id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= triggerLine) {
-            current = sec.id;
-          }
+        if (el && el.getBoundingClientRect().top <= 220) {
+          current = sec.id;
         }
       }
       setActiveSection(current);
@@ -195,15 +96,15 @@ export default function Home() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const handleCopyEmail = () => {
+  const copyEmail = () => {
     if (navigator.clipboard) {
-      navigator.clipboard.writeText('info.amanvite@gmail.com');
+      navigator.clipboard.writeText(PROFILE.email);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
   };
 
-  const scrollToSection = (e: React.MouseEvent, id: string) => {
+  const jumpTo = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     setActiveSection(id);
     const el = document.getElementById(id);
@@ -215,21 +116,18 @@ export default function Home() {
 
   const activeIdx = Math.max(
     0,
-    NAV_SECTIONS.findIndex((s) => s.id === activeSection)
+    SECTIONS.findIndex((s) => s.id === activeSection)
   );
 
   return (
-    <div className="max-w-[1160px] mx-auto px-4 sm:px-6 flex justify-center gap-10 relative">
-      {/* MAIN BLUEPRINT COLUMN */}
-      <main className="w-full max-w-[740px] border-x border-zinc-200 bg-white min-h-screen">
-        {/* ================= 1. HERO / HOME ================= */}
+    <div className="max-w-[740px] mx-auto relative">
+      <main className="w-full border-x pf-border pf-card min-h-screen">
         <section id="home" className="scroll-mt-20">
-          {/* Scenic Banner */}
           <div className="p-3 sm:p-4 pb-0">
-            <div className="relative w-full h-40 sm:h-48 rounded-xl overflow-hidden border border-zinc-200 bg-zinc-900">
+            <div className="relative w-full h-40 sm:h-48 rounded-xl overflow-hidden border pf-border bg-zinc-900">
               <img
-                src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop"
-                alt="Cover Banner"
+                src={PROFILE.banner}
+                alt="Banner"
                 className="w-full h-full object-cover opacity-90"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
@@ -245,106 +143,98 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Overlapping Avatar + Name Row */}
-          <div className="px-5 sm:px-7 -mt-9 sm:-mt-11 relative z-10 flex items-end gap-4 mb-4">
-            <img
-              src="https://github.com/amanvite.png"
-              alt="Aman Verma"
-              className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-4 border-white shadow-md bg-zinc-100 shrink-0"
-            />
-            <div className="pb-1">
-              <div className="flex items-center gap-1.5">
-                <h1 className="text-xl sm:text-2xl font-bold text-zinc-900 tracking-tight">
-                  Aman Verma
-                </h1>
-                {/* Verified Badge SVG */}
-                <svg
-                  className="w-5 h-5 text-blue-500 shrink-0"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
+          <div className="px-5 sm:px-7 -mt-9 sm:-mt-11 relative z-10 flex items-end justify-between gap-4 mb-4">
+            <div className="flex items-end gap-4">
+              <img
+                src={PROFILE.avatar}
+                alt={PROFILE.name}
+                className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-4 border-white dark:border-zinc-900 shadow-md bg-zinc-100 shrink-0"
+              />
+              <div className="pb-1">
+                <div className="flex items-center gap-1.5">
+                  <h1 className="text-xl sm:text-2xl font-bold pf-title tracking-tight">
+                    {PROFILE.name}
+                  </h1>
+                  <VerifiedIcon className="w-[18px] h-[18px] shrink-0" />
+                </div>
+                <p
+                  className="text-xs pf-muted"
+                  style={{ fontFamily: '"JetBrains Mono", monospace' }}
                 >
-                  <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6 12.6l1.5-1.5 2.6 2.6 6.4-6.4 1.5 1.5-7.9 7.9z" />
-                </svg>
+                  @{PROFILE.handle}
+                </p>
               </div>
-              <p
-                className="text-xs text-zinc-400"
-                style={{ fontFamily: '"JetBrains Mono", monospace' }}
-              >
-                @amanvite
-              </p>
             </div>
+
+            <a
+              href={PROFILE.github}
+              target="_blank"
+              rel="noreferrer"
+              className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border pf-border pf-subtle pf-hover text-[11px] font-mono pf-text transition-colors mb-1"
+            >
+              <GithubIcon className="w-3.5 h-3.5" />
+              <span>github.com/{PROFILE.handle}</span>
+            </a>
           </div>
 
-          {/* Tagline & CTA Buttons */}
           <div className="px-5 sm:px-7 pb-6">
-            <p className="text-[13.5px] text-zinc-600 mb-5">
-              Systems Engineer • Full-Stack MERN & TypeScript Developer.
-            </p>
+            <p className="text-[13.5px] pf-text mb-5">{PROFILE.role}</p>
 
             <div className="flex flex-wrap items-center gap-2.5">
               <a
                 href="#projects"
-                onClick={(e) => scrollToSection(e, 'projects')}
-                className="px-3.5 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium rounded-md transition-colors"
+                onClick={(e) => jumpTo(e, 'projects')}
+                className="px-3.5 py-1.5 pf-btn-primary text-xs font-medium rounded-md transition-opacity"
               >
                 View projects
               </a>
               <button
-                onClick={handleCopyEmail}
-                className="px-3.5 py-1.5 bg-white hover:bg-zinc-50 text-zinc-700 border border-zinc-200 text-xs font-medium rounded-md transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+                onClick={onOpenContact}
+                className="px-3.5 py-1.5 pf-pill pf-title border pf-border text-xs font-medium rounded-md pf-hover transition-colors cursor-pointer"
+              >
+                Contact
+              </button>
+              <button
+                onClick={copyEmail}
+                className="px-3.5 py-1.5 pf-card pf-text border pf-border text-xs font-medium rounded-md pf-hover transition-colors inline-flex items-center gap-1.5 cursor-pointer"
               >
                 {copied ? (
                   <>
-                    <svg
-                      className="w-3.5 h-3.5 text-emerald-600"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
+                    <CheckIcon className="w-3.5 h-3.5 text-emerald-500" />
                     <span>Copied!</span>
                   </>
                 ) : (
                   <>
-                    <svg
-                      className="w-3.5 h-3.5 text-zinc-400"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
-                      <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
-                    </svg>
-                    <span>info.amanvite@gmail.com</span>
+                    <CopyIcon className="w-3.5 h-3.5 pf-muted" />
+                    <span>{PROFILE.email}</span>
                   </>
                 )}
               </button>
             </div>
           </div>
 
-          {/* Social Links Bar with Handwritten Callout */}
-          <div className="px-5 sm:px-7 py-3.5 border-t border-zinc-200 flex items-center justify-between bg-zinc-50/50 relative">
+          <div className="px-5 sm:px-7 py-3.5 border-t pf-border flex items-center justify-between pf-subtle relative">
+            {/* Handwritten callout with arrow cutting right across the left border line */}
             <div
-              className="hidden xl:flex items-center gap-1 absolute -left-28 top-2.5 text-zinc-400 select-none pointer-events-none"
+              className="hidden lg:flex items-center absolute -left-[104px] top-1 z-20 pf-muted select-none pointer-events-none"
               style={{ fontFamily: '"Caveat", cursive' }}
             >
-              <span className="text-lg -rotate-6">Follow me</span>
+              <span className="text-[23px] font-bold -rotate-12 leading-none whitespace-nowrap">
+                Follow me
+              </span>
               <svg
-                className="w-6 h-6 text-zinc-300 translate-y-1"
-                viewBox="0 0 24 24"
+                className="w-11 h-8 -ml-1 translate-y-2 pf-muted"
+                viewBox="0 0 56 36"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="1.5"
+                strokeWidth="1.8"
               >
                 <path
-                  d="M4 12c4 4 10 4 15 0m0 0l-3-3m3 3l-3 3"
+                  d="M2 8 C 16 26, 34 26, 52 17"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M45 13 L 52 17 L 46 23"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
@@ -353,49 +243,43 @@ export default function Home() {
 
             <div className="flex items-center gap-2">
               <a
-                href="https://github.com/amanvite"
+                href={PROFILE.github}
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 rounded-md border border-zinc-200 bg-white text-zinc-600 hover:text-zinc-900 hover:border-zinc-300 transition-all"
+                className="p-2 rounded-md border pf-border pf-card pf-text pf-hover transition-all"
                 title="GitHub"
               >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                </svg>
+                <GithubIcon className="w-4 h-4" />
               </a>
               <a
-                href="https://www.linkedin.com/in/amanvite/"
+                href={PROFILE.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 rounded-md border border-zinc-200 bg-white text-zinc-600 hover:text-zinc-900 hover:border-zinc-300 transition-all"
+                className="p-2 rounded-md border pf-border pf-card pf-text pf-hover transition-all"
                 title="LinkedIn"
               >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
+                <LinkedinIcon className="w-4 h-4" />
               </a>
               <a
-                href="mailto:info.amanvite@gmail.com"
-                className="p-2 rounded-md border border-zinc-200 bg-white text-zinc-600 hover:text-zinc-900 hover:border-zinc-300 transition-all"
+                href={PROFILE.youtube}
+                target="_blank"
+                rel="noreferrer"
+                className="p-2 rounded-md border pf-border pf-card pf-text pf-hover transition-all"
+                title="YouTube"
+              >
+                <YoutubeIcon className="w-4 h-4" />
+              </a>
+              <a
+                href={`mailto:${PROFILE.email}`}
+                className="p-2 rounded-md border pf-border pf-card pf-text pf-hover transition-all"
                 title="Email"
               >
-                <svg
-                  className="w-4 h-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect width="20" height="16" x="2" y="4" rx="2" />
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                </svg>
+                <MailIcon className="w-4 h-4" />
               </a>
             </div>
 
             <div
-              className="text-[11px] text-zinc-400"
+              className="text-[11px] pf-muted"
               style={{ fontFamily: '"JetBrains Mono", monospace' }}
             >
               MERN • TypeScript
@@ -403,13 +287,11 @@ export default function Home() {
           </div>
         </section>
 
-        <HatchedDivider />
+        <Divider />
 
-        {/* ================= 2. ABOUT SECTION ================= */}
         <section id="about" className="px-5 sm:px-7 py-8 scroll-mt-20">
-          {/* Handwritten Greeting matching screenshot */}
           <h2
-            className="text-4xl text-zinc-900 mb-4 tracking-normal select-none"
+            className="text-4xl pf-title mb-4 tracking-normal select-none"
             style={{
               fontFamily: '"Caveat", "Segoe Print", "Bradley Hand", cursive',
               fontWeight: 700,
@@ -418,35 +300,36 @@ export default function Home() {
             {greeting}
           </h2>
 
-          <p className="text-[15px] text-zinc-600 leading-relaxed">
-            I architect and engineer scalable web ecosystems, focusing strictly on the MERN stack and robust TypeScript environments. I build products end-to-end: from database persistence and server-side logic to client-side DOM execution.
-          </p>
+          <p className="text-[15px] pf-text leading-relaxed">{PROFILE.bio}</p>
         </section>
 
-        <HatchedDivider />
+        <Divider />
 
-        {/* ================= 3. STACK SECTION ================= */}
         <section id="stack" className="scroll-mt-20">
-          <div className="px-5 sm:px-7 py-5 border-b border-zinc-200">
-            <h2 className="text-lg font-bold text-zinc-900 tracking-tight">
-              Stack
-            </h2>
+          <div className="px-5 sm:px-7 py-5 border-b pf-border flex items-center justify-between">
+            <h2 className="text-lg font-bold pf-title tracking-tight">Stack</h2>
+            <span
+              className="text-[11px] pf-muted"
+              style={{ fontFamily: '"JetBrains Mono", monospace' }}
+            >
+              01 — 06
+            </span>
           </div>
 
-          <div className="divide-y divide-zinc-200">
+          <div className="divide-y pf-divide">
             {STACK.map((row) => (
               <div
                 key={row.num}
-                className="grid grid-cols-1 sm:grid-cols-[180px_1fr] hover:bg-zinc-50/60 transition-colors"
+                className="grid grid-cols-1 sm:grid-cols-[180px_1fr] pf-hover transition-colors"
               >
-                <div className="px-5 sm:px-7 py-3.5 sm:border-r border-zinc-200 flex items-center gap-3">
+                <div className="px-5 sm:px-7 py-3.5 sm:border-r pf-border flex items-center gap-3">
                   <span
-                    className="text-[11px] text-zinc-400"
+                    className="text-[11px] pf-muted"
                     style={{ fontFamily: '"JetBrains Mono", monospace' }}
                   >
                     {row.num}
                   </span>
-                  <span className="text-xs font-semibold text-zinc-700">
+                  <span className="text-xs font-semibold pf-title">
                     {row.category}
                   </span>
                 </div>
@@ -455,7 +338,7 @@ export default function Home() {
                   {row.items.map((item) => (
                     <span
                       key={item.name}
-                      className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md border border-zinc-200 bg-white text-xs font-medium text-zinc-700"
+                      className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md border pf-border pf-card text-xs font-medium pf-title"
                     >
                       <span
                         className="w-2 h-2 rounded-full"
@@ -470,89 +353,151 @@ export default function Home() {
           </div>
         </section>
 
-        <HatchedDivider />
+        <Divider />
 
-        {/* ================= 4. PROJECTS SECTION (No Stock Photos, Architectural Grid) ================= */}
         <section id="projects" className="scroll-mt-20">
-          <div className="px-5 sm:px-7 py-5 border-b border-zinc-200 flex items-center justify-between">
+          <div className="px-5 sm:px-7 py-5 border-b pf-border flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <h2 className="text-lg font-bold text-zinc-900 tracking-tight">
+              <h2 className="text-lg font-bold pf-title tracking-tight">
                 Projects
               </h2>
               <span
-                className="text-xs text-zinc-400"
+                className="text-xs pf-muted"
                 style={{ fontFamily: '"JetBrains Mono", monospace' }}
               >
                 ({PROJECTS.length})
               </span>
             </div>
-            <a
-              href="https://github.com/amanvite"
-              target="_blank"
-              rel="noreferrer"
-              className="text-xs font-medium text-zinc-500 hover:text-zinc-900 transition-colors inline-flex items-center gap-1"
+            <button
+              onClick={onOpenRepositories}
+              className="text-xs font-medium pf-muted hover:underline transition-colors inline-flex items-center gap-1 cursor-pointer"
             >
-              View GitHub
-              <svg
-                className="w-3.5 h-3.5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M7 17 17 7" />
-                <path d="M7 7h10v10" />
-              </svg>
-            </a>
+              All repositories <ArrowUpRightIcon className="w-3.5 h-3.5" />
+            </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:gap-px bg-zinc-200">
-            {PROJECTS.map((project, index) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:gap-px pf-grid-bg">
+            {PROJECTS.map((project) => (
               <a
                 key={project.id}
                 href={project.link}
                 target="_blank"
                 rel="noreferrer"
-                className="group bg-white p-6 flex flex-col justify-between hover:bg-zinc-50/80 transition-colors"
+                className="group pf-card p-6 flex flex-col justify-between pf-hover transition-colors"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <span
-                      className="inline-flex items-center gap-1.5 text-[10px] font-semibold text-zinc-400 uppercase tracking-wider"
+                      className="inline-flex items-center gap-1.5 text-[11px] font-semibold pf-muted"
                       style={{ fontFamily: '"JetBrains Mono", monospace' }}
                     >
-                      0{index + 1} // {project.tag}
+                      <RepoIcon className="w-3.5 h-3.5" />
+                      {project.repoName}
                     </span>
-                    <svg
-                      className="w-4 h-4 text-zinc-300 group-hover:text-zinc-900 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M7 17 17 7" />
-                      <path d="M7 7h10v10" />
-                    </svg>
+                    <ArrowUpRightIcon className="w-4 h-4 pf-muted group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                   </div>
 
-                  <h3 className="text-base font-bold text-zinc-900 group-hover:text-zinc-700 mb-2">
-                    {project.title}
-                  </h3>
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <h3 className="text-base font-bold pf-title">
+                      {project.title}
+                    </h3>
+                    <span
+                      className="inline-flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded pf-pill pf-muted border pf-border"
+                      style={{ fontFamily: '"JetBrains Mono", monospace' }}
+                    >
+                      <GitBranchIcon className="w-2.5 h-2.5" />
+                      {project.branch}@{project.commitSha}
+                    </span>
+                  </div>
 
-                  <p className="text-xs text-zinc-500 leading-relaxed mb-6">
+                  <p className="text-xs pf-text leading-relaxed mb-5">
                     {project.description}
                   </p>
                 </div>
 
-                <div className="flex flex-wrap gap-1.5 pt-3 border-t border-zinc-100">
-                  {project.tech.map((t) => (
+                <div>
+                  <div className="w-full h-1 rounded-full overflow-hidden flex pf-pill mb-3">
+                    {project.langBar.map((lang) => (
+                      <div
+                        key={lang.name}
+                        style={{
+                          width: `${lang.pct}%`,
+                          backgroundColor: lang.color,
+                        }}
+                      />
+                    ))}
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tech.map((t) => (
+                      <span
+                        key={t}
+                        className="px-2 py-0.5 pf-pill pf-text rounded text-[11px] font-medium border pf-border"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <Divider />
+
+        <section id="utilities" className="scroll-mt-20">
+          <div className="px-5 sm:px-7 py-5 border-b pf-border flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <h2 className="text-lg font-bold pf-title tracking-tight">
+                Packages &amp; Utilities
+              </h2>
+              <span
+                className="text-xs pf-muted"
+                style={{ fontFamily: '"JetBrains Mono", monospace' }}
+              >
+                ({UTILITY_PACKAGES.length})
+              </span>
+            </div>
+          </div>
+
+          <div className="divide-y pf-divide">
+            {UTILITY_PACKAGES.map((pkg) => (
+              <a
+                key={pkg.name}
+                href={pkg.link}
+                target="_blank"
+                rel="noreferrer"
+                className="block px-5 sm:px-7 py-5 pf-hover transition-colors group"
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="flex items-center gap-2.5">
+                    <TerminalIcon className="w-4 h-4 pf-muted" />
+                    <span
+                      className="text-sm font-bold pf-title group-hover:underline"
+                      style={{ fontFamily: '"JetBrains Mono", monospace' }}
+                    >
+                      {pkg.name}
+                    </span>
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded pf-pill pf-text border pf-border">
+                      {pkg.version}
+                    </span>
+                  </div>
+                  <span
+                    className="text-[10px] pf-muted uppercase"
+                    style={{ fontFamily: '"JetBrains Mono", monospace' }}
+                  >
+                    {pkg.type}
+                  </span>
+                </div>
+                <p className="text-xs pf-text leading-relaxed mb-3">
+                  {pkg.description}
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {pkg.tech.map((t) => (
                     <span
                       key={t}
-                      className="px-2 py-0.5 bg-zinc-100 text-zinc-600 rounded text-[11px] font-medium border border-zinc-200/60"
+                      className="px-2 py-0.5 pf-pill pf-text rounded text-[10px] font-mono border pf-border"
                     >
                       {t}
                     </span>
@@ -563,19 +508,18 @@ export default function Home() {
           </div>
         </section>
 
-        <HatchedDivider />
+        <Divider />
 
-        {/* ================= 5. EDUCATION SECTION ================= */}
         <section id="education" className="scroll-mt-20">
-          <div className="px-5 sm:px-7 py-5 border-b border-zinc-200">
-            <h2 className="text-lg font-bold text-zinc-900 tracking-tight">
+          <div className="px-5 sm:px-7 py-5 border-b pf-border">
+            <h2 className="text-lg font-bold pf-title tracking-tight">
               Education
             </h2>
           </div>
 
           <div className="px-5 sm:px-7 py-6">
             <div className="flex items-start gap-3.5">
-              <div className="w-9 h-9 rounded-lg border border-zinc-200 bg-zinc-50 flex items-center justify-center shrink-0 mt-0.5 text-zinc-600">
+              <div className="w-9 h-9 rounded-lg border pf-border pf-subtle flex items-center justify-center shrink-0 mt-0.5 pf-muted">
                 <svg
                   className="w-4 h-4"
                   viewBox="0 0 24 24"
@@ -592,92 +536,87 @@ export default function Home() {
 
               <div className="flex-1 min-w-0">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
-                  <h3 className="text-sm font-bold text-zinc-900">
+                  <h3 className="text-sm font-bold pf-title">
                     Manipal University Jaipur
                   </h3>
                   <span
-                    className="text-xs text-zinc-400"
+                    className="text-xs pf-muted"
                     style={{ fontFamily: '"JetBrains Mono", monospace' }}
                   >
                     Expected 2028
                   </span>
                 </div>
 
-                <p className="text-xs text-zinc-500 mb-3">
+                <p className="text-xs pf-text">
                   Bachelor of Computer Applications (BCA)
                 </p>
-
-                <div className="flex flex-wrap gap-1.5">
-                  {[
-                    'Data Structures & Algorithms',
-                    'Full-Stack Web Development',
-                    'Database Management Systems',
-                    'Object-Oriented Programming',
-                  ].map((course) => (
-                    <span
-                      key={course}
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded border border-zinc-200 bg-zinc-50 text-[11px] text-zinc-600"
-                    >
-                      {course}
-                    </span>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <HatchedDivider />
+        <Divider />
 
-        {/* ================= FOOTER ================= */}
-        <footer className="px-5 sm:px-7 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-400">
+        <section className="px-5 sm:px-7 py-12 text-center border-b pf-border pf-subtle">
+          <div className="pf-muted text-2xl font-serif mb-2">&ldquo;&rdquo;</div>
+          <blockquote className="text-sm sm:text-base italic font-serif pf-title max-w-md mx-auto leading-relaxed">
+            &ldquo;The best time to plant a tree was 20 years ago. The second best time is now.&rdquo;
+          </blockquote>
+          <div
+            className="text-[10px] pf-muted uppercase tracking-widest mt-3"
+            style={{ fontFamily: '"JetBrains Mono", monospace' }}
+          >
+            Chinese Proverb
+          </div>
+        </section>
+
+        <footer className="px-5 sm:px-7 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs pf-muted">
           <span>
             Open to a good conversation.{' '}
-            <a
-              href="mailto:info.amanvite@gmail.com"
-              className="text-zinc-700 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-900 transition-colors"
+            <button
+              onClick={onOpenContact}
+              className="pf-title underline underline-offset-4 cursor-pointer"
             >
               Say hi.
-            </a>
+            </button>
           </span>
           <span
             className="text-[11px]"
             style={{ fontFamily: '"JetBrains Mono", monospace' }}
           >
-            © {new Date().getFullYear()} Aman Verma
+            © {new Date().getFullYear()} {PROFILE.name}
           </span>
         </footer>
       </main>
 
-      {/* ================= RIGHT STICKY SCROLL-SPY INDEX ================= */}
-      <aside className="hidden lg:block w-40 shrink-0">
-        <div className="sticky top-24 pt-2">
+      {/* Anchored outside the 740px column so the main borders never shift off-center */}
+      <aside className="hidden xl:block absolute left-full top-0 ml-10 w-40 h-full">
+        <div className="sticky top-24 pt-4">
           <h4
-            className="text-[11px] font-bold text-zinc-400 uppercase tracking-widest mb-3 pl-4"
+            className="text-[11px] font-bold pf-muted uppercase tracking-widest mb-3 pl-4"
             style={{ fontFamily: '"JetBrains Mono", monospace' }}
           >
             Index
           </h4>
 
-          <div className="relative border-l border-zinc-200">
-            {/* Sliding Active Bar Indicator */}
+          <div className="relative border-l pf-border">
             <div
-              className="absolute -left-[1.5px] top-0 w-[2px] h-8 bg-zinc-900 transition-transform duration-200 ease-out"
+              className="absolute -left-[1.5px] top-0 w-[2px] h-8 pf-indicator transition-transform duration-200 ease-out"
               style={{ transform: `translateY(${activeIdx * 32}px)` }}
             />
 
             <nav className="flex flex-col">
-              {NAV_SECTIONS.map((item) => {
+              {SECTIONS.map((item) => {
                 const isActive = activeSection === item.id;
                 return (
                   <a
                     key={item.id}
                     href={`#${item.id}`}
-                    onClick={(e) => scrollToSection(e, item.id)}
+                    onClick={(e) => jumpTo(e, item.id)}
                     className={`h-8 flex items-center pl-4 text-xs transition-all duration-200 ${
                       isActive
-                        ? 'text-zinc-900 font-semibold translate-x-1'
-                        : 'text-zinc-400 hover:text-zinc-700 font-normal'
+                        ? 'pf-title font-semibold translate-x-1'
+                        : 'pf-muted hover:opacity-80 font-normal'
                     }`}
                   >
                     {item.label}
