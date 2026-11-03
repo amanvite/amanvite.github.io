@@ -71,7 +71,7 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen pf-bg pf-text font-sans transition-colors duration-200 overflow-x-hidden ${theme}`}>
+    <div className={`min-h-screen pf-bg pf-text font-sans transition-colors duration-200 ${theme}`}>
       <style>{`
         :root {
           --pf-bg: #ffffff;
@@ -96,6 +96,9 @@ export default function App() {
           --pf-muted: #71717a;
           --pf-hover: rgba(39, 39, 42, 0.5);
           --pf-hatch-line: #18181b;
+        }
+        body {
+          overflow-x: clip;
         }
         .pf-bg { background-color: var(--pf-bg); }
         .pf-card { background-color: var(--pf-card); }

@@ -585,8 +585,9 @@ export default function Home({
         </footer>
       </main>
 
-      <aside className="hidden xl:block absolute left-full top-0 ml-8 w-36 h-full">
-        <div className="sticky top-24 pt-4">
+      {/* Fixed to viewport so it never scrolls off screen */}
+      <aside className="hidden xl:block fixed top-24 left-[calc(50%+442px)] w-36 z-30">
+        <div className="pt-2">
           <h4
             className="text-[11px] font-bold pf-muted uppercase tracking-widest mb-3 pl-4"
             style={{ fontFamily: '"JetBrains Mono", monospace' }}
