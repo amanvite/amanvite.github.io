@@ -13,14 +13,11 @@ import {
   YoutubeIcon,
   MailIcon,
   VerifiedIcon,
-  RepoIcon,
-  GitBranchIcon,
   TerminalIcon,
   ArrowUpRightIcon,
   CopyIcon,
   CheckIcon,
   CollapseIcon,
-  PixelCatIcon,
   TechBadgeIcon,
 } from '../components/Icons';
 
@@ -392,28 +389,11 @@ export default function Home({
                 className="group pf-card p-6 flex flex-col justify-between pf-hover transition-colors"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span
-                      className="inline-flex items-center gap-1.5 text-[11px] font-semibold pf-muted"
-                      style={{ fontFamily: '"JetBrains Mono", monospace' }}
-                    >
-                      <RepoIcon className="w-3.5 h-3.5" />
-                      {project.repoName}
-                    </span>
-                    <ArrowUpRightIcon className="w-4 h-4 pf-muted group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
-                  </div>
-
                   <div className="flex items-center justify-between gap-2 mb-2">
-                    <h3 className="text-base font-bold pf-title">
+                    <h3 className="text-base font-bold pf-title group-hover:underline">
                       {project.title}
                     </h3>
-                    <span
-                      className="inline-flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded pf-pill pf-muted border pf-border"
-                      style={{ fontFamily: '"JetBrains Mono", monospace' }}
-                    >
-                      <GitBranchIcon className="w-2.5 h-2.5" />
-                      {project.branch}@{project.commitSha}
-                    </span>
+                    <ArrowUpRightIcon className="w-4 h-4 pf-muted group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
                   </div>
 
                   <p className="text-xs pf-text leading-relaxed mb-5">
@@ -421,29 +401,15 @@ export default function Home({
                   </p>
                 </div>
 
-                <div>
-                  <div className="w-full h-1 rounded-full overflow-hidden flex pf-pill mb-3">
-                    {project.langBar.map((lang) => (
-                      <div
-                        key={lang.name}
-                        style={{
-                          width: `${lang.pct}%`,
-                          backgroundColor: lang.color,
-                        }}
-                      />
-                    ))}
-                  </div>
-
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="px-2 py-0.5 pf-pill pf-text rounded text-[11px] font-medium border pf-border"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
+                <div className="flex flex-wrap gap-1.5 pt-3 border-t pf-border">
+                  {project.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="px-2 py-0.5 pf-pill pf-text rounded text-[11px] font-medium border pf-border"
+                    >
+                      {t}
+                    </span>
+                  ))}
                 </div>
               </a>
             ))}
@@ -489,12 +455,7 @@ export default function Home({
                       {pkg.version}
                     </span>
                   </div>
-                  <span
-                    className="text-[10px] pf-muted uppercase"
-                    style={{ fontFamily: '"JetBrains Mono", monospace' }}
-                  >
-                    {pkg.type}
-                  </span>
+                  <ArrowUpRightIcon className="w-3.5 h-3.5 pf-muted" />
                 </div>
                 <p className="text-xs pf-text leading-relaxed mb-3">
                   {pkg.description}
@@ -516,7 +477,6 @@ export default function Home({
 
         <Divider />
 
-        {/* Expanded Education Section with L-Connector Line */}
         <section id="education" className="scroll-mt-20">
           <div className="px-5 sm:px-8 py-5 border-b pf-border">
             <h2 className="text-xl font-bold pf-title tracking-tight">
@@ -528,7 +488,6 @@ export default function Home({
             {EDUCATION.map((edu) => (
               <div key={edu.id} className="px-5 sm:px-8 py-6">
                 <div className="flex gap-3.5">
-                  {/* Left Column: Cap Icon + L-Shaped Connector Line */}
                   <div className="flex flex-col items-center shrink-0">
                     <div className="w-8 h-8 rounded-lg border pf-border pf-subtle flex items-center justify-center pf-muted">
                       <svg
@@ -549,7 +508,6 @@ export default function Home({
                     )}
                   </div>
 
-                  {/* Right Column: Details */}
                   <div className="flex-1 min-w-0">
                     <div
                       onClick={() => setEduExpanded((prev) => !prev)}
@@ -601,7 +559,6 @@ export default function Home({
 
         <Divider />
 
-        {/* Centered Bottom Navigation Menu Footer */}
         <footer className="px-5 sm:px-8 py-9 flex flex-col items-center gap-4 text-xs pf-muted">
           <nav className="flex flex-wrap items-center justify-center gap-6 pf-text font-medium">
             <button onClick={scrollToTop} className="hover:underline cursor-pointer">
@@ -630,7 +587,7 @@ export default function Home({
             className="text-[11px]"
             style={{ fontFamily: '"JetBrains Mono", monospace' }}
           >
-            © {new Date().getFullYear()}. Built with hands.
+            © {new Date().getFullYear()}. All rights reserved.
           </div>
         </footer>
       </main>
@@ -669,10 +626,6 @@ export default function Home({
                 );
               })}
             </nav>
-          </div>
-
-          <div className="pl-4 pt-5">
-            <PixelCatIcon className="w-6 h-6 pf-muted opacity-80" />
           </div>
         </div>
       </aside>

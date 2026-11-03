@@ -5,7 +5,7 @@ import {
   RepoIcon,
   ArrowUpRightIcon,
   TerminalIcon,
-  ThemeToggleIcon,
+  SunIcon,
   InstagramIcon,
   YoutubeIcon,
 } from './Icons';
@@ -140,7 +140,7 @@ export default function CommandPalette({
               className="w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs pf-text pf-hover transition-colors cursor-pointer text-left"
             >
               <span className="flex items-center gap-2">
-                <ThemeToggleIcon className="w-3.5 h-3.5 pf-muted" />
+                <SunIcon className="w-3.5 h-3.5 pf-muted" />
                 Switch Theme
               </span>
               <span className="text-[10px] font-mono pf-muted">Toggle</span>

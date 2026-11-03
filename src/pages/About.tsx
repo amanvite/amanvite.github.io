@@ -48,51 +48,77 @@ export default function About({
         </div>
       </div>
 
+      {/* Social Bar with Handwritten "Follow me" Margin Callout */}
       <div className="w-full border-b pf-border">
-        <div className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-3.5 flex items-center gap-2.5">
-          <a
-            href={PROFILE.github}
-            target="_blank"
-            rel="noreferrer"
-            className="w-8 h-8 rounded-md border pf-border pf-card flex items-center justify-center pf-text pf-hover transition-colors"
-            title="GitHub"
+        <div className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-3.5 flex items-center pf-subtle relative">
+          <div
+            className="hidden lg:flex items-center absolute -left-[104px] top-1 z-20 pf-muted select-none pointer-events-none"
+            style={{ fontFamily: '"Caveat", cursive' }}
           >
-            <GithubIcon className="w-4 h-4" />
-          </a>
-          <a
-            href={PROFILE.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            className="w-8 h-8 rounded-md border pf-border pf-card flex items-center justify-center pf-text pf-hover transition-colors"
-            title="LinkedIn"
-          >
-            <LinkedinIcon className="w-4 h-4" />
-          </a>
-          <a
-            href={PROFILE.instagram}
-            target="_blank"
-            rel="noreferrer"
-            className="w-8 h-8 rounded-md border pf-border pf-card flex items-center justify-center pf-text pf-hover transition-colors"
-            title="Instagram"
-          >
-            <InstagramIcon className="w-4 h-4" />
-          </a>
-          <a
-            href={PROFILE.youtube}
-            target="_blank"
-            rel="noreferrer"
-            className="w-8 h-8 rounded-md border pf-border pf-card flex items-center justify-center pf-text pf-hover transition-colors"
-            title="YouTube"
-          >
-            <YoutubeIcon className="w-4 h-4" />
-          </a>
-          <a
-            href={`mailto:${PROFILE.email}`}
-            className="w-8 h-8 rounded-md border pf-border pf-card flex items-center justify-center pf-text pf-hover transition-colors"
-            title="Email"
-          >
-            <MailIcon className="w-4 h-4" />
-          </a>
+            <span className="text-[23px] font-bold -rotate-12 leading-none whitespace-nowrap">
+              Follow me
+            </span>
+            <svg
+              className="w-11 h-8 -ml-1 translate-y-2 pf-muted"
+              viewBox="0 0 56 36"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+            >
+              <path d="M2 8 C 16 26, 34 26, 52 17" strokeLinecap="round" />
+              <path
+                d="M45 13 L 52 17 L 46 23"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div className="flex items-center gap-2.5">
+            <a
+              href={PROFILE.github}
+              target="_blank"
+              rel="noreferrer"
+              className="w-8 h-8 rounded-md border pf-border pf-card flex items-center justify-center pf-text pf-hover transition-colors"
+              title="GitHub"
+            >
+              <GithubIcon className="w-4 h-4" />
+            </a>
+            <a
+              href={PROFILE.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="w-8 h-8 rounded-md border pf-border pf-card flex items-center justify-center pf-text pf-hover transition-colors"
+              title="LinkedIn"
+            >
+              <LinkedinIcon className="w-4 h-4" />
+            </a>
+            <a
+              href={PROFILE.instagram}
+              target="_blank"
+              rel="noreferrer"
+              className="w-8 h-8 rounded-md border pf-border pf-card flex items-center justify-center pf-text pf-hover transition-colors"
+              title="Instagram"
+            >
+              <InstagramIcon className="w-4 h-4" />
+            </a>
+            <a
+              href={PROFILE.youtube}
+              target="_blank"
+              rel="noreferrer"
+              className="w-8 h-8 rounded-md border pf-border pf-card flex items-center justify-center pf-text pf-hover transition-colors"
+              title="YouTube"
+            >
+              <YoutubeIcon className="w-4 h-4" />
+            </a>
+            <a
+              href={`mailto:${PROFILE.email}`}
+              className="w-8 h-8 rounded-md border pf-border pf-card flex items-center justify-center pf-text pf-hover transition-colors"
+              title="Email"
+            >
+              <MailIcon className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </div>
 
@@ -304,7 +330,7 @@ export default function About({
             className="text-[11px]"
             style={{ fontFamily: '"JetBrains Mono", monospace' }}
           >
-            © {new Date().getFullYear()}. Built with hands.
+            © {new Date().getFullYear()}. All rights reserved.
           </div>
         </footer>
       </div>

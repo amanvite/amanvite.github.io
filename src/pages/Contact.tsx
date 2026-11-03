@@ -10,7 +10,6 @@ import {
   ClockIcon,
   CopyIcon,
   CheckIcon,
-  PixelCatIcon,
 } from '../components/Icons';
 
 function HatchedBand() {
@@ -59,12 +58,9 @@ export default function Contact({
 
       <div className="w-full border-b pf-border">
         <div className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-7">
-          <div className="flex items-center justify-between mb-2">
-            <h1 className="text-2xl sm:text-3xl font-bold pf-title tracking-tight">
-              Contact
-            </h1>
-            <PixelCatIcon className="w-7 h-7 pf-muted" />
-          </div>
+          <h1 className="text-2xl sm:text-3xl font-bold pf-title tracking-tight mb-2">
+            Contact
+          </h1>
           <p className="text-xs sm:text-[13.5px] pf-text leading-relaxed max-w-xl">
             Get in touch with {PROFILE.name} (@{PROFILE.handle}) for full-time remote roles and freelance MERN, TypeScript, and full-stack projects.
           </p>
@@ -118,7 +114,7 @@ export default function Contact({
             style={{ fontFamily: '"Caveat", cursive' }}
           >
             <span className="text-[23px] font-bold -rotate-12 leading-none whitespace-nowrap">
-              follow me
+              Follow me
             </span>
             <svg
               className="w-11 h-8 -ml-1 translate-y-2 pf-muted"
@@ -284,7 +280,7 @@ export default function Contact({
             className="text-[11px]"
             style={{ fontFamily: '"JetBrains Mono", monospace' }}
           >
-            © {new Date().getFullYear()}. Built with hands.
+            © {new Date().getFullYear()}. All rights reserved.
           </div>
         </footer>
       </div>

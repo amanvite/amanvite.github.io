@@ -4,7 +4,7 @@ import About from './pages/About';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import CommandPalette, { type PageView } from './components/CommandPalette';
-import { SearchIcon, ThemeToggleIcon } from './components/Icons';
+import { SearchIcon, SunIcon, MoonIcon } from './components/Icons';
 
 export default function App() {
   const [activePage, setActivePage] = useState<PageView>('overview');
@@ -130,75 +130,70 @@ export default function App() {
 
       <header className="sticky top-0 z-40 pf-card/90 backdrop-blur-md border-b pf-border h-14">
         <div className="max-w-[820px] mx-auto h-full px-4 sm:px-8 border-x pf-border flex items-center justify-between">
-          <div className="flex items-center gap-3 sm:gap-5">
+          <nav className="flex items-center gap-1 text-xs">
             <button
-              onClick={() => handleNavigate('overview', 'home')}
-              className="font-black text-xl tracking-tighter pf-title select-none cursor-pointer"
+              onClick={() => handleNavigate('overview')}
+              className={`px-2.5 py-1.5 rounded-md transition-colors cursor-pointer ${
+                activePage === 'overview'
+                  ? 'pf-pill pf-title font-semibold'
+                  : 'pf-muted hover:opacity-80'
+              }`}
             >
-              AV
+              Overview
             </button>
+            <button
+              onClick={() => handleNavigate('about')}
+              className={`px-2.5 py-1.5 rounded-md transition-colors cursor-pointer ${
+                activePage === 'about'
+                  ? 'pf-pill pf-title font-semibold'
+                  : 'pf-muted hover:opacity-80'
+              }`}
+            >
+              About
+            </button>
+            <button
+              onClick={() => handleNavigate('projects')}
+              className={`px-2.5 py-1.5 rounded-md transition-colors cursor-pointer ${
+                activePage === 'projects'
+                  ? 'pf-pill pf-title font-semibold'
+                  : 'pf-muted hover:opacity-80'
+              }`}
+            >
+              Projects
+            </button>
+            <button
+              onClick={() => handleNavigate('contact')}
+              className={`px-2.5 py-1.5 rounded-md transition-colors cursor-pointer ${
+                activePage === 'contact'
+                  ? 'pf-pill pf-title font-semibold'
+                  : 'pf-muted hover:opacity-80'
+              }`}
+            >
+              Contact
+            </button>
+          </nav>
 
-            <nav className="flex items-center gap-0.5 sm:gap-1 text-xs">
-              <button
-                onClick={() => handleNavigate('overview')}
-                className={`px-2 sm:px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
-                  activePage === 'overview'
-                    ? 'pf-pill pf-title font-semibold'
-                    : 'pf-muted hover:opacity-80'
-                }`}
-              >
-                Overview
-              </button>
-              <button
-                onClick={() => handleNavigate('about')}
-                className={`px-2 sm:px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
-                  activePage === 'about'
-                    ? 'pf-pill pf-title font-semibold'
-                    : 'pf-muted hover:opacity-80'
-                }`}
-              >
-                About
-              </button>
-              <button
-                onClick={() => handleNavigate('projects')}
-                className={`px-2 sm:px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
-                  activePage === 'projects'
-                    ? 'pf-pill pf-title font-semibold'
-                    : 'pf-muted hover:opacity-80'
-                }`}
-              >
-                Projects
-              </button>
-              <button
-                onClick={() => handleNavigate('contact')}
-                className={`px-2 sm:px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
-                  activePage === 'contact'
-                    ? 'pf-pill pf-title font-semibold'
-                    : 'pf-muted hover:opacity-80'
-                }`}
-              >
-                Contact
-              </button>
-            </nav>
-          </div>
-
-          <div className="flex items-center gap-0.5 sm:gap-1">
+          <div className="flex items-center gap-2">
             <button
               onClick={() => setPaletteOpen(true)}
-              className="p-2 rounded-md border border-transparent hover:border-zinc-300 dark:hover:border-zinc-700 pf-title pf-hover transition-all cursor-pointer"
+              className="w-8 h-8 rounded-lg border pf-border pf-card pf-hover flex items-center justify-center pf-title shadow-2xs transition-all cursor-pointer"
               title="Search (⌘K)"
               aria-label="Search"
             >
-              <SearchIcon className="w-4 h-4" />
+              <SearchIcon className="w-3.5 h-3.5" />
             </button>
 
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-md border border-transparent hover:border-zinc-300 dark:hover:border-zinc-700 pf-title pf-hover transition-all cursor-pointer"
-              title={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
+              className="w-8 h-8 rounded-lg border pf-border pf-card pf-hover flex items-center justify-center pf-title shadow-2xs transition-all cursor-pointer"
+              title={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
               aria-label="Toggle theme"
             >
-              <ThemeToggleIcon className="w-4 h-4" />
+              {theme === 'dark' ? (
+                <SunIcon className="w-3.5 h-3.5 text-amber-400" />
+              ) : (
+                <MoonIcon className="w-3.5 h-3.5" />
+              )}
             </button>
           </div>
         </div>
