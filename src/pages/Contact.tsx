@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { PROFILE } from '../data';
 import {
   GithubIcon,
@@ -49,7 +49,7 @@ export default function Contact() {
       <HatchedBand />
 
       <div className="w-full border-b pf-border">
-        <div className="max-w-[740px] mx-auto border-x pf-border px-5 sm:px-7 py-7">
+        <div className="max-w-[820px] mx-auto border-x pf-border px-6 sm:px-8 py-7">
           <div className="flex items-center justify-between mb-2">
             <h1 className="text-2xl sm:text-3xl font-bold pf-title tracking-tight">
               Contact
@@ -63,7 +63,7 @@ export default function Contact() {
       </div>
 
       <div className="w-full border-b pf-border">
-        <div className="max-w-[740px] mx-auto border-x pf-border px-5 sm:px-7 py-5">
+        <div className="max-w-[820px] mx-auto border-x pf-border px-6 sm:px-8 py-5">
           <div
             className="grid grid-cols-1 sm:grid-cols-2 gap-y-3.5 gap-x-6 text-xs"
             style={{ fontFamily: '"JetBrains Mono", monospace' }}
@@ -94,7 +94,7 @@ export default function Contact() {
                 <ClockIcon className="w-3.5 h-3.5" />
               </span>
               <span className="pf-title">
-                {timeStr || '12:56 PM'}{' '}
+                {timeStr || '02:30 PM'}{' '}
                 <span className="pf-muted">// IST</span>
               </span>
             </div>
@@ -103,7 +103,7 @@ export default function Contact() {
       </div>
 
       <div className="w-full border-b pf-border">
-        <div className="max-w-[740px] mx-auto border-x pf-border px-5 sm:px-7 py-4 relative">
+        <div className="max-w-[820px] mx-auto border-x pf-border px-6 sm:px-8 py-4 relative">
           <div
             className="hidden lg:flex items-center absolute -left-[104px] top-1.5 z-20 pf-muted select-none pointer-events-none"
             style={{ fontFamily: '"Caveat", cursive' }}
@@ -118,10 +118,7 @@ export default function Contact() {
               stroke="currentColor"
               strokeWidth="1.8"
             >
-              <path
-                d="M2 8 C 16 26, 34 26, 52 17"
-                strokeLinecap="round"
-              />
+              <path d="M2 8 C 16 26, 34 26, 52 17" strokeLinecap="round" />
               <path
                 d="M45 13 L 52 17 L 46 23"
                 strokeLinecap="round"
@@ -189,7 +186,7 @@ export default function Contact() {
       <HatchedBand />
 
       <div className="w-full border-b pf-border">
-        <div className="max-w-[740px] mx-auto border-x pf-border px-5 sm:px-7 py-7 space-y-4 text-xs sm:text-[13.5px] pf-text leading-relaxed">
+        <div className="max-w-[820px] mx-auto border-x pf-border px-6 sm:px-8 py-7 space-y-4 text-xs sm:text-[13.5px] pf-text leading-relaxed">
           <p>
             I&apos;m open to full-time remote roles and freelance projects: React and TypeScript web applications, real-time Socket.io architectures, React Native mobile apps, and Node.js APIs. Email is the fastest way to reach me, and I usually reply within a day.
           </p>
@@ -229,7 +226,7 @@ export default function Contact() {
       <HatchedBand />
 
       <div className="w-full border-b pf-border">
-        <div className="max-w-[740px] mx-auto border-x pf-border px-5 sm:px-7 py-16 text-center">
+        <div className="max-w-[820px] mx-auto border-x pf-border px-6 sm:px-8 py-16 text-center">
           <div className="text-3xl font-serif pf-muted mb-3 select-none">&rdquo;</div>
           <blockquote className="text-base sm:text-lg italic font-serif pf-title max-w-md mx-auto mb-4">
             &ldquo;It always seems impossible until it&apos;s done.&rdquo;
@@ -244,7 +241,7 @@ export default function Contact() {
       </div>
 
       <div className="w-full">
-        <footer className="max-w-[740px] mx-auto border-x pf-border px-5 sm:px-7 py-7 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs pf-muted">
+        <footer className="max-w-[820px] mx-auto border-x pf-border px-6 sm:px-8 py-7 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs pf-muted">
           <span>
             Open to a good conversation.{' '}
             <a

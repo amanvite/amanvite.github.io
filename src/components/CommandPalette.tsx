@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { PROJECTS, PROFILE } from '../data';
 import {
   SearchIcon,
@@ -9,10 +9,12 @@ import {
   YoutubeIcon,
 } from './Icons';
 
+export type PageView = 'overview' | 'about' | 'projects' | 'contact';
+
 interface CommandPaletteProps {
   isOpen: boolean;
   onClose: () => void;
-  onNavigatePage: (page: 'overview' | 'repositories' | 'contact', sectionId?: string) => void;
+  onNavigatePage: (page: PageView, sectionId?: string) => void;
   onToggleTheme: () => void;
 }
 
@@ -59,7 +61,7 @@ export default function CommandPalette({
             autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search pages, repositories, or actions..."
+            placeholder="Search pages, projects, or actions..."
             className="w-full text-sm bg-transparent pf-title placeholder:text-zinc-400 focus:outline-none"
           />
           <button
@@ -77,7 +79,8 @@ export default function CommandPalette({
             </div>
             {[
               { label: 'Overview', page: 'overview' as const, sec: 'home' },
-              { label: 'Repositories', page: 'repositories' as const },
+              { label: 'About Aman Verma', page: 'about' as const },
+              { label: 'Projects', page: 'projects' as const },
               { label: 'Contact', page: 'contact' as const },
               { label: 'Stack', page: 'overview' as const, sec: 'stack' },
               { label: 'Education', page: 'overview' as const, sec: 'education' },
@@ -131,7 +134,7 @@ export default function CommandPalette({
 
           <div className="pt-2">
             <div className="px-2.5 py-1.5 text-[10px] font-mono uppercase tracking-wider pf-muted">
-              Repositories ({matchingProjects.length})
+              Projects ({matchingProjects.length})
             </div>
             {matchingProjects.map((proj) => (
               <a
@@ -145,7 +148,7 @@ export default function CommandPalette({
                 <div className="flex items-center gap-2.5">
                   <RepoIcon className="w-3.5 h-3.5 pf-muted" />
                   <div>
-                    <div className="font-semibold pf-title">{proj.repoName}</div>
+                    <div className="font-semibold pf-title">{proj.title}</div>
                     <div className="text-[11px] pf-muted">{proj.tech.join(' • ')}</div>
                   </div>
                 </div>

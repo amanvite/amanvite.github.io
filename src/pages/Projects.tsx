@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { PROJECTS, UTILITY_PACKAGES, PROFILE } from '../data';
 import {
   RepoIcon,
@@ -8,7 +8,7 @@ import {
   TerminalIcon,
 } from '../components/Icons';
 
-export default function Repositories({
+export default function Projects({
   onBackHome,
 }: {
   onBackHome: () => void;
@@ -22,18 +22,18 @@ export default function Repositories({
       : PROJECTS.filter((p) => p.tech.includes(selectedFilter));
 
   return (
-    <div className="max-w-[740px] mx-auto">
+    <div className="max-w-[820px] mx-auto">
       <main className="w-full border-x pf-border pf-card min-h-screen">
-        <div className="px-5 sm:px-7 py-6 border-b pf-border flex items-center justify-between pf-subtle">
+        <div className="px-6 sm:px-8 py-6 border-b pf-border flex items-center justify-between pf-subtle">
           <div>
             <div
               className="text-[11px] pf-muted uppercase tracking-widest mb-1"
               style={{ fontFamily: '"JetBrains Mono", monospace' }}
             >
-              {PROFILE.handle} // repositories
+              {PROFILE.handle} // projects
             </div>
             <h1 className="text-xl sm:text-2xl font-bold pf-title tracking-tight">
-              Repositories &amp; Notes
+              Projects &amp; System Notes
             </h1>
           </div>
 
@@ -45,7 +45,7 @@ export default function Repositories({
           </button>
         </div>
 
-        <div className="px-5 sm:px-7 py-3.5 border-b pf-border flex flex-wrap items-center gap-2">
+        <div className="px-6 sm:px-8 py-3.5 border-b pf-border flex flex-wrap items-center gap-2">
           {filters.map((f) => (
             <button
               key={f}
@@ -65,7 +65,7 @@ export default function Repositories({
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              className="p-5 sm:p-7 pf-hover transition-colors"
+              className="p-6 sm:p-8 pf-hover transition-colors"
             >
               <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                 <div className="flex items-center gap-2">
@@ -76,10 +76,10 @@ export default function Repositories({
                     rel="noreferrer"
                     className="text-base font-bold pf-title hover:underline"
                   >
-                    {project.repoName}
+                    {project.title}
                   </a>
                   <span className="px-2 py-0.5 text-[10px] font-mono border pf-border rounded-full pf-muted">
-                    Public
+                    {project.repoName}
                   </span>
                 </div>
 
@@ -137,14 +137,14 @@ export default function Repositories({
                   rel="noreferrer"
                   className="inline-flex items-center gap-1 text-xs font-semibold pf-title hover:underline"
                 >
-                  Live Deployment <ArrowUpRightIcon className="w-3.5 h-3.5" />
+                  Open Project <ArrowUpRightIcon className="w-3.5 h-3.5" />
                 </a>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="px-5 sm:px-7 py-5 border-y pf-border pf-subtle">
+        <div className="px-6 sm:px-8 py-5 border-y pf-border pf-subtle">
           <h2 className="text-base font-bold pf-title">
             Standalone Utilities
           </h2>
@@ -157,7 +157,7 @@ export default function Repositories({
               href={pkg.link}
               target="_blank"
               rel="noreferrer"
-              className="block p-5 sm:p-7 pf-hover transition-colors group"
+              className="block p-6 sm:p-8 pf-hover transition-colors group"
             >
               <div className="flex items-center justify-between mb-1.5">
                 <div className="flex items-center gap-2">

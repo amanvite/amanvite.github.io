@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Home from './pages/Home';
-import Repositories from './pages/Repositories';
+import About from './pages/About';
+import Projects from './pages/Projects';
 import Contact from './pages/Contact';
-import CommandPalette from './components/CommandPalette';
+import CommandPalette, { type PageView } from './components/CommandPalette';
 import { SearchIcon, ThemeToggleIcon } from './components/Icons';
-
-type PageView = 'overview' | 'repositories' | 'contact';
 
 export default function App() {
   const [activePage, setActivePage] = useState<PageView>('overview');
@@ -127,7 +126,7 @@ export default function App() {
       `}</style>
 
       <header className="sticky top-0 z-40 pf-card/90 backdrop-blur-md border-b pf-border h-14">
-        <div className="max-w-[740px] mx-auto h-full px-5 sm:px-7 border-x pf-border flex items-center justify-between">
+        <div className="max-w-[820px] mx-auto h-full px-6 sm:px-8 border-x pf-border flex items-center justify-between">
           <div className="flex items-center gap-5">
             <button
               onClick={() => handleNavigate('overview', 'home')}
@@ -148,14 +147,24 @@ export default function App() {
                 Overview
               </button>
               <button
-                onClick={() => handleNavigate('repositories')}
+                onClick={() => handleNavigate('about')}
                 className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
-                  activePage === 'repositories'
+                  activePage === 'about'
                     ? 'pf-pill pf-title font-semibold'
                     : 'pf-muted hover:opacity-80'
                 }`}
               >
-                Repositories
+                About
+              </button>
+              <button
+                onClick={() => handleNavigate('projects')}
+                className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
+                  activePage === 'projects'
+                    ? 'pf-pill pf-title font-semibold'
+                    : 'pf-muted hover:opacity-80'
+                }`}
+              >
+                Projects
               </button>
               <button
                 onClick={() => handleNavigate('contact')}
@@ -194,12 +203,20 @@ export default function App() {
 
       {activePage === 'overview' && (
         <Home
-          onOpenRepositories={() => handleNavigate('repositories')}
+          onOpenProjects={() => handleNavigate('projects')}
+          onOpenAbout={() => handleNavigate('about')}
           onOpenContact={() => handleNavigate('contact')}
         />
       )}
-      {activePage === 'repositories' && (
-        <Repositories onBackHome={() => handleNavigate('overview')} />
+      {activePage === 'about' && (
+        <About
+          onOpenProjects={() => handleNavigate('projects')}
+          onOpenContact={() => handleNavigate('contact')}
+          onOpenHome={() => handleNavigate('overview')}
+        />
+      )}
+      {activePage === 'projects' && (
+        <Projects onBackHome={() => handleNavigate('overview')} />
       )}
       {activePage === 'contact' && <Contact />}
 

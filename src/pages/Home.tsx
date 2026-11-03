@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, type MouseEvent } from 'react';
 import {
   PROFILE,
   STACK,
@@ -17,6 +17,8 @@ import {
   ArrowUpRightIcon,
   CopyIcon,
   CheckIcon,
+  PixelCatIcon,
+  TechBadgeIcon,
 } from '../components/Icons';
 
 const SECTIONS = [
@@ -33,10 +35,12 @@ function Divider() {
 }
 
 export default function Home({
-  onOpenRepositories,
+  onOpenProjects,
+  onOpenAbout,
   onOpenContact,
 }: {
-  onOpenRepositories: () => void;
+  onOpenProjects: () => void;
+  onOpenAbout: () => void;
   onOpenContact: () => void;
 }) {
   const [greeting, setGreeting] = useState('Good morning');
@@ -104,7 +108,7 @@ export default function Home({
     }
   };
 
-  const jumpTo = (e: React.MouseEvent, id: string) => {
+  const jumpTo = (e: MouseEvent, id: string) => {
     e.preventDefault();
     setActiveSection(id);
     const el = document.getElementById(id);
@@ -120,11 +124,11 @@ export default function Home({
   );
 
   return (
-    <div className="max-w-[740px] mx-auto relative">
+    <div className="max-w-[820px] mx-auto relative">
       <main className="w-full border-x pf-border pf-card min-h-screen">
         <section id="home" className="scroll-mt-20">
           <div className="p-3 sm:p-4 pb-0">
-            <div className="relative w-full h-40 sm:h-48 rounded-xl overflow-hidden border pf-border bg-zinc-900">
+            <div className="relative w-full h-44 sm:h-52 rounded-xl overflow-hidden border pf-border bg-zinc-900">
               <img
                 src={PROFILE.banner}
                 alt="Banner"
@@ -143,7 +147,7 @@ export default function Home({
             </div>
           </div>
 
-          <div className="px-5 sm:px-7 -mt-9 sm:-mt-11 relative z-10 flex items-end justify-between gap-4 mb-4">
+          <div className="px-6 sm:px-8 -mt-9 sm:-mt-11 relative z-10 flex items-end justify-between gap-4 mb-4">
             <div className="flex items-end gap-4">
               <img
                 src={PROFILE.avatar}
@@ -177,17 +181,22 @@ export default function Home({
             </a>
           </div>
 
-          <div className="px-5 sm:px-7 pb-6">
+          <div className="px-6 sm:px-8 pb-6">
             <p className="text-[13.5px] pf-text mb-5">{PROFILE.role}</p>
 
             <div className="flex flex-wrap items-center gap-2.5">
-              <a
-                href="#projects"
-                onClick={(e) => jumpTo(e, 'projects')}
-                className="px-3.5 py-1.5 pf-btn-primary text-xs font-medium rounded-md transition-opacity"
+              <button
+                onClick={onOpenProjects}
+                className="px-3.5 py-1.5 pf-btn-primary text-xs font-medium rounded-md transition-opacity cursor-pointer"
               >
                 View projects
-              </a>
+              </button>
+              <button
+                onClick={onOpenAbout}
+                className="px-3.5 py-1.5 pf-pill pf-title border pf-border text-xs font-medium rounded-md pf-hover transition-colors cursor-pointer"
+              >
+                About
+              </button>
               <button
                 onClick={onOpenContact}
                 className="px-3.5 py-1.5 pf-pill pf-title border pf-border text-xs font-medium rounded-md pf-hover transition-colors cursor-pointer"
@@ -213,8 +222,7 @@ export default function Home({
             </div>
           </div>
 
-          <div className="px-5 sm:px-7 py-3.5 border-t pf-border flex items-center justify-between pf-subtle relative">
-            {/* Handwritten callout with arrow cutting right across the left border line */}
+          <div className="px-6 sm:px-8 py-3.5 border-t pf-border flex items-center justify-between pf-subtle relative">
             <div
               className="hidden lg:flex items-center absolute -left-[104px] top-1 z-20 pf-muted select-none pointer-events-none"
               style={{ fontFamily: '"Caveat", cursive' }}
@@ -229,10 +237,7 @@ export default function Home({
                 stroke="currentColor"
                 strokeWidth="1.8"
               >
-                <path
-                  d="M2 8 C 16 26, 34 26, 52 17"
-                  strokeLinecap="round"
-                />
+                <path d="M2 8 C 16 26, 34 26, 52 17" strokeLinecap="round" />
                 <path
                   d="M45 13 L 52 17 L 46 23"
                   strokeLinecap="round"
@@ -289,7 +294,7 @@ export default function Home({
 
         <Divider />
 
-        <section id="about" className="px-5 sm:px-7 py-8 scroll-mt-20">
+        <section id="about" className="px-6 sm:px-8 py-8 scroll-mt-20">
           <h2
             className="text-4xl pf-title mb-4 tracking-normal select-none"
             style={{
@@ -306,45 +311,36 @@ export default function Home({
         <Divider />
 
         <section id="stack" className="scroll-mt-20">
-          <div className="px-5 sm:px-7 py-5 border-b pf-border flex items-center justify-between">
-            <h2 className="text-lg font-bold pf-title tracking-tight">Stack</h2>
-            <span
-              className="text-[11px] pf-muted"
-              style={{ fontFamily: '"JetBrains Mono", monospace' }}
-            >
-              01 — 06
-            </span>
+          <div className="px-6 sm:px-8 py-5 border-b pf-border">
+            <h2 className="text-xl font-bold pf-title tracking-tight">Stack</h2>
           </div>
 
           <div className="divide-y pf-divide">
             {STACK.map((row) => (
               <div
                 key={row.num}
-                className="grid grid-cols-1 sm:grid-cols-[180px_1fr] pf-hover transition-colors"
+                className="grid grid-cols-1 sm:grid-cols-[180px_1fr] px-6 sm:px-8 py-4 items-start sm:items-center gap-2 sm:gap-4"
               >
-                <div className="px-5 sm:px-7 py-3.5 sm:border-r pf-border flex items-center gap-3">
+                <div className="flex items-center gap-2.5">
                   <span
-                    className="text-[11px] pf-muted"
+                    className="text-xs pf-muted"
                     style={{ fontFamily: '"JetBrains Mono", monospace' }}
                   >
                     {row.num}
                   </span>
-                  <span className="text-xs font-semibold pf-title">
+                  <span className="text-[13px] font-medium pf-text">
                     {row.category}
                   </span>
                 </div>
 
-                <div className="px-5 sm:px-6 pb-4 sm:py-3 flex flex-wrap items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   {row.items.map((item) => (
                     <span
                       key={item.name}
-                      className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md border pf-border pf-card text-xs font-medium pf-title"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border pf-border pf-card text-xs font-medium pf-title shadow-2xs"
                     >
-                      <span
-                        className="w-2 h-2 rounded-full"
-                        style={{ backgroundColor: item.dot }}
-                      />
-                      {item.name}
+                      <TechBadgeIcon type={item.icon} />
+                      <span>{item.name}</span>
                     </span>
                   ))}
                 </div>
@@ -356,9 +352,9 @@ export default function Home({
         <Divider />
 
         <section id="projects" className="scroll-mt-20">
-          <div className="px-5 sm:px-7 py-5 border-b pf-border flex items-center justify-between">
+          <div className="px-6 sm:px-8 py-5 border-b pf-border flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <h2 className="text-lg font-bold pf-title tracking-tight">
+              <h2 className="text-xl font-bold pf-title tracking-tight">
                 Projects
               </h2>
               <span
@@ -369,10 +365,10 @@ export default function Home({
               </span>
             </div>
             <button
-              onClick={onOpenRepositories}
+              onClick={onOpenProjects}
               className="text-xs font-medium pf-muted hover:underline transition-colors inline-flex items-center gap-1 cursor-pointer"
             >
-              All repositories <ArrowUpRightIcon className="w-3.5 h-3.5" />
+              View all projects <ArrowUpRightIcon className="w-3.5 h-3.5" />
             </button>
           </div>
 
@@ -447,9 +443,9 @@ export default function Home({
         <Divider />
 
         <section id="utilities" className="scroll-mt-20">
-          <div className="px-5 sm:px-7 py-5 border-b pf-border flex items-center justify-between">
+          <div className="px-6 sm:px-8 py-5 border-b pf-border flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <h2 className="text-lg font-bold pf-title tracking-tight">
+              <h2 className="text-xl font-bold pf-title tracking-tight">
                 Packages &amp; Utilities
               </h2>
               <span
@@ -468,7 +464,7 @@ export default function Home({
                 href={pkg.link}
                 target="_blank"
                 rel="noreferrer"
-                className="block px-5 sm:px-7 py-5 pf-hover transition-colors group"
+                className="block px-6 sm:px-8 py-5 pf-hover transition-colors group"
               >
                 <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-2.5">
@@ -511,13 +507,13 @@ export default function Home({
         <Divider />
 
         <section id="education" className="scroll-mt-20">
-          <div className="px-5 sm:px-7 py-5 border-b pf-border">
-            <h2 className="text-lg font-bold pf-title tracking-tight">
+          <div className="px-6 sm:px-8 py-5 border-b pf-border">
+            <h2 className="text-xl font-bold pf-title tracking-tight">
               Education
             </h2>
           </div>
 
-          <div className="px-5 sm:px-7 py-6">
+          <div className="px-6 sm:px-8 py-6">
             <div className="flex items-start gap-3.5">
               <div className="w-9 h-9 rounded-lg border pf-border pf-subtle flex items-center justify-center shrink-0 mt-0.5 pf-muted">
                 <svg
@@ -557,7 +553,7 @@ export default function Home({
 
         <Divider />
 
-        <section className="px-5 sm:px-7 py-12 text-center border-b pf-border pf-subtle">
+        <section className="px-6 sm:px-8 py-12 text-center border-b pf-border pf-subtle">
           <div className="pf-muted text-2xl font-serif mb-2">&ldquo;&rdquo;</div>
           <blockquote className="text-sm sm:text-base italic font-serif pf-title max-w-md mx-auto leading-relaxed">
             &ldquo;The best time to plant a tree was 20 years ago. The second best time is now.&rdquo;
@@ -570,7 +566,7 @@ export default function Home({
           </div>
         </section>
 
-        <footer className="px-5 sm:px-7 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs pf-muted">
+        <footer className="px-6 sm:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs pf-muted">
           <span>
             Open to a good conversation.{' '}
             <button
@@ -589,8 +585,7 @@ export default function Home({
         </footer>
       </main>
 
-      {/* Anchored outside the 740px column so the main borders never shift off-center */}
-      <aside className="hidden xl:block absolute left-full top-0 ml-10 w-40 h-full">
+      <aside className="hidden xl:block absolute left-full top-0 ml-8 w-36 h-full">
         <div className="sticky top-24 pt-4">
           <h4
             className="text-[11px] font-bold pf-muted uppercase tracking-widest mb-3 pl-4"
@@ -624,6 +619,10 @@ export default function Home({
                 );
               })}
             </nav>
+          </div>
+
+          <div className="pl-4 pt-5">
+            <PixelCatIcon className="w-6 h-6 pf-muted opacity-80" />
           </div>
         </div>
       </aside>

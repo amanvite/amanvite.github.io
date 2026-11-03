@@ -1,7 +1,12 @@
+export interface StackItem {
+  name: string;
+  icon: string;
+}
+
 export interface StackRow {
   num: string;
   category: string;
-  items: { name: string; dot: string }[];
+  items: StackItem[];
 }
 
 export interface ProjectItem {
@@ -47,56 +52,58 @@ export const STACK: StackRow[] = [
     num: '01',
     category: 'Language',
     items: [
-      { name: 'TypeScript', dot: '#3178C6' },
-      { name: 'JavaScript (ES6+)', dot: '#F7DF1E' },
-      { name: 'HTML5 / CSS3', dot: '#E34F26' },
+      { name: 'TypeScript', icon: 'ts' },
+      { name: 'JavaScript', icon: 'js' },
     ],
   },
   {
     num: '02',
     category: 'Frontend',
     items: [
-      { name: 'React', dot: '#61DAFB' },
-      { name: 'Vite', dot: '#646CFF' },
-      { name: 'Tailwind CSS', dot: '#06B6D4' },
-      { name: 'DOM API', dot: '#52525B' },
-      { name: 'Prism.js', dot: '#10B981' },
+      { name: 'HTML', icon: 'html' },
+      { name: 'CSS', icon: 'css' },
+      { name: 'React', icon: 'react' },
+      { name: 'Vite', icon: 'vite' },
+      { name: 'Tailwind CSS', icon: 'tailwind' },
+      { name: 'DOM API', icon: 'dom' },
+      { name: 'Prism.js', icon: 'prism' },
     ],
   },
   {
     num: '03',
     category: 'Mobile',
     items: [
-      { name: 'React Native', dot: '#61DAFB' },
-      { name: 'Expo', dot: '#71717A' },
+      { name: 'React Native', icon: 'react' },
+      { name: 'Expo', icon: 'expo' },
     ],
   },
   {
     num: '04',
     category: 'Backend',
     items: [
-      { name: 'Node.js', dot: '#339933' },
-      { name: 'Express.js', dot: '#71717A' },
-      { name: 'Socket.io', dot: '#F59E0B' },
-      { name: 'REST APIs', dot: '#6366F1' },
+      { name: 'Node.js', icon: 'node' },
+      { name: 'Express.js', icon: 'express' },
+      { name: 'Socket.io', icon: 'socket' },
+      { name: 'REST APIs', icon: 'api' },
     ],
   },
   {
     num: '05',
     category: 'Database',
     items: [
-      { name: 'MongoDB', dot: '#47A248' },
-      { name: 'Mongoose', dot: '#880000' },
-      { name: 'LocalStorage', dot: '#D97706' },
+      { name: 'MongoDB', icon: 'mongo' },
+      { name: 'Mongoose', icon: 'mongoose' },
+      { name: 'LocalStorage', icon: 'storage' },
     ],
   },
   {
     num: '06',
     category: 'Tools & DevOps',
     items: [
-      { name: 'Git & GitHub', dot: '#F05032' },
-      { name: 'Vercel', dot: '#71717A' },
-      { name: 'GitHub Pages', dot: '#2563EB' },
+      { name: 'Git', icon: 'git' },
+      { name: 'GitHub', icon: 'github' },
+      { name: 'Vercel', icon: 'vercel' },
+      { name: 'GitHub Pages', icon: 'ghpages' },
     ],
   },
 ];
