@@ -16,7 +16,15 @@ function HatchedBand() {
   return <div className="w-full h-7 border-b pf-border pf-hatch" />;
 }
 
-export default function Contact() {
+export default function Contact({
+  onOpenHome,
+  onOpenAbout,
+  onOpenProjects,
+}: {
+  onOpenHome: () => void;
+  onOpenAbout: () => void;
+  onOpenProjects: () => void;
+}) {
   const [timeStr, setTimeStr] = useState('');
   const [copied, setCopied] = useState(false);
 
@@ -49,7 +57,7 @@ export default function Contact() {
       <HatchedBand />
 
       <div className="w-full border-b pf-border">
-        <div className="max-w-[820px] mx-auto border-x pf-border px-6 sm:px-8 py-7">
+        <div className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-7">
           <div className="flex items-center justify-between mb-2">
             <h1 className="text-2xl sm:text-3xl font-bold pf-title tracking-tight">
               Contact
@@ -63,7 +71,7 @@ export default function Contact() {
       </div>
 
       <div className="w-full border-b pf-border">
-        <div className="max-w-[820px] mx-auto border-x pf-border px-6 sm:px-8 py-5">
+        <div className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-5">
           <div
             className="grid grid-cols-1 sm:grid-cols-2 gap-y-3.5 gap-x-6 text-xs"
             style={{ fontFamily: '"JetBrains Mono", monospace' }}
@@ -103,7 +111,7 @@ export default function Contact() {
       </div>
 
       <div className="w-full border-b pf-border">
-        <div className="max-w-[820px] mx-auto border-x pf-border px-6 sm:px-8 py-4 relative">
+        <div className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-4 relative">
           <div
             className="hidden lg:flex items-center absolute -left-[104px] top-1.5 z-20 pf-muted select-none pointer-events-none"
             style={{ fontFamily: '"Caveat", cursive' }}
@@ -186,7 +194,7 @@ export default function Contact() {
       <HatchedBand />
 
       <div className="w-full border-b pf-border">
-        <div className="max-w-[820px] mx-auto border-x pf-border px-6 sm:px-8 py-7 space-y-4 text-xs sm:text-[13.5px] pf-text leading-relaxed">
+        <div className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-7 space-y-4 text-xs sm:text-[13.5px] pf-text leading-relaxed">
           <p>
             I&apos;m open to full-time remote roles and freelance projects: React and TypeScript web applications, real-time Socket.io architectures, React Native mobile apps, and Node.js APIs. Email is the fastest way to reach me, and I usually reply within a day.
           </p>
@@ -226,37 +234,58 @@ export default function Contact() {
       <HatchedBand />
 
       <div className="w-full border-b pf-border">
-        <div className="max-w-[820px] mx-auto border-x pf-border px-6 sm:px-8 py-16 text-center">
+        <div className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-16 text-center">
           <div className="text-3xl font-serif pf-muted mb-3 select-none">&rdquo;</div>
           <blockquote className="text-base sm:text-lg italic font-serif pf-title max-w-md mx-auto mb-4">
             &ldquo;It always seems impossible until it&apos;s done.&rdquo;
           </blockquote>
           <div
-            className="text-[10px] pf-muted uppercase tracking-[0.2em]"
+            className="inline-flex items-center gap-3 text-[10px] pf-muted uppercase tracking-[0.2em]"
             style={{ fontFamily: '"JetBrains Mono", monospace' }}
           >
-            &mdash; NELSON MANDELA &mdash;
+            <span className="w-6 h-px pf-grid-bg" />
+            <span>NELSON MANDELA</span>
+            <span className="w-6 h-px pf-grid-bg" />
           </div>
         </div>
       </div>
 
+      <HatchedBand />
+
       <div className="w-full">
-        <footer className="max-w-[820px] mx-auto border-x pf-border px-6 sm:px-8 py-7 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs pf-muted">
-          <span>
-            Open to a good conversation.{' '}
-            <a
-              href={`mailto:${PROFILE.email}`}
-              className="pf-title underline underline-offset-4"
+        <footer className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-9 flex flex-col items-center gap-4 text-xs pf-muted">
+          <nav className="flex flex-wrap items-center justify-center gap-6 pf-text font-medium">
+            <button onClick={onOpenHome} className="hover:underline cursor-pointer">
+              Home
+            </button>
+            <button onClick={onOpenAbout} className="hover:underline cursor-pointer">
+              About
+            </button>
+            <button onClick={onOpenProjects} className="hover:underline cursor-pointer">
+              Projects
+            </button>
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="hover:underline cursor-pointer"
             >
-              Say hi.
+              Contact
+            </button>
+            <a
+              href={PROFILE.github}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:underline"
+            >
+              GitHub
             </a>
-          </span>
-          <span
+          </nav>
+
+          <div
             className="text-[11px]"
             style={{ fontFamily: '"JetBrains Mono", monospace' }}
           >
-            © {new Date().getFullYear()} {PROFILE.name}
-          </span>
+            © {new Date().getFullYear()}. Built with hands.
+          </div>
         </footer>
       </div>
     </div>

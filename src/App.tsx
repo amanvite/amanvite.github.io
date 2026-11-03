@@ -129,8 +129,8 @@ export default function App() {
       `}</style>
 
       <header className="sticky top-0 z-40 pf-card/90 backdrop-blur-md border-b pf-border h-14">
-        <div className="max-w-[820px] mx-auto h-full px-6 sm:px-8 border-x pf-border flex items-center justify-between">
-          <div className="flex items-center gap-5">
+        <div className="max-w-[820px] mx-auto h-full px-4 sm:px-8 border-x pf-border flex items-center justify-between">
+          <div className="flex items-center gap-3 sm:gap-5">
             <button
               onClick={() => handleNavigate('overview', 'home')}
               className="font-black text-xl tracking-tighter pf-title select-none cursor-pointer"
@@ -138,10 +138,10 @@ export default function App() {
               AV
             </button>
 
-            <nav className="flex items-center gap-1 text-xs">
+            <nav className="flex items-center gap-0.5 sm:gap-1 text-xs">
               <button
                 onClick={() => handleNavigate('overview')}
-                className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
+                className={`px-2 sm:px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
                   activePage === 'overview'
                     ? 'pf-pill pf-title font-semibold'
                     : 'pf-muted hover:opacity-80'
@@ -151,7 +151,7 @@ export default function App() {
               </button>
               <button
                 onClick={() => handleNavigate('about')}
-                className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
+                className={`px-2 sm:px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
                   activePage === 'about'
                     ? 'pf-pill pf-title font-semibold'
                     : 'pf-muted hover:opacity-80'
@@ -161,7 +161,7 @@ export default function App() {
               </button>
               <button
                 onClick={() => handleNavigate('projects')}
-                className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
+                className={`px-2 sm:px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
                   activePage === 'projects'
                     ? 'pf-pill pf-title font-semibold'
                     : 'pf-muted hover:opacity-80'
@@ -171,7 +171,7 @@ export default function App() {
               </button>
               <button
                 onClick={() => handleNavigate('contact')}
-                className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
+                className={`px-2 sm:px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
                   activePage === 'contact'
                     ? 'pf-pill pf-title font-semibold'
                     : 'pf-muted hover:opacity-80'
@@ -182,7 +182,7 @@ export default function App() {
             </nav>
           </div>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-0.5 sm:gap-1">
             <button
               onClick={() => setPaletteOpen(true)}
               className="p-2 rounded-md border border-transparent hover:border-zinc-300 dark:hover:border-zinc-700 pf-title pf-hover transition-all cursor-pointer"
@@ -221,7 +221,13 @@ export default function App() {
       {activePage === 'projects' && (
         <Projects onBackHome={() => handleNavigate('overview')} />
       )}
-      {activePage === 'contact' && <Contact />}
+      {activePage === 'contact' && (
+        <Contact
+          onOpenHome={() => handleNavigate('overview')}
+          onOpenAbout={() => handleNavigate('about')}
+          onOpenProjects={() => handleNavigate('projects')}
+        />
+      )}
 
       <CommandPalette
         isOpen={paletteOpen}

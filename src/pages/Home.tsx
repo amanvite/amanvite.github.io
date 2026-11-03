@@ -118,6 +118,10 @@ export default function Home({
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const activeIdx = Math.max(
     0,
     SECTIONS.findIndex((s) => s.id === activeSection)
@@ -147,22 +151,23 @@ export default function Home({
             </div>
           </div>
 
-          <div className="px-6 sm:px-8 -mt-9 sm:-mt-11 relative z-10 flex items-end justify-between gap-4 mb-4">
-            <div className="flex items-end gap-4">
+          {/* Mobile spacing applied via sm:-mt-14 vs base -mt-8 */}
+          <div className="px-5 sm:px-8 pt-2 sm:pt-3.5 relative z-10 flex items-end justify-between gap-4 mb-5">
+            <div className="flex items-end gap-3.5 sm:gap-4">
               <img
                 src={PROFILE.avatar}
                 alt={PROFILE.name}
-                className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-4 border-white dark:border-zinc-900 shadow-md bg-zinc-100 shrink-0"
+                className="-mt-8 sm:-mt-14 w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-4 border-white dark:border-zinc-900 shadow-md bg-zinc-100 shrink-0"
               />
-              <div className="pb-1">
+              <div className="pb-0.5">
                 <div className="flex items-center gap-1.5">
-                  <h1 className="text-xl sm:text-2xl font-bold pf-title tracking-tight">
+                  <h1 className="text-xl sm:text-2xl font-bold pf-title tracking-tight leading-tight">
                     {PROFILE.name}
                   </h1>
                   <VerifiedIcon className="w-[18px] h-[18px] shrink-0" />
                 </div>
                 <p
-                  className="text-xs pf-muted"
+                  className="text-xs pf-muted mt-0.5"
                   style={{ fontFamily: '"JetBrains Mono", monospace' }}
                 >
                   @{PROFILE.handle}
@@ -174,14 +179,14 @@ export default function Home({
               href={PROFILE.github}
               target="_blank"
               rel="noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border pf-border pf-subtle pf-hover text-[11px] font-mono pf-text transition-colors mb-1"
+              className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border pf-border pf-subtle pf-hover text-[11px] font-mono pf-text transition-colors mb-0.5"
             >
               <GithubIcon className="w-3.5 h-3.5" />
               <span>github.com/{PROFILE.handle}</span>
             </a>
           </div>
 
-          <div className="px-6 sm:px-8 pb-6">
+          <div className="px-5 sm:px-8 pb-6">
             <p className="text-[13.5px] pf-text mb-5">{PROFILE.role}</p>
 
             <div className="flex flex-wrap items-center gap-2.5">
@@ -222,7 +227,7 @@ export default function Home({
             </div>
           </div>
 
-          <div className="px-6 sm:px-8 py-3.5 border-t pf-border flex items-center justify-between pf-subtle relative">
+          <div className="px-5 sm:px-8 py-3.5 border-t pf-border flex items-center justify-between pf-subtle relative">
             <div
               className="hidden lg:flex items-center absolute -left-[104px] top-1 z-20 pf-muted select-none pointer-events-none"
               style={{ fontFamily: '"Caveat", cursive' }}
@@ -294,7 +299,7 @@ export default function Home({
 
         <Divider />
 
-        <section id="about" className="px-6 sm:px-8 py-8 scroll-mt-20">
+        <section id="about" className="px-5 sm:px-8 py-8 scroll-mt-20">
           <h2
             className="text-4xl pf-title mb-4 tracking-normal select-none"
             style={{
@@ -311,7 +316,7 @@ export default function Home({
         <Divider />
 
         <section id="stack" className="scroll-mt-20">
-          <div className="px-6 sm:px-8 py-5 border-b pf-border">
+          <div className="px-5 sm:px-8 py-5 border-b pf-border">
             <h2 className="text-xl font-bold pf-title tracking-tight">Stack</h2>
           </div>
 
@@ -319,7 +324,7 @@ export default function Home({
             {STACK.map((row) => (
               <div
                 key={row.num}
-                className="grid grid-cols-1 sm:grid-cols-[180px_1fr] px-6 sm:px-8 py-4 items-start sm:items-center gap-2 sm:gap-4"
+                className="grid grid-cols-1 sm:grid-cols-[180px_1fr] px-5 sm:px-8 py-4 items-start sm:items-center gap-2 sm:gap-4"
               >
                 <div className="flex items-center gap-2.5">
                   <span
@@ -352,7 +357,7 @@ export default function Home({
         <Divider />
 
         <section id="projects" className="scroll-mt-20">
-          <div className="px-6 sm:px-8 py-5 border-b pf-border flex items-center justify-between">
+          <div className="px-5 sm:px-8 py-5 border-b pf-border flex items-center justify-between">
             <div className="flex items-center gap-2">
               <h2 className="text-xl font-bold pf-title tracking-tight">
                 Projects
@@ -443,7 +448,7 @@ export default function Home({
         <Divider />
 
         <section id="utilities" className="scroll-mt-20">
-          <div className="px-6 sm:px-8 py-5 border-b pf-border flex items-center justify-between">
+          <div className="px-5 sm:px-8 py-5 border-b pf-border flex items-center justify-between">
             <div className="flex items-center gap-2">
               <h2 className="text-xl font-bold pf-title tracking-tight">
                 Packages &amp; Utilities
@@ -464,7 +469,7 @@ export default function Home({
                 href={pkg.link}
                 target="_blank"
                 rel="noreferrer"
-                className="block px-6 sm:px-8 py-5 pf-hover transition-colors group"
+                className="block px-5 sm:px-8 py-5 pf-hover transition-colors group"
               >
                 <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-2.5">
@@ -507,13 +512,13 @@ export default function Home({
         <Divider />
 
         <section id="education" className="scroll-mt-20">
-          <div className="px-6 sm:px-8 py-5 border-b pf-border">
+          <div className="px-5 sm:px-8 py-5 border-b pf-border">
             <h2 className="text-xl font-bold pf-title tracking-tight">
               Education
             </h2>
           </div>
 
-          <div className="px-6 sm:px-8 py-6">
+          <div className="px-5 sm:px-8 py-6">
             <div className="flex items-start gap-3.5">
               <div className="w-9 h-9 rounded-lg border pf-border pf-subtle flex items-center justify-center shrink-0 mt-0.5 pf-muted">
                 <svg
@@ -553,39 +558,62 @@ export default function Home({
 
         <Divider />
 
-        <section className="px-6 sm:px-8 py-12 text-center border-b pf-border pf-subtle">
-          <div className="pf-muted text-2xl font-serif mb-2">&ldquo;&rdquo;</div>
-          <blockquote className="text-sm sm:text-base italic font-serif pf-title max-w-md mx-auto leading-relaxed">
+        {/* Quote Block with Flanking Lines & Corner Cat */}
+        <section className="px-5 sm:px-8 py-14 text-center relative">
+          <div className="pf-muted text-3xl font-serif mb-3 select-none">&rdquo;</div>
+          <blockquote className="text-base sm:text-lg italic font-serif pf-title max-w-md mx-auto leading-relaxed mb-4">
             &ldquo;The best time to plant a tree was 20 years ago. The second best time is now.&rdquo;
           </blockquote>
           <div
-            className="text-[10px] pf-muted uppercase tracking-widest mt-3"
+            className="inline-flex items-center gap-3 text-[10px] pf-muted uppercase tracking-[0.2em]"
             style={{ fontFamily: '"JetBrains Mono", monospace' }}
           >
-            Chinese Proverb
+            <span className="w-6 h-px pf-grid-bg" />
+            <span>CHINESE PROVERB</span>
+            <span className="w-6 h-px pf-grid-bg" />
+          </div>
+
+          <div className="absolute right-4 bottom-3">
+            <PixelCatIcon className="w-6 h-6 pf-muted opacity-80" />
           </div>
         </section>
 
-        <footer className="px-6 sm:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs pf-muted">
-          <span>
-            Open to a good conversation.{' '}
-            <button
-              onClick={onOpenContact}
-              className="pf-title underline underline-offset-4 cursor-pointer"
-            >
-              Say hi.
+        <Divider />
+
+        {/* Centered Bottom Navigation Menu Footer */}
+        <footer className="px-5 sm:px-8 py-9 flex flex-col items-center gap-4 text-xs pf-muted">
+          <nav className="flex flex-wrap items-center justify-center gap-6 pf-text font-medium">
+            <button onClick={scrollToTop} className="hover:underline cursor-pointer">
+              Home
             </button>
-          </span>
-          <span
+            <button onClick={onOpenAbout} className="hover:underline cursor-pointer">
+              About
+            </button>
+            <button onClick={onOpenProjects} className="hover:underline cursor-pointer">
+              Projects
+            </button>
+            <button onClick={onOpenContact} className="hover:underline cursor-pointer">
+              Contact
+            </button>
+            <a
+              href={PROFILE.github}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:underline"
+            >
+              GitHub
+            </a>
+          </nav>
+
+          <div
             className="text-[11px]"
             style={{ fontFamily: '"JetBrains Mono", monospace' }}
           >
-            © {new Date().getFullYear()} {PROFILE.name}
-          </span>
+            © {new Date().getFullYear()}. Built with hands.
+          </div>
         </footer>
       </main>
 
-      {/* Fixed to viewport so it never scrolls off screen */}
       <aside className="hidden xl:block fixed top-24 left-[calc(50%+442px)] w-36 z-30">
         <div className="pt-2">
           <h4
@@ -620,10 +648,6 @@ export default function Home({
                 );
               })}
             </nav>
-          </div>
-
-          <div className="pl-4 pt-5">
-            <PixelCatIcon className="w-6 h-6 pf-muted opacity-80" />
           </div>
         </div>
       </aside>
