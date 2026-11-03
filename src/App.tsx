@@ -18,7 +18,6 @@ export default function App() {
     }
   });
 
-  // Load Google fonts once
   useEffect(() => {
     const fontId = 'aman-portfolio-fonts';
     if (!document.getElementById(fontId)) {
@@ -31,7 +30,6 @@ export default function App() {
     }
   }, []);
 
-  // Sync theme with document root & localStorage
   useEffect(() => {
     const root = document.documentElement;
     if (theme === 'dark') {
@@ -42,11 +40,10 @@ export default function App() {
     try {
       localStorage.setItem('aman_theme', theme);
     } catch {
-      // ignore storage errors
+      // ignore
     }
   }, [theme]);
 
-  // Global Cmd+K / Ctrl+K shortcut
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
@@ -75,8 +72,7 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen pf-bg pf-text font-sans transition-colors duration-200 ${theme}`}>
-      {/* Theme CSS tokens so Light & Dark mode work across every Tailwind setup */}
+    <div className={`min-h-screen pf-bg pf-text font-sans transition-colors duration-200 overflow-x-hidden ${theme}`}>
       <style>{`
         :root {
           --pf-bg: #ffffff;
@@ -130,7 +126,6 @@ export default function App() {
         }
       `}</style>
 
-      {/* Top Blueprint Header */}
       <header className="sticky top-0 z-40 pf-card/90 backdrop-blur-md border-b pf-border h-14">
         <div className="max-w-[740px] mx-auto h-full px-5 sm:px-7 border-x pf-border flex items-center justify-between">
           <div className="flex items-center gap-5">
@@ -175,17 +170,16 @@ export default function App() {
             </nav>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <button
               onClick={() => setPaletteOpen(true)}
-              className="hidden sm:flex items-center gap-2 px-2.5 py-1 pf-subtle pf-hover rounded-md border pf-border pf-muted text-xs transition-colors cursor-pointer"
-              title="Command Palette (⌘K)"
+              className="p-2 rounded-md border border-transparent hover:border-zinc-300 dark:hover:border-zinc-700 pf-title pf-hover transition-all cursor-pointer"
+              title="Search (⌘K)"
+              aria-label="Search"
             >
-              <SearchIcon className="w-3.5 h-3.5" />
-              <span className="text-[10px] font-mono">⌘K</span>
+              <SearchIcon className="w-4 h-4" />
             </button>
 
-            {/* Theme Toggle Button matching reference header */}
             <button
               onClick={toggleTheme}
               className="p-2 rounded-md border border-transparent hover:border-zinc-300 dark:hover:border-zinc-700 pf-title pf-hover transition-all cursor-pointer"
@@ -198,7 +192,6 @@ export default function App() {
         </div>
       </header>
 
-      {/* Active View */}
       {activePage === 'overview' && (
         <Home
           onOpenRepositories={() => handleNavigate('repositories')}
@@ -210,7 +203,6 @@ export default function App() {
       )}
       {activePage === 'contact' && <Contact />}
 
-      {/* Command Modal */}
       <CommandPalette
         isOpen={paletteOpen}
         onClose={() => setPaletteOpen(false)}
