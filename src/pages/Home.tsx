@@ -12,6 +12,7 @@ import {
   InstagramIcon,
   YoutubeIcon,
   MailIcon,
+  ResumeIcon,
   VerifiedIcon,
   TerminalIcon,
   ArrowUpRightIcon,
@@ -37,11 +38,9 @@ function Divider() {
 export default function Home({
   onOpenProjects,
   onOpenAbout,
-  onOpenContact,
 }: {
   onOpenProjects: () => void;
   onOpenAbout: () => void;
-  onOpenContact: () => void;
 }) {
   const [greeting, setGreeting] = useState('Good morning');
   const [timeStr, setTimeStr] = useState('');
@@ -152,7 +151,6 @@ export default function Home({
             </div>
           </div>
 
-          {/* Mobile spacing stays at pt-2/pb-0.5; Tablet & Laptop (sm:) lifts name & handle up */}
           <div className="px-5 sm:px-8 pt-2 sm:pt-1 relative z-10 flex items-end justify-between gap-4 mb-5 sm:mb-4">
             <div className="flex items-end gap-3.5 sm:gap-4">
               <img
@@ -203,31 +201,10 @@ export default function Home({
               >
                 About
               </button>
-              <button
-                onClick={onOpenContact}
-                className="px-3.5 py-1.5 pf-pill pf-title border pf-border text-xs font-medium rounded-md pf-hover transition-colors cursor-pointer"
-              >
-                Contact
-              </button>
-              <button
-                onClick={copyEmail}
-                className="px-3.5 py-1.5 pf-card pf-text border pf-border text-xs font-medium rounded-md pf-hover transition-colors inline-flex items-center gap-1.5 cursor-pointer"
-              >
-                {copied ? (
-                  <>
-                    <CheckIcon className="w-3.5 h-3.5 text-emerald-500" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <CopyIcon className="w-3.5 h-3.5 pf-muted" />
-                    <span>{PROFILE.email}</span>
-                  </>
-                )}
-              </button>
             </div>
           </div>
 
+          {/* Social Media Line with Resume beside YouTube & Copy Email beside Email */}
           <div className="px-5 sm:px-8 py-3.5 border-t pf-border flex items-center pf-subtle relative">
             <div
               className="hidden lg:flex items-center absolute -left-[104px] top-1 z-20 pf-muted select-none pointer-events-none"
@@ -252,12 +229,12 @@ export default function Home({
               </svg>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <a
                 href={PROFILE.github}
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 rounded-md border pf-border pf-card pf-text pf-hover transition-all"
+                className="w-8 h-8 rounded-md border pf-border pf-card flex items-center justify-center pf-text pf-hover transition-all"
                 title="GitHub"
               >
                 <GithubIcon className="w-4 h-4" />
@@ -266,7 +243,7 @@ export default function Home({
                 href={PROFILE.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 rounded-md border pf-border pf-card pf-text pf-hover transition-all"
+                className="w-8 h-8 rounded-md border pf-border pf-card flex items-center justify-center pf-text pf-hover transition-all"
                 title="LinkedIn"
               >
                 <LinkedinIcon className="w-4 h-4" />
@@ -275,7 +252,7 @@ export default function Home({
                 href={PROFILE.instagram}
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 rounded-md border pf-border pf-card pf-text pf-hover transition-all"
+                className="w-8 h-8 rounded-md border pf-border pf-card flex items-center justify-center pf-text pf-hover transition-all"
                 title="Instagram"
               >
                 <InstagramIcon className="w-4 h-4" />
@@ -284,18 +261,44 @@ export default function Home({
                 href={PROFILE.youtube}
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 rounded-md border pf-border pf-card pf-text pf-hover transition-all"
+                className="w-8 h-8 rounded-md border pf-border pf-card flex items-center justify-center pf-text pf-hover transition-all"
                 title="YouTube"
               >
                 <YoutubeIcon className="w-4 h-4" />
               </a>
               <a
+                href={PROFILE.resumeUrl}
+                download="Aman_Verma_Resume.pdf"
+                className="h-8 px-2.5 rounded-md border pf-border pf-card inline-flex items-center gap-1.5 text-[11px] font-mono pf-title pf-hover transition-all"
+                title="Download Resume"
+              >
+                <ResumeIcon className="w-3.5 h-3.5 pf-muted" />
+                <span>Resume</span>
+              </a>
+              <a
                 href={`mailto:${PROFILE.email}`}
-                className="p-2 rounded-md border pf-border pf-card pf-text pf-hover transition-all"
-                title="Email"
+                className="w-8 h-8 rounded-md border pf-border pf-card flex items-center justify-center pf-text pf-hover transition-all"
+                title="Send Email"
               >
                 <MailIcon className="w-4 h-4" />
               </a>
+              <button
+                onClick={copyEmail}
+                className="h-8 px-2.5 rounded-md border pf-border pf-card inline-flex items-center gap-1.5 text-[11px] font-mono pf-text pf-hover transition-all cursor-pointer"
+                title="Copy Email Address"
+              >
+                {copied ? (
+                  <>
+                    <CheckIcon className="w-3.5 h-3.5 text-emerald-500" />
+                    <span>Copied</span>
+                  </>
+                ) : (
+                  <>
+                    <CopyIcon className="w-3.5 h-3.5 pf-muted" />
+                    <span>Copy email</span>
+                  </>
+                )}
+              </button>
             </div>
           </div>
         </section>
@@ -313,7 +316,10 @@ export default function Home({
             {greeting}
           </h2>
 
-          <p className="text-[15px] pf-text leading-relaxed">{PROFILE.bio}</p>
+          <div className="space-y-4 text-[15px] pf-text leading-relaxed">
+            <p>{PROFILE.bio}</p>
+            <p>{PROFILE.availability}</p>
+          </div>
         </section>
 
         <Divider />
@@ -571,9 +577,13 @@ export default function Home({
             <button onClick={onOpenProjects} className="hover:underline cursor-pointer">
               Projects
             </button>
-            <button onClick={onOpenContact} className="hover:underline cursor-pointer">
-              Contact
-            </button>
+            <a
+              href={PROFILE.resumeUrl}
+              download="Aman_Verma_Resume.pdf"
+              className="hover:underline"
+            >
+              Resume
+            </a>
             <a
               href={PROFILE.github}
               target="_blank"

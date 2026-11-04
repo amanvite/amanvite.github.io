@@ -2,14 +2,12 @@ import { useState, useEffect } from 'react';
 import Home from './pages/Home';
 import About from './pages/About';
 import Projects from './pages/Projects';
-import Contact from './pages/Contact';
-import { EyeIcon, ThemeToggleIcon } from './components/Icons';
+import { SunIcon, MoonIcon } from './components/Icons';
 
-type PageView = 'overview' | 'about' | 'projects' | 'contact';
+type PageView = 'overview' | 'about' | 'projects';
 
 export default function App() {
   const [activePage, setActivePage] = useState<PageView>('overview');
-  const [visits, setVisits] = useState<number>(4886);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     try {
       return localStorage.getItem('aman_theme') === 'dark' ? 'dark' : 'light';
@@ -27,17 +25,6 @@ export default function App() {
       link.href =
         'https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap';
       document.head.appendChild(link);
-    }
-  }, []);
-
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem('aman_portfolio_views');
-      const nextCount = stored ? parseInt(stored, 10) + 1 : 4886;
-      localStorage.setItem('aman_portfolio_views', String(nextCount));
-      setVisits(nextCount);
-    } catch {
-      setVisits(4886);
     }
   }, []);
 
@@ -162,39 +149,34 @@ export default function App() {
             >
               Projects
             </button>
-            <button
-              onClick={() => handleNavigate('contact')}
-              className={`px-2.5 py-1.5 rounded-md transition-colors cursor-pointer ${
-                activePage === 'contact'
-                  ? 'pf-pill pf-title font-semibold'
-                  : 'pf-muted hover:opacity-80'
-              }`}
-            >
-              Contact
-            </button>
           </nav>
 
-          <div className="flex items-center gap-3">
-            <div
-              className="inline-flex items-center gap-1.5 text-xs pf-muted select-none"
-              style={{ fontFamily: '"JetBrains Mono", monospace' }}
-              title="Page visits"
+          {/* Segmented Pill Theme Switcher */}
+          <button
+            onClick={toggleTheme}
+            className="inline-flex items-center p-0.5 rounded-full border pf-border pf-pill cursor-pointer transition-all"
+            title={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
+            aria-label="Toggle theme"
+          >
+            <span
+              className={`flex items-center justify-center w-6 h-6 rounded-full transition-all ${
+                theme === 'light'
+                  ? 'pf-card pf-title shadow-2xs'
+                  : 'pf-muted'
+              }`}
             >
-              <EyeIcon className="w-3.5 h-3.5" />
-              <span>{visits.toLocaleString()}</span>
-            </div>
-
-            <span className="h-4 w-px pf-grid-bg" />
-
-            <button
-              onClick={toggleTheme}
-              className="p-1.5 rounded-md pf-title pf-hover transition-colors cursor-pointer"
-              title={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
-              aria-label="Toggle theme"
+              <SunIcon className="w-3.5 h-3.5" />
+            </span>
+            <span
+              className={`flex items-center justify-center w-6 h-6 rounded-full transition-all ${
+                theme === 'dark'
+                  ? 'pf-card pf-title shadow-2xs'
+                  : 'pf-muted'
+              }`}
             >
-              <ThemeToggleIcon className="w-4 h-4" />
-            </button>
-          </div>
+              <MoonIcon className="w-3.5 h-3.5" />
+            </span>
+          </button>
         </div>
       </header>
 
@@ -202,13 +184,11 @@ export default function App() {
         <Home
           onOpenProjects={() => handleNavigate('projects')}
           onOpenAbout={() => handleNavigate('about')}
-          onOpenContact={() => handleNavigate('contact')}
         />
       )}
       {activePage === 'about' && (
         <About
           onOpenProjects={() => handleNavigate('projects')}
-          onOpenContact={() => handleNavigate('contact')}
           onOpenHome={() => handleNavigate('overview')}
         />
       )}
@@ -216,14 +196,6 @@ export default function App() {
         <Projects
           onOpenHome={() => handleNavigate('overview')}
           onOpenAbout={() => handleNavigate('about')}
-          onOpenContact={() => handleNavigate('contact')}
-        />
-      )}
-      {activePage === 'contact' && (
-        <Contact
-          onOpenHome={() => handleNavigate('overview')}
-          onOpenAbout={() => handleNavigate('about')}
-          onOpenProjects={() => handleNavigate('projects')}
         />
       )}
     </div>

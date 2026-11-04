@@ -6,6 +6,9 @@ import {
   InstagramIcon,
   YoutubeIcon,
   MailIcon,
+  ResumeIcon,
+  CopyIcon,
+  CheckIcon,
   CollapseIcon,
   TechBadgeIcon,
 } from '../components/Icons';
@@ -16,15 +19,14 @@ function HatchedBand() {
 
 export default function About({
   onOpenProjects,
-  onOpenContact,
   onOpenHome,
 }: {
   onOpenProjects: () => void;
-  onOpenContact: () => void;
   onOpenHome: () => void;
 }) {
   const [greeting, setGreeting] = useState('Good afternoon');
   const [eduExpanded, setEduExpanded] = useState(true);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -32,6 +34,14 @@ export default function About({
     else if (hour < 18) setGreeting('Good afternoon');
     else setGreeting('Good evening');
   }, []);
+
+  const copyEmail = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(PROFILE.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
   return (
     <div className="w-full">
@@ -73,7 +83,7 @@ export default function About({
             </svg>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-2">
             <a
               href={PROFILE.github}
               target="_blank"
@@ -111,12 +121,38 @@ export default function About({
               <YoutubeIcon className="w-4 h-4" />
             </a>
             <a
+              href={PROFILE.resumeUrl}
+              download="Aman_Verma_Resume.pdf"
+              className="h-8 px-2.5 rounded-md border pf-border pf-card inline-flex items-center gap-1.5 text-[11px] font-mono pf-title pf-hover transition-colors"
+              title="Download Resume"
+            >
+              <ResumeIcon className="w-3.5 h-3.5 pf-muted" />
+              <span>Resume</span>
+            </a>
+            <a
               href={`mailto:${PROFILE.email}`}
               className="w-8 h-8 rounded-md border pf-border pf-card flex items-center justify-center pf-text pf-hover transition-colors"
               title="Email"
             >
               <MailIcon className="w-4 h-4" />
             </a>
+            <button
+              onClick={copyEmail}
+              className="h-8 px-2.5 rounded-md border pf-border pf-card inline-flex items-center gap-1.5 text-[11px] font-mono pf-text pf-hover transition-colors cursor-pointer"
+              title="Copy Email Address"
+            >
+              {copied ? (
+                <>
+                  <CheckIcon className="w-3.5 h-3.5 text-emerald-500" />
+                  <span>Copied</span>
+                </>
+              ) : (
+                <>
+                  <CopyIcon className="w-3.5 h-3.5 pf-muted" />
+                  <span>Copy email</span>
+                </>
+              )}
+            </button>
           </div>
         </div>
       </div>
@@ -148,23 +184,7 @@ export default function About({
               <strong className="pf-title font-medium">SureScan</strong> (an industrial Data Matrix scanner in React Native), and a minimalist{' '}
               <strong className="pf-title font-medium">Sudoku</strong> web platform.
             </p>
-            <p>
-              Open to full-time remote roles and freelance projects:{' '}
-              <button
-                onClick={onOpenProjects}
-                className="pf-title font-medium underline underline-offset-4 cursor-pointer"
-              >
-                Explore projects
-              </button>{' '}
-              •{' '}
-              <button
-                onClick={onOpenContact}
-                className="pf-title font-medium underline underline-offset-4 cursor-pointer"
-              >
-                Get in touch
-              </button>
-              .
-            </p>
+            <p>{PROFILE.availability}</p>
           </div>
         </div>
       </div>
@@ -313,9 +333,13 @@ export default function About({
             <button onClick={onOpenProjects} className="hover:underline cursor-pointer">
               Projects
             </button>
-            <button onClick={onOpenContact} className="hover:underline cursor-pointer">
-              Contact
-            </button>
+            <a
+              href={PROFILE.resumeUrl}
+              download="Aman_Verma_Resume.pdf"
+              className="hover:underline"
+            >
+              Resume
+            </a>
             <a
               href={PROFILE.github}
               target="_blank"

@@ -49,6 +49,7 @@ export const PROFILE = {
   handle: 'amanvite',
   role: 'Full-Stack MERN & TypeScript Developer',
   email: 'info.amanvite@gmail.com',
+  resumeUrl: '/resume.pdf',
   github: 'https://github.com/amanvite',
   linkedin: 'https://www.linkedin.com/in/amanvite/',
   instagram: 'https://www.instagram.com/amanvite',
@@ -57,6 +58,8 @@ export const PROFILE = {
   banner:
     'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop',
   bio: 'I architect and engineer scalable web ecosystems, focusing strictly on the MERN stack and robust TypeScript environments. I build products end-to-end: from database persistence and server-side logic to client-side DOM execution.',
+  availability:
+    "I'm open to full-time remote roles and freelance projects: React and TypeScript web applications, real-time Socket.io architectures, React Native mobile apps, and Node.js APIs. Email is the fastest way to reach me, and I usually reply within a day.",
 };
 
 export const EDUCATION: EducationItem[] = [

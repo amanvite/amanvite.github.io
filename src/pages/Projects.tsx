@@ -12,17 +12,14 @@ function HatchedBand() {
 export default function Projects({
   onOpenHome,
   onOpenAbout,
-  onOpenContact,
 }: {
   onOpenHome: () => void;
   onOpenAbout: () => void;
-  onOpenContact: () => void;
 }) {
   return (
     <div className="w-full">
       <HatchedBand />
 
-      {/* Header */}
       <div className="w-full border-b pf-border">
         <div className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-8">
           <div className="flex flex-wrap items-center justify-between gap-4 mb-2">
@@ -48,7 +45,6 @@ export default function Projects({
 
       <HatchedBand />
 
-      {/* Clean 2-Column Projects Grid */}
       <div className="w-full border-b pf-border">
         <div className="max-w-[820px] mx-auto border-x pf-border">
           <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:gap-px pf-grid-bg">
@@ -91,7 +87,6 @@ export default function Projects({
 
       <HatchedBand />
 
-      {/* Packages & Utilities */}
       <div className="w-full border-b pf-border">
         <div className="max-w-[820px] mx-auto border-x pf-border">
           <div className="px-5 sm:px-8 py-5 border-b pf-border flex items-center justify-between">
@@ -153,7 +148,6 @@ export default function Projects({
 
       <HatchedBand />
 
-      {/* Footer */}
       <div className="w-full">
         <footer className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-9 flex flex-col items-center gap-4 text-xs pf-muted">
           <nav className="flex flex-wrap items-center justify-center gap-6 pf-text font-medium">
@@ -169,9 +163,13 @@ export default function Projects({
             >
               Projects
             </button>
-            <button onClick={onOpenContact} className="hover:underline cursor-pointer">
-              Contact
-            </button>
+            <a
+              href={PROFILE.resumeUrl}
+              download="Aman_Verma_Resume.pdf"
+              className="hover:underline"
+            >
+              Resume
+            </a>
             <a
               href={PROFILE.github}
               target="_blank"
