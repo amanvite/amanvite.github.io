@@ -1,13 +1,17 @@
+import { useState } from 'react';
 import { PROJECTS, UTILITY_PACKAGES, PROFILE } from '../data';
 import {
   ArrowUpRightIcon,
   TerminalIcon,
   GithubIcon,
+  RepoIcon,
 } from '../components/Icons';
 
 function HatchedBand() {
   return <div className="w-full h-7 border-b pf-border pf-hatch" />;
 }
+
+const FILTERS = ['All', 'TypeScript', 'JavaScript', 'Node.js', 'React Native'];
 
 export default function Projects({
   onOpenHome,
@@ -16,77 +20,185 @@ export default function Projects({
   onOpenHome: () => void;
   onOpenAbout: () => void;
 }) {
+  const [activeFilter, setActiveFilter] = useState('All');
+
+  const visibleProjects =
+    activeFilter === 'All'
+      ? PROJECTS
+      : PROJECTS.filter((p) => p.tech.includes(activeFilter));
+
   return (
     <div className="w-full">
       <HatchedBand />
 
+      {/* Page Header */}
       <div className="w-full border-b pf-border">
         <div className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-8">
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-2">
-            <h1 className="text-2xl sm:text-3xl font-bold pf-title tracking-tight">
-              Projects
-            </h1>
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-2.5">
+            <div className="flex items-baseline gap-2.5">
+              <h1 className="text-2xl sm:text-3xl font-bold pf-title tracking-tight">
+                Projects
+              </h1>
+              <span
+                className="text-xs pf-muted"
+                style={{ fontFamily: '"JetBrains Mono", monospace' }}
+              >
+                ({PROJECTS.length})
+              </span>
+            </div>
+
             <a
               href={PROFILE.github}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border pf-border pf-card pf-hover text-xs font-mono pf-title transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border pf-border pf-subtle pf-hover text-xs font-mono pf-title transition-colors"
             >
               <GithubIcon className="w-3.5 h-3.5" />
               <span>github.com/{PROFILE.handle}</span>
               <ArrowUpRightIcon className="w-3 h-3 pf-muted" />
             </a>
           </div>
+
           <p className="text-xs sm:text-[13.5px] pf-text leading-relaxed max-w-2xl">
-            Selected web applications, real-time messaging engines, and developer utilities built by {PROFILE.name}.
+            Selected full-stack web applications, real-time Socket.io systems, mobile utilities, and browser tools architected by {PROFILE.name}.
           </p>
+        </div>
+      </div>
+
+      {/* Filter Bar */}
+      <div className="w-full border-b pf-border">
+        <div className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-3 pf-subtle flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-1.5">
+            {FILTERS.map((filter) => {
+              const active = activeFilter === filter;
+              return (
+                <button
+                  key={filter}
+                  onClick={() => setActiveFilter(filter)}
+                  className={`px-2.5 py-1 rounded-md text-xs transition-all cursor-pointer ${
+                    active
+                      ? 'pf-btn-primary font-semibold shadow-2xs'
+                      : 'pf-card pf-text border pf-border pf-hover'
+                  }`}
+                >
+                  {filter}
+                </button>
+              );
+            })}
+          </div>
+
+          <span
+            className="text-[11px] pf-muted hidden sm:inline"
+            style={{ fontFamily: '"JetBrains Mono", monospace' }}
+          >
+            {visibleProjects.length} {visibleProjects.length === 1 ? 'repository' : 'repositories'}
+          </span>
         </div>
       </div>
 
       <HatchedBand />
 
+      {/* Architectural 2-Column Project Grid */}
       <div className="w-full border-b pf-border">
         <div className="max-w-[820px] mx-auto border-x pf-border">
-          <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:gap-px pf-grid-bg">
-            {PROJECTS.map((project) => (
-              <a
-                key={project.id}
-                href={project.link}
-                target="_blank"
-                rel="noreferrer"
-                className="group pf-card p-6 sm:p-7 flex flex-col justify-between pf-hover transition-colors"
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-2.5">
-                    <h2 className="text-base sm:text-lg font-bold pf-title group-hover:underline">
-                      {project.title}
-                    </h2>
-                    <ArrowUpRightIcon className="w-4 h-4 pf-muted group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+          <div className="grid grid-cols-1 sm:grid-cols-2">
+            {visibleProjects.map((project, idx) => {
+              const isLastRowDesktop =
+                idx >=
+                visibleProjects.length - (visibleProjects.length % 2 === 0 ? 2 : 1);
+              const isLastItem = idx === visibleProjects.length - 1;
+
+              return (
+                <div
+                  key={project.id}
+                  className={`group pf-card p-6 sm:p-7 flex flex-col justify-between pf-hover transition-colors border-b pf-border ${
+                    idx % 2 === 0 ? 'sm:border-r' : ''
+                  } ${isLastRowDesktop ? 'sm:border-b-0' : ''} ${
+                    isLastItem ? 'border-b-0' : ''
+                  }`}
+                >
+                  <div>
+                    {/* Top Index & Category Strip */}
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <span
+                        className="inline-flex items-center gap-1.5 text-[11px] pf-muted"
+                        style={{ fontFamily: '"JetBrains Mono", monospace' }}
+                      >
+                        <RepoIcon className="w-3.5 h-3.5" />
+                        <span>{project.repoName}</span>
+                      </span>
+
+                      <span
+                        className="text-[10px] px-2 py-0.5 rounded-full border pf-border pf-subtle pf-muted uppercase tracking-wider"
+                        style={{ fontFamily: '"JetBrains Mono", monospace' }}
+                      >
+                        0{idx + 1} • {project.tag}
+                      </span>
+                    </div>
+
+                    {/* Title */}
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 mb-2 group/title"
+                    >
+                      <h2 className="text-base sm:text-lg font-bold pf-title group-hover/title:underline">
+                        {project.title}
+                      </h2>
+                      <ArrowUpRightIcon className="w-4 h-4 pf-muted group-hover/title:translate-x-0.5 group-hover/title:-translate-y-0.5 transition-transform" />
+                    </a>
+
+                    {/* Description */}
+                    <p className="text-xs sm:text-[13px] pf-text leading-relaxed mb-6">
+                      {project.description}
+                    </p>
                   </div>
 
-                  <p className="text-xs sm:text-[13px] pf-text leading-relaxed mb-6">
-                    {project.description}
-                  </p>
-                </div>
+                  {/* Card Footer: Stack Pills + Source/Live Links */}
+                  <div className="pt-3.5 border-t pf-border flex items-center justify-between gap-3">
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.tech.map((t) => (
+                        <span
+                          key={t}
+                          className="px-2 py-0.5 pf-pill pf-text rounded text-[10.5px] font-mono border pf-border"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
 
-                <div className="flex flex-wrap gap-1.5 pt-3.5 border-t pf-border">
-                  {project.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="px-2.5 py-0.5 pf-pill pf-text rounded text-[11px] font-medium border pf-border"
-                    >
-                      {t}
-                    </span>
-                  ))}
+                    <div className="flex items-center gap-2 shrink-0">
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="p-1.5 rounded-md border pf-border pf-card pf-text pf-hover transition-colors"
+                        title="View Source on GitHub"
+                      >
+                        <GithubIcon className="w-3.5 h-3.5" />
+                      </a>
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md pf-btn-primary text-[11px] font-medium transition-opacity"
+                      >
+                        <span>Open</span>
+                        <ArrowUpRightIcon className="w-3 h-3" />
+                      </a>
+                    </div>
+                  </div>
                 </div>
-              </a>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
 
       <HatchedBand />
 
+      {/* Packages & Standalone Utilities */}
       <div className="w-full border-b pf-border">
         <div className="max-w-[820px] mx-auto border-x pf-border">
           <div className="px-5 sm:px-8 py-5 border-b pf-border flex items-center justify-between">
@@ -101,6 +213,12 @@ export default function Projects({
                 ({UTILITY_PACKAGES.length})
               </span>
             </div>
+            <span
+              className="text-[11px] pf-muted hidden sm:inline"
+              style={{ fontFamily: '"JetBrains Mono", monospace' }}
+            >
+              Open-Source Tools
+            </span>
           </div>
 
           <div className="divide-y pf-divide">
@@ -125,11 +243,22 @@ export default function Projects({
                       {pkg.version}
                     </span>
                   </div>
-                  <ArrowUpRightIcon className="w-3.5 h-3.5 pf-muted" />
+
+                  <div className="flex items-center gap-2">
+                    <span
+                      className="text-[10px] pf-muted uppercase hidden sm:inline"
+                      style={{ fontFamily: '"JetBrains Mono", monospace' }}
+                    >
+                      {pkg.type}
+                    </span>
+                    <ArrowUpRightIcon className="w-3.5 h-3.5 pf-muted group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </div>
                 </div>
+
                 <p className="text-xs pf-text leading-relaxed mb-3">
                   {pkg.description}
                 </p>
+
                 <div className="flex flex-wrap gap-1.5">
                   {pkg.tech.map((t) => (
                     <span
@@ -148,6 +277,7 @@ export default function Projects({
 
       <HatchedBand />
 
+      {/* Footer */}
       <div className="w-full">
         <footer className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-9 flex flex-col items-center gap-4 text-xs pf-muted">
           <nav className="flex flex-wrap items-center justify-center gap-6 pf-text font-medium">

@@ -1,7 +1,6 @@
 import { useState, useEffect, type MouseEvent } from 'react';
 import {
   PROFILE,
-  STACK,
   PROJECTS,
   UTILITY_PACKAGES,
   EDUCATION,
@@ -19,13 +18,11 @@ import {
   CopyIcon,
   CheckIcon,
   CollapseIcon,
-  TechBadgeIcon,
 } from '../components/Icons';
 
 const SECTIONS = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
-  { id: 'stack', label: 'Stack' },
   { id: 'projects', label: 'Projects' },
   { id: 'utilities', label: 'Packages' },
   { id: 'education', label: 'Education' },
@@ -204,7 +201,6 @@ export default function Home({
             </div>
           </div>
 
-          {/* Social Media Line with Resume beside YouTube & Copy Email beside Email */}
           <div className="px-5 sm:px-8 py-3.5 border-t pf-border flex items-center pf-subtle relative">
             <div
               className="hidden lg:flex items-center absolute -left-[104px] top-1 z-20 pf-muted select-none pointer-events-none"
@@ -316,51 +312,9 @@ export default function Home({
             {greeting}
           </h2>
 
-          <div className="space-y-4 text-[15px] pf-text leading-relaxed">
-            <p>{PROFILE.bio}</p>
-            <p>{PROFILE.availability}</p>
-          </div>
-        </section>
-
-        <Divider />
-
-        <section id="stack" className="scroll-mt-20">
-          <div className="px-5 sm:px-8 py-5 border-b pf-border">
-            <h2 className="text-xl font-bold pf-title tracking-tight">Stack</h2>
-          </div>
-
-          <div className="divide-y pf-divide">
-            {STACK.map((row) => (
-              <div
-                key={row.num}
-                className="grid grid-cols-1 sm:grid-cols-[180px_1fr] px-5 sm:px-8 py-3.5 items-start sm:items-center gap-2 sm:gap-4"
-              >
-                <div className="flex items-center gap-2.5">
-                  <span
-                    className="text-xs pf-muted"
-                    style={{ fontFamily: '"JetBrains Mono", monospace' }}
-                  >
-                    {row.num}
-                  </span>
-                  <span className="text-[13px] font-medium pf-text">
-                    {row.category}
-                  </span>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-2">
-                  {row.items.map((item) => (
-                    <span
-                      key={item.name}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border pf-border pf-subtle text-xs font-medium pf-title"
-                    >
-                      <TechBadgeIcon type={item.icon} />
-                      <span>{item.name}</span>
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
+          <p className="text-[15px] pf-text leading-relaxed">
+            {PROFILE.availability}
+          </p>
         </section>
 
         <Divider />
@@ -386,14 +340,18 @@ export default function Home({
             </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:gap-px pf-grid-bg">
-            {PROJECTS.map((project) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2">
+            {PROJECTS.map((project, idx) => (
               <a
                 key={project.id}
                 href={project.link}
                 target="_blank"
                 rel="noreferrer"
-                className="group pf-card p-6 flex flex-col justify-between pf-hover transition-colors"
+                className={`group pf-card p-6 flex flex-col justify-between pf-hover transition-colors border-b pf-border ${
+                  idx % 2 === 0 ? 'sm:border-r' : ''
+                } ${idx >= PROJECTS.length - 2 ? 'sm:border-b-0' : ''} ${
+                  idx === PROJECTS.length - 1 ? 'border-b-0' : ''
+                }`}
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-2">
