@@ -179,10 +179,12 @@ export default function About({
             <p>{PROFILE.bio}</p>
             <p>
               My recent work includes{' '}
-              <strong className="pf-title font-medium">Talksy</strong> (a bidirectional real-time messaging app built on Node.js and Socket.io),{' '}
-              <strong className="pf-title font-medium">Code Extractor</strong> (a client-side DOM asset extraction engine),{' '}
-              <strong className="pf-title font-medium">SureScan</strong> (an industrial Data Matrix scanner in React Native), and a minimalist{' '}
-              <strong className="pf-title font-medium">Sudoku</strong> web platform.
+              <strong className="pf-title font-medium">Video Hunt</strong> (a fast media utility for downloading video and audio streams),{' '}
+              <strong className="pf-title font-medium">Code Extractor</strong> (a full-stack web extraction tool for retrieving and formatting dynamic DOM assets),{' '}
+              <strong className="pf-title font-medium">SureScan</strong> (an industrial Data Matrix scanner built in Kotlin),{' '}
+              <strong className="pf-title font-medium">Sudoku</strong> (a sleek, minimalist web game), and lightweight utilities like{' '}
+              <strong className="pf-title font-medium">Article Unblocker</strong> and{' '}
+              <strong className="pf-title font-medium">Open Directory Finder</strong>.
             </p>
             <p>{PROFILE.availability}</p>
           </div>

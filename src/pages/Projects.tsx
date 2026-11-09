@@ -11,7 +11,7 @@ function HatchedBand() {
   return <div className="w-full h-7 border-b pf-border pf-hatch" />;
 }
 
-const FILTERS = ['All', 'TypeScript', 'JavaScript', 'Node.js', 'React Native'];
+const FILTERS = ['All', 'TypeScript', 'JavaScript', 'Node.js', 'Kotlin'];
 
 export default function Projects({
   onOpenHome,
@@ -31,7 +31,6 @@ export default function Projects({
     <div className="w-full">
       <HatchedBand />
 
-      {/* Page Header */}
       <div className="w-full border-b pf-border">
         <div className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-8">
           <div className="flex flex-wrap items-center justify-between gap-4 mb-2.5">
@@ -48,7 +47,7 @@ export default function Projects({
             </div>
 
             <a
-              href={PROFILE.github}
+              href={`${PROFILE.github}?tab=repositories`}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border pf-border pf-subtle pf-hover text-xs font-mono pf-title transition-colors"
@@ -60,12 +59,11 @@ export default function Projects({
           </div>
 
           <p className="text-xs sm:text-[13.5px] pf-text leading-relaxed max-w-2xl">
-            Selected full-stack web applications, real-time Socket.io systems, mobile utilities, and browser tools architected by {PROFILE.name}.
+            Selected full-stack web applications, media tools, mobile scanners, and browser utilities built by {PROFILE.name}.
           </p>
         </div>
       </div>
 
-      {/* Filter Bar */}
       <div className="w-full border-b pf-border">
         <div className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-3 pf-subtle flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-1.5">
@@ -98,7 +96,6 @@ export default function Projects({
 
       <HatchedBand />
 
-      {/* Architectural 2-Column Project Grid */}
       <div className="w-full border-b pf-border">
         <div className="max-w-[820px] mx-auto border-x pf-border">
           <div className="grid grid-cols-1 sm:grid-cols-2">
@@ -118,7 +115,6 @@ export default function Projects({
                   }`}
                 >
                   <div>
-                    {/* Top Index & Category Strip */}
                     <div className="flex items-center justify-between gap-2 mb-3">
                       <span
                         className="inline-flex items-center gap-1.5 text-[11px] pf-muted"
@@ -136,7 +132,6 @@ export default function Projects({
                       </span>
                     </div>
 
-                    {/* Title */}
                     <a
                       href={project.link}
                       target="_blank"
@@ -149,13 +144,11 @@ export default function Projects({
                       <ArrowUpRightIcon className="w-4 h-4 pf-muted group-hover/title:translate-x-0.5 group-hover/title:-translate-y-0.5 transition-transform" />
                     </a>
 
-                    {/* Description */}
                     <p className="text-xs sm:text-[13px] pf-text leading-relaxed mb-6">
                       {project.description}
                     </p>
                   </div>
 
-                  {/* Card Footer: Stack Pills + Source/Live Links */}
                   <div className="pt-3.5 border-t pf-border flex items-center justify-between gap-3">
                     <div className="flex flex-wrap gap-1.5">
                       {project.tech.map((t) => (
@@ -198,7 +191,6 @@ export default function Projects({
 
       <HatchedBand />
 
-      {/* Packages & Standalone Utilities */}
       <div className="w-full border-b pf-border">
         <div className="max-w-[820px] mx-auto border-x pf-border">
           <div className="px-5 sm:px-8 py-5 border-b pf-border flex items-center justify-between">
@@ -277,7 +269,6 @@ export default function Projects({
 
       <HatchedBand />
 
-      {/* Footer */}
       <div className="w-full">
         <footer className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-9 flex flex-col items-center gap-4 text-xs pf-muted">
           <nav className="flex flex-wrap items-center justify-center gap-6 pf-text font-medium">

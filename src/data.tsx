@@ -83,6 +83,7 @@ export const STACK: StackRow[] = [
     items: [
       { name: 'TypeScript', icon: 'ts' },
       { name: 'JavaScript', icon: 'js' },
+      { name: 'Kotlin', icon: 'kotlin' },
     ],
   },
   {
@@ -103,6 +104,7 @@ export const STACK: StackRow[] = [
     category: 'Mobile',
     items: [
       { name: 'React Native', icon: 'react' },
+      { name: 'Android / Kotlin', icon: 'kotlin' },
       { name: 'Expo', icon: 'expo' },
     ],
   },
@@ -139,34 +141,34 @@ export const STACK: StackRow[] = [
 
 export const PROJECTS: ProjectItem[] = [
   {
-    id: 'talksy',
-    repoName: 'amanvite/talksy',
-    title: 'Talksy',
-    tag: 'REAL-TIME ENGINE',
+    id: 'video-hunt',
+    repoName: 'amanvite/video-hunt',
+    title: 'Video Hunt',
+    tag: 'MEDIA TOOL',
     branch: 'main',
-    commitSha: '8f4d2a1',
+    commitSha: 'a4c91e2',
     description:
-      'Bidirectional messaging ecosystem. Maintained synchronous client states across distributed connections.',
+      'A simple tool for downloading videos and audio with fast stream parsing and format selection.',
     notes:
-      'Event-driven WebSocket rooms with low-latency state sync and MongoDB persistence.',
-    tech: ['JavaScript', 'Node.js', 'Socket.io', 'MongoDB'],
+      'Lightweight media extraction workflow built with JavaScript and asynchronous stream handling.',
+    tech: ['JavaScript', 'Node.js', 'REST APIs'],
     langBar: [
-      { name: 'JavaScript', pct: 78, color: '#F7DF1E' },
-      { name: 'CSS', pct: 14, color: '#563D7C' },
+      { name: 'JavaScript', pct: 86, color: '#F7DF1E' },
       { name: 'HTML', pct: 8, color: '#E34F26' },
+      { name: 'CSS', pct: 6, color: '#563D7C' },
     ],
-    link: 'https://github.com/amanvite',
-    githubUrl: 'https://github.com/amanvite',
+    link: 'https://github.com/amanvite/video-hunt',
+    githubUrl: 'https://github.com/amanvite/video-hunt',
   },
   {
     id: 'code-extractor',
-    repoName: 'amanvite/code-extractor-plus',
+    repoName: 'amanvite/code-extractor',
     title: 'Code Extractor',
-    tag: 'WEB UTILITY',
+    tag: 'WEB EXTRACTION',
     branch: 'main',
     commitSha: '3c9e7b4',
     description:
-      'A stealth extraction engine for dynamic web apps. Bypassed virtual DOM overhead via direct API manipulation.',
+      'A full-stack web extraction tool for retrieving and formatting dynamic DOM assets.',
     notes:
       'Direct DOM traversal pipeline that parses, formats, and packages HTML, CSS, and JS assets.',
     tech: ['TypeScript', 'HTML5', 'DOM API'],
@@ -176,17 +178,17 @@ export const PROJECTS: ProjectItem[] = [
       { name: 'CSS', pct: 6, color: '#563D7C' },
     ],
     link: 'https://code-extractor-plus.vercel.app/',
-    githubUrl: 'https://github.com/amanvite',
+    githubUrl: 'https://github.com/amanvite/code-extractor',
   },
   {
     id: 'sudoku',
     repoName: 'amanvite/sudoku',
-    title: 'Sudoku Game',
-    tag: 'BROWSER GAME',
-    branch: 'gh-pages',
+    title: 'Sudoku',
+    tag: 'WEB APP',
+    branch: 'main',
     commitSha: 'e14a90c',
     description:
-      'A sleek, minimalist Sudoku Web-App engineered for performance and a clean, distraction-free user experience.',
+      'A sleek, minimalist Sudoku Web-App engineered for performance and a distraction-free experience.',
     notes:
       'Backtracking board generator with local practice statistics and zero UI library overhead.',
     tech: ['TypeScript', 'Web API', 'CSS3'],
@@ -200,42 +202,39 @@ export const PROJECTS: ProjectItem[] = [
   },
   {
     id: 'surescan',
-    repoName: 'amanvite/surescan-dmc',
+    repoName: 'amanvite/SureScan',
     title: 'SureScan',
-    tag: 'INDUSTRIAL MOBILE',
+    tag: 'MOBILE SCANNER',
     branch: 'main',
     commitSha: '9b2f41e',
     description:
-      'Cross-platform mobile scanner built to decode dot-peen Data Matrix Codes on laser-etched metal parts.',
+      'Mobile scanner application built to decode dot-peen Data Matrix Codes on laser-etched metal parts.',
     notes:
-      'High-contrast frame preprocessing built with React Native and TypeScript.',
-    tech: ['React Native', 'TypeScript', 'Expo'],
-    langBar: [
-      { name: 'TypeScript', pct: 94, color: '#3178C6' },
-      { name: 'JavaScript', pct: 6, color: '#F7DF1E' },
-    ],
-    link: 'https://github.com/amanvite',
-    githubUrl: 'https://github.com/amanvite',
+      'High-contrast frame preprocessing and matrix decoding built natively with Kotlin.',
+    tech: ['Kotlin', 'Android', 'Vision API'],
+    langBar: [{ name: 'Kotlin', pct: 100, color: '#7F52FF' }],
+    link: 'https://github.com/amanvite/SureScan',
+    githubUrl: 'https://github.com/amanvite/SureScan',
   },
 ];
 
 export const UTILITY_PACKAGES: UtilityItem[] = [
   {
+    name: 'article-unblocker',
+    version: 'v1.0.0',
+    type: 'WEB TOOL',
+    description:
+      'A lightweight web tool for accessing archived articles and bypassing soft paywalls.',
+    tech: ['HTML5', 'JavaScript', 'DOM API'],
+    link: 'https://github.com/amanvite/article-unblocker',
+  },
+  {
     name: 'open-directory-finder',
     version: 'v1.4.0',
     type: 'SEARCH UTILITY',
     description:
-      'Directory search query tool aggregating results across Google, DuckDuckGo, Startpage, Searx, and FilePursuit.',
-    tech: ['JavaScript', 'Query DSL', 'DOM API'],
-    link: 'https://github.com/amanvite',
-  },
-  {
-    name: 'code-extractor-core',
-    version: 'v2.0.1',
-    type: 'ASSET PARSER',
-    description:
-      'Client-side source extraction module with Prism.js formatting and asset bundling.',
-    tech: ['TypeScript', 'Prism.js', 'Vite'],
-    link: 'https://code-extractor-plus.vercel.app/',
+      'A lightweight tool for discovering publicly indexed file directories across multiple search engines.',
+    tech: ['HTML5', 'JavaScript', 'Query DSL'],
+    link: 'https://github.com/amanvite/open-directory-finder',
   },
 ];

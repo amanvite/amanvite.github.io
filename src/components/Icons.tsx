@@ -198,6 +198,12 @@ export function TechBadgeIcon({ type }: { type: string }) {
           JS
         </span>
       );
+    case 'kotlin':
+      return (
+        <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-[3px] bg-zinc-600 dark:bg-zinc-400 text-white dark:text-zinc-950 text-[8.5px] font-mono font-bold leading-none shrink-0">
+          KT
+        </span>
+      );
     case 'html':
       return (
         <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
