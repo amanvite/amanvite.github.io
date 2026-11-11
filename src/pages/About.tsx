@@ -49,12 +49,9 @@ export default function About({
 
       <div className="w-full border-b pf-border">
         <div className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-8">
-          <h1 className="text-2xl sm:text-3xl font-bold pf-title tracking-tight mb-2">
+          <h1 className="text-2xl sm:text-3xl font-bold pf-title tracking-tight">
             About Me
           </h1>
-          <p className="text-xs sm:text-[13.5px] pf-text leading-relaxed max-w-2xl">
-            Get a quick overview of {PROFILE.name} (@{PROFILE.handle})&apos;s background, tech stack, education, and the web and mobile applications shipped.
-          </p>
         </div>
       </div>
 

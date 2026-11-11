@@ -1,5 +1,5 @@
 import { useState, useEffect, type MouseEvent } from 'react';
-import { PROFILE, PROJECTS } from '../data';
+import { PROFILE, PROJECTS, BLOG_POSTS } from '../data';
 import {
   GithubIcon,
   LinkedinIcon,
@@ -17,6 +17,7 @@ const SECTIONS = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
   { id: 'projects', label: 'Projects' },
+  { id: 'blogs', label: 'Blogs' },
 ];
 
 function Divider() {
@@ -26,9 +27,13 @@ function Divider() {
 export default function Home({
   onOpenProjects,
   onOpenAbout,
+  onOpenBlogs,
+  onSelectBlogPost,
 }: {
   onOpenProjects: () => void;
   onOpenAbout: () => void;
+  onOpenBlogs: () => void;
+  onSelectBlogPost: (postId: string) => void;
 }) {
   const [greeting, setGreeting] = useState('Good morning');
   const [timeStr, setTimeStr] = useState('');
@@ -108,11 +113,6 @@ export default function Home({
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
-  const activeIdx = Math.max(
-    0,
-    SECTIONS.findIndex((s) => s.id === activeSection)
-  );
 
   return (
     <div className="max-w-[820px] mx-auto relative">
@@ -379,6 +379,72 @@ export default function Home({
 
         <Divider />
 
+        {/* Blogs Section on Homepage */}
+        <section id="blogs" className="scroll-mt-20">
+          <div className="px-5 sm:px-8 py-5 border-b pf-border flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <h2 className="text-xl font-bold pf-title tracking-tight">
+                Blogs
+              </h2>
+              <span
+                className="text-xs pf-muted"
+                style={{ fontFamily: '"JetBrains Mono", monospace' }}
+              >
+                ({BLOG_POSTS.length})
+              </span>
+            </div>
+            <button
+              onClick={onOpenBlogs}
+              className="text-xs font-medium pf-muted hover:underline transition-colors inline-flex items-center gap-1 cursor-pointer"
+            >
+              View all posts <ArrowUpRightIcon className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          <div>
+            {BLOG_POSTS.map((post) => (
+              <article
+                key={post.id}
+                onClick={() => onSelectBlogPost(post.id)}
+                className="px-5 sm:px-8 py-6 border-b pf-border last:border-b-0 pf-hover transition-colors cursor-pointer group"
+              >
+                <div
+                  className="flex flex-wrap items-center gap-2 text-[11px] pf-muted mb-2"
+                  style={{ fontFamily: '"JetBrains Mono", monospace' }}
+                >
+                  <span>{post.date}</span>
+                  <span>·</span>
+                  <span>{post.readTime}</span>
+                </div>
+
+                <div className="flex items-start justify-between gap-4 mb-2">
+                  <h3 className="text-base sm:text-lg font-bold pf-title group-hover:underline leading-snug">
+                    {post.title}
+                  </h3>
+                  <ArrowUpRightIcon className="w-4 h-4 pf-muted group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0 mt-1" />
+                </div>
+
+                <p className="text-xs sm:text-[13px] pf-text leading-relaxed mb-4">
+                  {post.subtitle}
+                </p>
+
+                <div className="flex flex-wrap gap-1.5">
+                  {post.tags.slice(0, 4).map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2.5 py-0.5 rounded-full pf-pill border pf-border text-[10.5px] pf-text"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <Divider />
+
         <footer className="px-5 sm:px-8 py-9 flex flex-col items-center gap-4 text-xs pf-muted">
           <nav className="flex flex-wrap items-center justify-center gap-6 pf-text font-medium">
             <button onClick={scrollToTop} className="hover:underline cursor-pointer">
@@ -389,6 +455,9 @@ export default function Home({
             </button>
             <button onClick={onOpenProjects} className="hover:underline cursor-pointer">
               Projects
+            </button>
+            <button onClick={onOpenBlogs} className="hover:underline cursor-pointer">
+              Blogs
             </button>
             <a
               href={PROFILE.resumeUrl}
@@ -416,41 +485,38 @@ export default function Home({
         </footer>
       </main>
 
-      <aside className="hidden xl:block fixed top-24 left-[calc(50%+442px)] w-36 z-30">
-        <div className="pt-2">
+      {/* Right Index matching image_c013ff.png (No vertical line; horizontal dash on active item) */}
+      <aside className="hidden xl:block fixed top-32 left-[calc(50%+442px)] w-40 z-30">
+        <div>
           <h4
-            className="text-[11px] font-bold pf-muted uppercase tracking-widest mb-3 pl-4"
+            className="text-[10px] font-semibold pf-muted uppercase tracking-[0.18em] mb-3 pl-5"
             style={{ fontFamily: '"JetBrains Mono", monospace' }}
           >
             Index
           </h4>
 
-          <div className="relative border-l pf-border">
-            <div
-              className="absolute -left-[1.5px] top-0 w-[2px] h-8 pf-indicator transition-transform duration-200 ease-out"
-              style={{ transform: `translateY(${activeIdx * 32}px)` }}
-            />
-
-            <nav className="flex flex-col">
-              {SECTIONS.map((item) => {
-                const isActive = activeSection === item.id;
-                return (
-                  <a
-                    key={item.id}
-                    href={`#${item.id}`}
-                    onClick={(e) => jumpTo(e, item.id)}
-                    className={`h-8 flex items-center pl-4 text-xs transition-all duration-200 ${
-                      isActive
-                        ? 'pf-title font-semibold translate-x-1'
-                        : 'pf-muted hover:opacity-80 font-normal'
-                    }`}
-                  >
-                    {item.label}
-                  </a>
-                );
-              })}
-            </nav>
-          </div>
+          <nav className="flex flex-col space-y-1">
+            {SECTIONS.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  onClick={(e) => jumpTo(e, item.id)}
+                  className={`h-7 flex items-center text-xs transition-all duration-200 ${
+                    isActive
+                      ? 'pf-title font-semibold'
+                      : 'pf-muted hover:opacity-80 font-normal pl-5'
+                  }`}
+                >
+                  {isActive && (
+                    <span className="w-3 h-[1.5px] pf-indicator mr-2 shrink-0" />
+                  )}
+                  <span>{item.label}</span>
+                </a>
+              );
+            })}
+          </nav>
         </div>
       </aside>
     </div>

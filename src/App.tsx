@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import Home from './pages/Home';
 import About from './pages/About';
 import Projects from './pages/Projects';
+import Blogs from './pages/Blogs';
 import { SunIcon, MoonIcon } from './components/Icons';
 
-type PageView = 'overview' | 'about' | 'projects';
+type PageView = 'overview' | 'about' | 'projects' | 'blogs';
 
 export default function App() {
   const [activePage, setActivePage] = useState<PageView>('overview');
+  const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     try {
       return localStorage.getItem('aman_theme') === 'dark' ? 'dark' : 'light';
@@ -48,6 +50,9 @@ export default function App() {
 
   const handleNavigate = (page: PageView, sectionId?: string) => {
     setActivePage(page);
+    if (page !== 'blogs') {
+      setSelectedPostId(null);
+    }
     if (page === 'overview' && sectionId) {
       setTimeout(() => {
         const el = document.getElementById(sectionId);
@@ -56,6 +61,12 @@ export default function App() {
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+  };
+
+  const handleOpenBlogPost = (postId: string) => {
+    setSelectedPostId(postId);
+    setActivePage('blogs');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -149,6 +160,19 @@ export default function App() {
             >
               Projects
             </button>
+            <button
+              onClick={() => {
+                setSelectedPostId(null);
+                handleNavigate('blogs');
+              }}
+              className={`px-2.5 py-1.5 rounded-md transition-colors cursor-pointer ${
+                activePage === 'blogs'
+                  ? 'pf-pill pf-title font-semibold'
+                  : 'pf-muted hover:opacity-80'
+              }`}
+            >
+              Blogs
+            </button>
           </nav>
 
           {/* Segmented Pill Theme Switcher */}
@@ -184,6 +208,11 @@ export default function App() {
         <Home
           onOpenProjects={() => handleNavigate('projects')}
           onOpenAbout={() => handleNavigate('about')}
+          onOpenBlogs={() => {
+            setSelectedPostId(null);
+            handleNavigate('blogs');
+          }}
+          onSelectBlogPost={handleOpenBlogPost}
         />
       )}
       {activePage === 'about' && (
@@ -196,6 +225,15 @@ export default function App() {
         <Projects
           onOpenHome={() => handleNavigate('overview')}
           onOpenAbout={() => handleNavigate('about')}
+        />
+      )}
+      {activePage === 'blogs' && (
+        <Blogs
+          selectedPostId={selectedPostId}
+          onSelectPost={setSelectedPostId}
+          onOpenHome={() => handleNavigate('overview')}
+          onOpenAbout={() => handleNavigate('about')}
+          onOpenProjects={() => handleNavigate('projects')}
         />
       )}
     </div>

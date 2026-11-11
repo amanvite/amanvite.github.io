@@ -44,6 +44,17 @@ export interface EducationItem {
   skills: string[];
 }
 
+export interface BlogPost {
+  id: string;
+  title: string;
+  subtitle: string;
+  date: string;
+  readTime: string;
+  tags: string[];
+  coverImage: string;
+  content: string;
+}
+
 export const PROFILE = {
   name: 'Aman Verma',
   handle: 'amanvite',
@@ -217,3 +228,67 @@ export const UTILITY_PACKAGES: UtilityItem[] = [
     link: 'https://github.com/amanvite/open-directory-finder',
   },
 ];
+
+function parseMarkdownPost(filename: string, raw: string): BlogPost {
+  const id = filename.replace(/^.*\/|\.md$/g, '');
+  const normalized = raw.replace(/\r\n/g, '\n').trim();
+  const dividerIndex = normalized.indexOf('\n---\n');
+
+  let headerPart = '';
+  let content = normalized;
+
+  if (dividerIndex !== -1) {
+    headerPart = normalized.slice(0, dividerIndex);
+    content = normalized.slice(dividerIndex + 5).trim();
+  }
+
+  const meta: Record<string, string> = {};
+  for (const line of headerPart.split('\n')) {
+    const colonIdx = line.indexOf(':');
+    if (colonIdx !== -1) {
+      const key = line.slice(0, colonIdx).trim().toLowerCase();
+      const val = line.slice(colonIdx + 1).trim();
+      meta[key] = val;
+    }
+  }
+
+  const wordCount = content.split(/\s+/).filter(Boolean).length;
+  const autoReadTime = `${Math.max(1, Math.round(wordCount / 180))} min read`;
+
+  return {
+    id,
+    title: meta.title || id,
+    subtitle: meta.subtitle || '',
+    date: meta.date || 'Nov 12, 2026',
+    readTime: meta.readtime || autoReadTime,
+    coverImage: meta.cover || '',
+    tags: meta.tags
+      ? meta.tags
+          .split(',')
+          .map((t) => t.trim())
+          .filter(Boolean)
+      : [],
+    content,
+  };
+}
+
+const rawPostFiles = (
+  import.meta as unknown as {
+    glob: (
+      pattern: string,
+      options: Record<string, unknown>
+    ) => Record<string, string>;
+  }
+).glob('./posts/*.md', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
+
+export const BLOG_POSTS: BlogPost[] = Object.entries(rawPostFiles)
+  .map(([path, rawContent]) => parseMarkdownPost(path, rawContent))
+  .sort((a, b) => {
+    const timeA = Date.parse(a.date) || 0;
+    const timeB = Date.parse(b.date) || 0;
+    return timeB - timeA;
+  });
