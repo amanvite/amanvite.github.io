@@ -213,14 +213,14 @@ export default function Projects({
             </span>
           </div>
 
-          <div className="divide-y pf-divide">
+          <div>
             {UTILITY_PACKAGES.map((pkg) => (
               <a
                 key={pkg.name}
                 href={pkg.link}
                 target="_blank"
                 rel="noreferrer"
-                className="block px-5 sm:px-8 py-5 pf-hover transition-colors group"
+                className="block px-5 sm:px-8 py-5 border-b pf-border last:border-b-0 pf-hover transition-colors group"
               >
                 <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-2.5">

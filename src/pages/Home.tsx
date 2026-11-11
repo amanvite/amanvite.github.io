@@ -1,10 +1,5 @@
 import { useState, useEffect, type MouseEvent } from 'react';
-import {
-  PROFILE,
-  PROJECTS,
-  UTILITY_PACKAGES,
-  EDUCATION,
-} from '../data';
+import { PROFILE, PROJECTS } from '../data';
 import {
   GithubIcon,
   LinkedinIcon,
@@ -13,19 +8,15 @@ import {
   MailIcon,
   ResumeIcon,
   VerifiedIcon,
-  TerminalIcon,
   ArrowUpRightIcon,
   CopyIcon,
   CheckIcon,
-  CollapseIcon,
 } from '../components/Icons';
 
 const SECTIONS = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
   { id: 'projects', label: 'Projects' },
-  { id: 'utilities', label: 'Packages' },
-  { id: 'education', label: 'Education' },
 ];
 
 function Divider() {
@@ -43,7 +34,6 @@ export default function Home({
   const [timeStr, setTimeStr] = useState('');
   const [copied, setCopied] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [eduExpanded, setEduExpanded] = useState(true);
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -341,184 +331,49 @@ export default function Home({
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2">
-            {PROJECTS.map((project, idx) => (
-              <a
-                key={project.id}
-                href={project.link}
-                target="_blank"
-                rel="noreferrer"
-                className={`group pf-card p-6 flex flex-col justify-between pf-hover transition-colors border-b pf-border ${
-                  idx % 2 === 0 ? 'sm:border-r' : ''
-                } ${idx >= PROJECTS.length - 2 ? 'sm:border-b-0' : ''} ${
-                  idx === PROJECTS.length - 1 ? 'border-b-0' : ''
-                }`}
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <h3 className="text-base font-bold pf-title group-hover:underline">
-                      {project.title}
-                    </h3>
-                    <ArrowUpRightIcon className="w-4 h-4 pf-muted group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
-                  </div>
+            {PROJECTS.map((project, idx) => {
+              const isLastRowDesktop =
+                idx >= PROJECTS.length - (PROJECTS.length % 2 === 0 ? 2 : 1);
+              const isLastItem = idx === PROJECTS.length - 1;
 
-                  <p className="text-xs pf-text leading-relaxed mb-5">
-                    {project.description}
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap gap-1.5 pt-3 border-t pf-border">
-                  {project.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="px-2 py-0.5 pf-pill pf-text rounded text-[11px] font-medium border pf-border"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </a>
-            ))}
-          </div>
-        </section>
-
-        <Divider />
-
-        <section id="utilities" className="scroll-mt-20">
-          <div className="px-5 sm:px-8 py-5 border-b pf-border flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <h2 className="text-xl font-bold pf-title tracking-tight">
-                Packages &amp; Utilities
-              </h2>
-              <span
-                className="text-xs pf-muted"
-                style={{ fontFamily: '"JetBrains Mono", monospace' }}
-              >
-                ({UTILITY_PACKAGES.length})
-              </span>
-            </div>
-          </div>
-
-          <div className="divide-y pf-divide">
-            {UTILITY_PACKAGES.map((pkg) => (
-              <a
-                key={pkg.name}
-                href={pkg.link}
-                target="_blank"
-                rel="noreferrer"
-                className="block px-5 sm:px-8 py-5 pf-hover transition-colors group"
-              >
-                <div className="flex items-center justify-between mb-1.5">
-                  <div className="flex items-center gap-2.5">
-                    <TerminalIcon className="w-4 h-4 pf-muted" />
-                    <span
-                      className="text-sm font-bold pf-title group-hover:underline"
-                      style={{ fontFamily: '"JetBrains Mono", monospace' }}
-                    >
-                      {pkg.name}
-                    </span>
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded pf-pill pf-text border pf-border">
-                      {pkg.version}
-                    </span>
-                  </div>
-                  <ArrowUpRightIcon className="w-3.5 h-3.5 pf-muted" />
-                </div>
-                <p className="text-xs pf-text leading-relaxed mb-3">
-                  {pkg.description}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {pkg.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="px-2 py-0.5 pf-pill pf-text rounded text-[10px] font-mono border pf-border"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </a>
-            ))}
-          </div>
-        </section>
-
-        <Divider />
-
-        <section id="education" className="scroll-mt-20">
-          <div className="px-5 sm:px-8 py-5 border-b pf-border">
-            <h2 className="text-xl font-bold pf-title tracking-tight">
-              Education
-            </h2>
-          </div>
-
-          <div className="divide-y pf-divide">
-            {EDUCATION.map((edu) => (
-              <div key={edu.id} className="px-5 sm:px-8 py-6">
-                <div className="flex gap-3.5">
-                  <div className="flex flex-col items-center shrink-0">
-                    <div className="w-8 h-8 rounded-lg border pf-border pf-subtle flex items-center justify-center pf-muted">
-                      <svg
-                        className="w-4 h-4"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                        <path d="M6 12v5c3 3 9 3 12 0v-5" />
-                      </svg>
-                    </div>
-                    {eduExpanded && (
-                      <div className="w-3.5 flex-1 border-l border-b pf-border rounded-bl-lg ml-3.5 mt-1 mb-2.5" />
-                    )}
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    <div
-                      onClick={() => setEduExpanded((prev) => !prev)}
-                      className="flex items-start sm:items-center justify-between gap-2 cursor-pointer select-none group"
-                    >
-                      <h3 className="text-[15px] font-semibold pf-title group-hover:opacity-80 transition-opacity">
-                        {edu.institution}
+              return (
+                <a
+                  key={project.id}
+                  href={project.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`group pf-card p-6 flex flex-col justify-between pf-hover transition-colors border-b pf-border ${
+                    idx % 2 === 0 ? 'sm:border-r' : ''
+                  } ${isLastRowDesktop ? 'sm:border-b-0' : ''} ${
+                    isLastItem ? 'border-b-0' : ''
+                  }`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-2">
+                      <h3 className="text-base font-bold pf-title group-hover:underline">
+                        {project.title}
                       </h3>
-                      <div className="flex items-center gap-2 text-xs pf-muted shrink-0">
-                        <span>{edu.location}</span>
-                        <CollapseIcon className="w-3.5 h-3.5 pf-muted" />
-                      </div>
+                      <ArrowUpRightIcon className="w-4 h-4 pf-muted group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-2.5 text-xs pf-muted mt-1">
-                      <span>{edu.period}</span>
-                      <span className="h-3 w-px pf-grid-bg" />
-                      <span>{edu.degreeShort}</span>
-                      <span className="h-3 w-px pf-grid-bg" />
-                      <span>{edu.field}</span>
-                    </div>
-
-                    {eduExpanded && (
-                      <div className="mt-3.5 space-y-3.5">
-                        <div className="flex items-start gap-2.5 text-[13.5px] pf-title">
-                          <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 mt-2 shrink-0" />
-                          <span>{edu.summary}</span>
-                        </div>
-
-                        <div className="flex flex-wrap items-center gap-2 pt-0.5">
-                          {edu.skills.map((skill) => (
-                            <span
-                              key={skill}
-                              className="px-3 py-0.5 rounded-full border pf-border pf-subtle text-[11px] pf-text"
-                              style={{ fontFamily: '"JetBrains Mono", monospace' }}
-                            >
-                              {skill}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                    <p className="text-xs pf-text leading-relaxed mb-5">
+                      {project.description}
+                    </p>
                   </div>
-                </div>
-              </div>
-            ))}
+
+                  <div className="flex flex-wrap gap-1.5 pt-3 border-t pf-border">
+                    {project.tech.map((t) => (
+                      <span
+                        key={t}
+                        className="px-2 py-0.5 pf-pill pf-text rounded text-[11px] font-medium border pf-border"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </a>
+              );
+            })}
           </div>
         </section>
 

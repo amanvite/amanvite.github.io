@@ -50,7 +50,7 @@ export default function About({
       <div className="w-full border-b pf-border">
         <div className="max-w-[820px] mx-auto border-x pf-border px-5 sm:px-8 py-8">
           <h1 className="text-2xl sm:text-3xl font-bold pf-title tracking-tight mb-2">
-            About {PROFILE.name}
+            About Me
           </h1>
           <p className="text-xs sm:text-[13.5px] pf-text leading-relaxed max-w-2xl">
             Get a quick overview of {PROFILE.name} (@{PROFILE.handle})&apos;s background, tech stack, education, and the web and mobile applications shipped.
@@ -171,23 +171,10 @@ export default function About({
             {greeting}
           </h2>
 
-          <div className="space-y-4 text-xs sm:text-[14px] pf-text leading-relaxed">
-            <p>
-              I&apos;m {PROFILE.name}, also known online as{' '}
-              <strong className="pf-title font-medium">@{PROFILE.handle}</strong> on GitHub, LinkedIn, and Instagram — a full-stack MERN and TypeScript developer focused on building fast, reliable web and mobile applications.
-            </p>
-            <p>{PROFILE.bio}</p>
-            <p>
-              My recent work includes{' '}
-              <strong className="pf-title font-medium">Video Hunt</strong> (a fast media utility for downloading video and audio streams),{' '}
-              <strong className="pf-title font-medium">Code Extractor</strong> (a full-stack web extraction tool for retrieving and formatting dynamic DOM assets),{' '}
-              <strong className="pf-title font-medium">SureScan</strong> (an industrial Data Matrix scanner built in Kotlin),{' '}
-              <strong className="pf-title font-medium">Sudoku</strong> (a sleek, minimalist web game), and lightweight utilities like{' '}
-              <strong className="pf-title font-medium">Article Unblocker</strong> and{' '}
-              <strong className="pf-title font-medium">Open Directory Finder</strong>.
-            </p>
-            <p>{PROFILE.availability}</p>
-          </div>
+          <p className="text-xs sm:text-[14px] pf-text leading-relaxed">
+            I&apos;m {PROFILE.name}, also known online as{' '}
+            <strong className="pf-title font-medium">@{PROFILE.handle}</strong> on GitHub, LinkedIn, and Instagram. A full-stack MERN and TypeScript developer focused on building fast, reliable web and mobile applications.
+          </p>
         </div>
       </div>
 
@@ -199,11 +186,11 @@ export default function About({
             <h2 className="text-xl font-bold pf-title tracking-tight">Stack</h2>
           </div>
 
-          <div className="divide-y pf-divide">
+          <div>
             {STACK.map((row) => (
               <div
                 key={row.num}
-                className="grid grid-cols-1 sm:grid-cols-[180px_1fr] px-5 sm:px-8 py-3.5 items-start sm:items-center gap-2 sm:gap-4"
+                className="grid grid-cols-1 sm:grid-cols-[180px_1fr] px-5 sm:px-8 py-3.5 border-b pf-border last:border-b-0 items-start sm:items-center gap-2 sm:gap-4"
               >
                 <div className="flex items-center gap-2.5">
                   <span
@@ -244,9 +231,12 @@ export default function About({
             </h2>
           </div>
 
-          <div className="divide-y pf-divide">
+          <div>
             {EDUCATION.map((edu) => (
-              <div key={edu.id} className="px-5 sm:px-8 py-6">
+              <div
+                key={edu.id}
+                className="px-5 sm:px-8 py-6 border-b pf-border last:border-b-0"
+              >
                 <div className="flex gap-3.5">
                   <div className="flex flex-col items-center shrink-0">
                     <div className="w-8 h-8 rounded-lg border pf-border pf-subtle flex items-center justify-center pf-muted">
